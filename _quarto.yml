@@ -1,0 +1,62 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "ReprexBase Tutorials"
+  subtitle: Manual and semi-automated knowledge graph management
+  author:
+     - name:
+          given: "Daniel"
+          family: "Antal"
+          degrees: "CFA"
+       orcid: 0000-0001-7513-6760
+       affiliations:
+               - name: Reprex
+                 address: "Saturnusstraat 14"
+                 city: The Hague
+                 state: Zuid-Holland
+                 country: The Netherlands
+                 postal-code: "2516 AH"
+                 url: https://reprex.nl/
+     - name: "Anna Márta Mester"
+       orcid: 0009-0008-2274-8163
+       affiliations:
+               - name: Reprex
+                 address: "Saturnusstraat 14"
+                 city: The Hague
+                 state: Zuid-Holland
+                 country: The Netherlands
+                 postal-code: "2516 AH"
+                 url: https://reprex.nl/
+  date: today
+  repo-url: https://github.com/dataobservatory-eu/reprexbase_tutorials
+  repo-actions: [edit]
+  downloads: [pdf, epub]
+  chapters:
+    - index.qmd
+    - glossary.qmd
+    - overview.qmd
+    - musiccomparators.qmd
+
+version: 0.1.0
+
+bibliography:
+    - bib/antal.bib
+    - bib/datagovernance.bib
+    - bib/datamodels.bib
+    - bib/ISOdata.bib
+    - bib/dataspace.bib
+    - bib/OpenMuse.bib
+    - bib/wikidata.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+  epub: default
+  docx: default
+
+editor: visual
+
