@@ -1,0 +1,65 @@
+# Overview of the Market Comparator Model
+
+**Focal Points: Valuation, Pricing, and Market Comparators in Music Licensing**\
+*With References to "The Relevant Market for Music Streaming" by [Daniel Antal (2022)](https://zenodo.org/records/6088844)*
+
+### Valuation versus Pricing
+
+The value should be the discounted expected revenues of a CMO. In blanket licensing (when it is licensing the entire national radio or TV sector) such revenues are relatively stable. If Radio 1 loses market share to Radio 2, it does not affect the CMO, because the licensing revenue from Radio 2 will be proportionally bigger to the shifted revenue from Radio 1. So the connection of valuation and pricing is strong.
+
+📌 **See Chapter 3.2 “Fair Value”** — This section elaborates on the valuation of music rights using international standards such as IFRS and WIPO, showing how stable revenue streams (like blanket licensing) support discounted cash flow models.\
+📌 **Also see Chapter 2.3 “Prices”** — Describes the reliance on calculated or shadow prices, which aligns with valuation approaches for stable revenue licensing.
+
+### Revenue vs Price
+
+Most economic models are made for pricing or valuation, but they always implicitly use the basic equation of revenue, which is quantity x price. In music, often the price is not expressed to a natural quantity measure, and we have access to revenue data. We know the exact licensing revenue from Radio 1 and Radio 2, but unless we treat the number of licenses as q variable, we have no quantities. The reason why we use notional listening hours on radio is to get an average hourly price for listening on radio from radio licensing revenues.
+
+📌 **See Chapter 2.2 “Volumes”** — Discusses the estimation of usage in notional hours using CAP surveys and other sources.\
+📌 **See Chapter 2.4 “Estimation Strategies”** — Details the use of indirect methods to derive price and quantity when only revenue is available. 📌 **Chapter 1** Establishes challenges in defining the "relevant market" in a fragmented and global music industry; this is important because only the prices/revenues of relevant products on relevant territories can be correctly compared.
+
+### Market Comparators
+
+Our most used model is based on observable price comparisons. While in more realistic market conditions this is a very good model, it is not straightforward to use on markets where prices are not observable, or they are implied shadow prices. Yet, we do not have much better.
+
+Our market comparator model uses these rather strict principles:
+
+-   On a market, prices are relatively homogenous for relatively homogenous products.
+
+-   When there is market power, competition law enforces a relatively homogeneous price, disallowing excessive high prices or excessive low dumping prices.
+
+-   CMOs are legal monopolies, and they are protected monopolies, because the protection of intellectual property has a similar level of protection in law as protection of competition. This means they are the only source of licenses in many cases, which is legal, nevertheless, they must not use excessive prices.
+
+-   CMOs must not use too low or too high prices, because they have a fiduciary duty to their members. Applying too low a price would reduce the intellectual property value of members that they individually could not cure; applying too high a price in one licensing segment would lead to an abuse of an otherwise legally acquired monopoly position.
+
+![](plots/full_market_example.jpg){fig-align="center"}
+
+📌 **See Chapter 3.2 “Fair Value”** — Discusses fiduciary obligations of CMOs, the regulation of pricing in monopolistic contexts, and the economic/legal rationale for non-discriminatory, proportionate pricing. See particularly *Puca, A., and Zyla, M. L. (2019), "The Intangible Valuation Renaissance: Five Methods"*, *Flignor, P. and Orozco, D. (2006). Intangible asset & intellectual property valuation: A multidisciplinary perspective.* 📌 **See Chapter 3.3 “Equitable Remuneration”** — Explores how price fairness is governed in segmented licensing environments, further supporting the comparator logic.
+
+### Connecting to Valuation
+
+Some licensing models, like mechanical licenses, provide a perpetual license to use the music. In this case, we can use simple DCF models to annualize the royalty value of a CD sold. The cumulated royalty value of the CD sold is half of the CD retail price, the rest is usually manufacturing and distribution cost.
+
+With streaming, the price is rather variable, and so are the quantities, but usually we have more observed economic values, and often we have transaction-level accounting.
+
+So, overall, we use the connection between the law of one price on a functional market and the economic connection of prices to valuations to figure out the proportions of (implied) prices.
+
+📌 **See Chapters 3.1–3.2** — Cover different licensing models and how valuation applies to mechanical vs. streaming rights.\
+📌 **Also see Chapter 2.3.1 “Functional Currency”** — Examines how variable prices and currency effects complicate valuation, especially in streaming.
+
+### The Use of Surveys
+
+We use surveys to figure out missing variables, mainly quantities. We know that CAP surveys provide a distorted predictor of radio listening hours. However, we do not think that is a big problem, because for us, it makes no difference if the radio listening hours add up to 67 billion or 56 billion hours. We just hope that when people are making mistakes in recalling hours, they do not make systematic mistakes (like deflating their radio listening hours and inflating their streaming listening hours).
+
+In reality, because we want to compare the breakup of use and see if it does not significantly differ from the breakup of revenue (which would be a discriminating one-payee group), we are only using use proportions from surveys, as the actual hour count does not really matter (the licensing fee is never expressed in listening hours anyway).
+
+📌 **See Chapter 2.4.2 “Representative Surveys” & 2.4.4 “Survey Design and Harmonization”** — Explain how CAP and harmonized surveys are structured to provide meaningful proportions rather than exact values.
+
+📌 **Also see the Appendix and references to the Digital Music Observatory** — Describes ongoing efforts to integrate survey data with transactional and modeled information to overcome data gaps.
+
+## Additional Context: Other Document Sections (Not Under Review Now)
+
+While not the focus of the current review, the following areas provide broader background:
+
+📌 **Chapter 4**: Details how currency translation, time of release, and international competitiveness affect earnings visibility.
+
+📌 **Chapter 5**: Proposes long-term solutions via data harmonization, AI-based analysis, and a pan-European Digital Music Observatory.

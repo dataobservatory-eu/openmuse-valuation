@@ -1,0 +1,13 @@
+# Experimental models
+
+We all agree that experiments are the best way to establish the value of music. This would entail to find establishment (for example, ones that dispute the licensing fee), and make well-designed experiments on how patrons behave if the music is on and off.
+
+For example, in Hungary we chose a fast food restaurant which had a well-established clientèle. We observed the spending on a Friday afternoon, and we also surveyed patrons who left the place, asking them about their stay and how much they paid. We observed how long they stayed, how much they spent, and how they felt about it.
+
+With a large fast food restaurant that may have hundreds of patrons an afternoon, it is easy to make experiments with music on and off. We expect that when the music is off, people leave earlier, and buy less drinks (which are more profitable than food items.)
+
+::: callout-warning
+#### Consultation Decision
+
+Due to the time constraints, we decided not to carry out experiments in Slovakia and Hungary.
+:::

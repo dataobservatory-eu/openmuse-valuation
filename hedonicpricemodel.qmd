@@ -1,0 +1,37 @@
+# Hedonic price and related models
+
+In this approach, we create a price equation similar to hedonic price equations or the Big Mac Index. The Big Mac, or a simple coffee, or a simple beer are relatively homogenous products that on large territories. The price difference of a Big Mac between Bratislava and Amsterdam usually represents the price difference between real estate prices, fast food staff wage differences, taxes, etc. Similarly, the price of a coffee or a (given brand of) beer is relatively fixed, and the serving price reflects the differences in rental price differences among locations, wage differences, quality differences of the establishment in terms of material and immaterial qualities, and also by the presence of music.
+
+$$
+price_{coffee} = price_{base} + a_{1} + a_{2} + a_{3} + a_{4} + music_{present} + music_{quality} + ε
+$$
+
+We used to work with two homogeneous products, the cheapest coffee available on the menu, and the 0.3, 0.4 or 0.5l servings of beer. Most of the beers offered in Slovakkia and Hungary are InterBrew products, some come from local breweries, but generally we can handle the difference of beer wholesale prices easily.
+
+$$
+price_{beer} = price_{base} + a_{1} + a_{2} + a_{3} + a_{4} + music_{present} + music_{quality} + ε
+$$ The price difference of served products should be related to various, quantifiable factors, such a purchasing power and tourist nights in the location, distance from nearest population center, the presence of music and a random ε difference element which should have an expected value of 0. (It is not a problem if our equation is not correctly guessing the price for each restaurant, but it should overestimate as many places as it underestimates.)
+
+If possible, we can differentiate between music quality, too; we can treat places that use commercial radio and streaming services with advertisement differenty than curated background music.
+
+Our aim is not necessarily the direct assignment of a price component to music, but to understand the differences among the places that pay different amounts of money for licensing music.
+
+Again, this method in itself is not sufficiently detailed to establish the fair value or the price of the music, but it is a strong enough indicator of significant pricing differences. It can be used within one country or across borders. It would be particularly interesting to have a comparison between HU, SK, and perhaps some data points from other countries. BG and PL can also include data points in this work.
+
+### Data needs
+
+-   We need to have data on establishments: we need to identify them, tell if they are licensed, how much they pay, and to know some of their objective data. This should come from Artisjus, SOZA (ZAiKS, MusicAutor) CRM.
+-   We need to find price data for these establishments. Sometimes we can find the price online, but sometimes we need to assign this task to those people who monitor the places or students. It is sufficient to take a photograph of the price card and -record the data from that card.
+
+3.  We do not need to have data on all licensed establishments, but it would be good to have well-defined coverage or restaurants (only Budapest? only a certain type? etc)
+
+::: callout-warning
+#### Consultation: Comparative Data
+
+-   SOZA will provide access to CRM to well-defined HORECA types, with their address, fees paid, and other important metrics.
+-   Artisjus, ZAiKS, MusicAutor and other societies are requested to provide us with representative comparative data.
+
+Representative data: - Anonymised or not anonymised data on restaurant-like, and hotel-like establishments meeting certain size and star-rating categories. - If they are not anonymised, the researchers will look up their public data, including price data, and record it for us (address, price of beer, coffee) - If they are anonymised, we will ask you to select from your CRM restaurants from certain locations, such as the city of Plovdiv or Debrecen for comparability.
+
+*We must know if the place is licensed for use of music, or if the place is known to play music. We need establishments with and without music in the sample*.
+:::

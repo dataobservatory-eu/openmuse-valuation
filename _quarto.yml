@@ -3,8 +3,8 @@ project:
   output-dir: _book
 
 book:
-  title: "ReprexBase Tutorials"
-  subtitle: Manual and semi-automated knowledge graph management
+  title: "Open Music Europe Valuation Case Studies"
+  subtitle: Validating and improving the CEEMID background
   author:
      - name:
           given: "Daniel"
@@ -38,6 +38,8 @@ book:
     - glossary.qmd
     - overview.qmd
     - musiccomparators.qmd
+    - hedonicpricemodel.qmd
+    - experimentalmodels.qmd
 
 version: 0.1.0
 
@@ -48,7 +50,6 @@ bibliography:
     - bib/ISOdata.bib
     - bib/dataspace.bib
     - bib/OpenMuse.bib
-    - bib/wikidata.bib
 
 format:
   html:
