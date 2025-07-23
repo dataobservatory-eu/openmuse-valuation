@@ -1,13 +1,12 @@
 # Open Music Europe Valuation Case Study Documentation
 
-
 This document has been prepared by OpenMusE project partners as an account of work carried out within the framework of the EC-GA contract no [101095295](https://cordis.europa.eu/project/id/101095295).
 
 *The Open Music Europe project has received funding from the European Union’s Horizon Europe, research and innovation programme, under Grant Agreement No.* [101095295](https://cordis.europa.eu/project/id/101095295)*. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.*
 
 Any dissemination of results must indicate that it reflects only the author’s view and that the Commission Agency is not responsible for any use that may be made of the information it contains.
 
-> This is a living document which provides an overview of `D1.2`, which is a linked open data database supported by applications. As a living document conforming to OPA, it can be found at <https://github.com/dataobservatory-eu/music-economy-register> with standardised folders and file names. Its current version can be read in multiple formats [here](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/).
+> This is a living document which provides an overview of `WP1 interrelated deliverables`, which is a linked open data database supported by applications. As a living document conforming to OPA, it can be found at <https://github.com/dataobservatory-eu/openmuse-valuation> with standardised folders and file names. Its current version can be read in multiple formats [here](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/https://music.dataobservatory.eu/documents/open_music_europe/economy/valuation/index.html).
 
 This repository uses [Quarto](https://quarto.org/) to generate a technical book. Most of the book can be edited in any markdown editor, but it is recommended to use RStudio or Quarto for contribution that includes codes. The key chapters include:
 
@@ -16,6 +15,16 @@ This repository uses [Quarto](https://quarto.org/) to generate a technical book.
 -   `glossary.qmd`: Key terminology
 
 -   `musiccomparators.qmd`: Overview of the background and model variables
+
+-   `personaluse.qmd`: Measuring the home and personal use of music at home, during the commute and at work or study.
+
+-   `eventquantities.qmd`: Measuring the social-event based use of music in concerts and various social establishments.
+
+-   `hedonicpricemodel.qmd`: Overview of the applicability of the hedonic price method in public performance
+
+-   `experimentalmodels.qmd`: Overview of the usability of the experimental models
+
+-   `sustainability.qmd`: Questions related to WP2 and WP3.
 
 -   `surveying.qmd`: Surveying and building register datasets
 
@@ -40,6 +49,8 @@ The `bib/` folder contains all the bibliographic references used throughout the 
 -   **bib/eulaw.bib**: Relevant European Union legislation, directives, and regulations impacting data spaces, copyright, and cultural sectors.
 
 -   **bib/ILO.bib**: References to International Labour Organization (ILO) standards, classifications, and surveys.
+
+-   **bib/ifpi.bib**: References to IFPI international or national IFPI chapter data sources.
 
 -   **bib/ISOdata.bib**: Bibliography for ISO standards relevant to music metadata, publishing, and administrative records.
 
@@ -82,7 +93,6 @@ If you are working on administrative data, cultural data spaces, or open data fo
 
 -   **Edite Punka** (Reprex) - metadata support
 
-
 ## License
 
 This documentation and its source code are shared under the Creative Commons Attribution 4.0 International (CC BY 4.0) license, unless otherwise noted.
@@ -93,9 +103,8 @@ We save visualisations in folders corresponding to the file format.
 
 `png`: contains visualisations in Portable Network Graphics format (our preferred format.)
 
-`jpg`: contains visualisations in JPEG formats 
+`jpg`: contains visualisations in JPEG formats
 
 ## Exceptions
 
 The `.gitignore` contains the exceptions that are not synchronized to the repository. These are the rendered html files and their supporting JavaScript, CSS and other auxiliary files. They should build on everybody's computer flawlessly.
-
