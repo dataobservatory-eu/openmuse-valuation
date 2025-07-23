@@ -1,0 +1,66 @@
+# WP2 and WP3: Diversity and sustainability {#sec-sustainability}
+
+For the diversity aspects, it would be best to ask the native tongue and the language spoken in the demography part of the questionnaire. In one way, this is a quality check of the sample that we receive from the fieldwork producer (in both Slovakia and Hungary, we would expect some minority language speakers in the sample) and it would put the diversity perspectives into question. We are interested in traditional folk music and indigenous cultural traditions. Slovak speakers are a recognised, indigenous, constitutionally protected minority of Hungary; Hungarian speakers are recognised minority with local cultural rights in some municipalities of Slovakia.
+
+### Traditional forms of music, indigenous culture
+Certain uses of music, particularly traditional folk music, have cultural and social sustainability significance and require distinct licensing policies. In Hungary, Slovakia, and many parts of Europe, traditional music performance remains popular. While folk music, by definition, excludes copyrights due to its lack of a known author, contemporary performers often create their own arrangements and claim composer royalties. Additionally, the recordings of these performances pay neighbouring rights royalties to performers and producers.
+
+Traditional folk music often falls under preferential media regulations for local content, which is encouraged by local cultural policies. Recently, treaties reflecting social sustainability have called for measurable protections for indigenous cultures. In WP2, we explore the music heritage of minority groups, such as the Livonian-speaking communities of Latvia or the shrinking Voro and Seto traditions of Southeastern Estonia, which are also assimilated in Latvia. In Hungary and Slovakia, local content regulations protect indigenous and ethnic minority languages, including Hungarian and Slovak folk music.
+
+In these regions, traditional music events are central to cultural activities. Communities sometimes wish to avoid paying public performance royalties for traditional folk music but often still claim composer royalties based on their arrangements of these traditions. While measuring the value of traditional folk music isn’t our goal, our surveys aim to assess the diversity and sustainability of indigenous musical heritage and local music traditions.
+
+Modern ethnomusicology generally rejects the idea of national characteristics in contemporary music, but we recognize that certain music forms are specific to indigenous groups. For example, Seto Leelo, the polyphonic singing tradition of the Seto people in Estonia and Russia, is a UNESCO-recognized immaterial heritage. Similar distinctions exist for Hungarian and Slovak folk music traditions.
+
+Our recommended questions for measuring participation in folk music events are:
+
+-   How many of the concerts performed traditional “folk” music?
+
+-   How many of these concerts presented a local, indigenous tradition within the respondent's country (with a list of frequent traditions, such as Slovak, Hungarian, Romani, German)?
+
+-   Did the presentation of indigenous traditions leave a positive or negative image of the indigenous community?
+
+Folk music and singing are often intertwined with folk dancing, which differs significantly from discotheque dancing. We suggest separate questions for folk dancing and discotheque dancing, with specific terms such as “táncház” in Hungary.
+
+`EB79.2_QB4` _Please tell me if, in the last 12 months, you have either on your own or as part of an organised group or classes...? Please tick all that apply._
+
+- [ ] Social dance events, not focused on a local or national musical/dance heritage of [my country, region, or city/village]
+
+- [ ] Social dance events, focused on learning and preserving the  local or national musical/dance heritage of [my country, region, or city/village] _It is important that we do not focus on learning the Argentinian tango tradition, but indigenous traditions of the country/region_
+
+`SINUS CAWI 13.` _What was the last type of live music event you attended?_
+
+- [ ] Performance of music or singing tradition indigenous in [my country, region, or city/village]
+
+- [ ] Dance event that performed the music or singing tradition indigenous in [my country, region, or city/village]
+
+## KeyChange, Women, Non-Binary Artists
+
+Another aspect of social sustainability is measuring gender biases in music performances. The KeyChange initiative has raised awareness about the underrepresentation of women and non-male composers in concert halls and major festival stages. However, KeyChange has not yet developed a monitoring mechanism for its pledge, signed by many European venues. Our survey seeks to conceptualize how to measure the impact of this pledge, acknowledging the complexities involved, particularly in large folk or classical ensembles where both women and men perform together.
+
+
+## Environmental Sustainability
+
+
+`OpenMusE CAWI 26`.	_And can you tell us a few things about environmental sustainability at the event? Please choose the best response per row._
+
+`[FILTER: remembers last live music event, i.e.,` `ARTISJUS_2015_Q3_1 ≠ I don’t know]`
+`[PROG: Single response per row]`
+`[Answer items (columns)]`
+
+-  [ ] Yes
+-  [ ] No 
+-  [ ] I don’t know / don’t remember
+
+`Question items (rows)`
+
+-  [ ] Disposable cups and/or plates were used
+
+-  [ ] Water in disposable bottles was sold
+
+-  [ ] Waste could be recycled / sorted
+
+-  [ ] The event was advertised as environmentally sustainable
+
+-  [ ] The event featured messages about environmental sustainability (in the music itself or in posters, etc.)
+
+
