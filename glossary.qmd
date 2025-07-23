@@ -3,7 +3,7 @@
 ## Music terms {.unnumbered}
 
 | Term | Description |
-|-----------------------|-------------------------------------------------|
+|------------------------|------------------------------------------------|
 | `audio recording` | fixation of sounds \[ISRC standard\] |
 | `author` | The author of music or lyrics. Entitled to authors' right or copyright. |
 | `composer` | The author of a musical work. Entitled to authors' right or copyright. |
@@ -20,7 +20,7 @@
 ## Data science terms {.unnumbered}
 
 | Term | Description |
-|-----------------------|-------------------------------------------------|
+|------------------------|------------------------------------------------|
 | `conceptualisation` | an abstract, simplified view of some selected part of the world, containing the objects, concepts, and other entities that are presumed of interest for some particular purpose and the relationships between them |
 | `data` | reinterpretable representation of information in a formalized manner suitable for communication, interpretation, or processing Note 1 to entry: Data can be processed by humans or by automatic means.\[SOURCE:ISO/IEC 2382:2015, 2121272\] |
 | `database` | collection of `data` organized according to a conceptual structure describing the characteristics of these data and the relationships among their corresponding entities, supporting one or more application areas. \[SOURCE:ISO/IEC 2382:2015, 2121413\] |
@@ -44,7 +44,7 @@
 : Data and information science terms, definitions {tbl-colwidths="\[25,75\]"}
 
 | Term | Description |
-|----------------------|--------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | `quantity` |  |
 | `blanket license` |  |
 | `quantity estimation` | The amount or volume of a good or service sold, produced, or consumed. In economics, it's often paired with price to calculate total revenue. |
@@ -72,7 +72,7 @@
 ## Abbreviations
 
 | Term | Description |
-|----------------------|--------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | `AEPO-ARTIS` | Organisation representing European artists-performers. Regroups most of the European CMO representing performers. |
 | `CISAC` | The International Confederation of Societies of Authors and Composers is an international non-governmental, not-for-profit organisation that aims to protect the rights and promote the interests of creators worldwide. |
 | `CSRD` | The Corporate Sustainability Reporting Directive (CSRD) is European Union (EU) legislation, effective from 5 January 2023, that requires EU businesses—including qualifying EU subsidiaries of non-EU companies—to disclose their environmental and social impacts, and how their environmental, social and governance (ESG) actions affect their business. |
@@ -80,7 +80,7 @@
 | `DDI` | The `Data Documentation Initiative` is originating for the world of social sciences data archives and more and more in use in statistical organisations for the documentation of microdata. |
 | `DSP` | Digital service providers (DSPs), or Digital Streaming Platforms are companies or organisations that provide access to services online. |
 | `ECCCH` | The European Collaborative Cloud for Cultural Heritage is a European Union initiative for a digital infrastructure that will connect cultural heritage institutions and professionals across the EU. |
-| `EFRAG` | The European Financial Reporting Advisory Group is a private association established in 2001 with the encouragement of the European Commission to serve the public interest. EFRAG extended its mission in 2022 following the new role assigned to EFRAG in the CSRD, providing Technical Advice to the European Commission in the form of fully prepared draft EU Sustainability Reporting Standards and/or draft amendments to these Standards.  |
+| `EFRAG` | The European Financial Reporting Advisory Group is a private association established in 2001 with the encouragement of the European Commission to serve the public interest. EFRAG extended its mission in 2022 following the new role assigned to EFRAG in the CSRD, providing Technical Advice to the European Commission in the form of fully prepared draft EU Sustainability Reporting Standards and/or draft amendments to these Standards.  |
 | `EMO` | The European Music Observatory (EMO) is envisioned as a hub for collecting and analyzing data on the music sector across Europe. Its primary aim is to address the current gaps and inconsistencies in music data collection, which have been a significant challenge for the sector. |
 | `ESRS` | The European Sustainability Reporting Standards (ESRS) are a set of guidelines developed by the European Financial Reporting Advisory Group (EFRAG) to standardise sustainability reporting across the European Union. These standards are designed to align with the Corporate Sustainability Reporting Directive (CSRD), which mandates detailed corporate reporting on environmental, social, and governance (ESG) issues for many companies operating within the EU​m |
 | `GESAC` | GESAC comprises together 32 European authors' societies in music, audiovisual, visual arts, literature and drama. |
@@ -99,4 +99,6 @@
 
 : Abbreviations of terms {tbl-colwidths="[25,75]"}
 
-Our glossary is harmonised with relevant music-sector specific standards and with the ISO *Information technology — Vocabulary* [@iso_2382_2015]; *Information technology — Cloud computing — Taxonomy based data handling for cloud services* [@iso_22624_2020] and *Information technology — Cloud computing — Interoperability and portability* [@iso_19941_2017]. {{< pagebreak >}}
+Our glossary is harmonised with relevant music-sector specific standards and with the ISO *Information technology — Vocabulary* [@iso_2382_2015]; *Information technology — Cloud computing — Taxonomy based data handling for cloud services* [@iso_22624_2020] and *Information technology — Cloud computing — Interoperability and portability* [@iso_19941_2017]. 
+
+{{< pagebreak >}}
