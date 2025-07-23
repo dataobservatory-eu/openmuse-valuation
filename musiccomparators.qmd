@@ -1,9 +1,58 @@
-## Music Comparators
+## Music Comparators {#sec-musiccomparators}
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
-library(kableExtra)
-library(tidyverse)
+library(here, quietly = TRUE)
+library(knitr, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(tidyverse, quietly = TRUE)
 ```
+
+The CEEMID full-market model (introduced in *Music Use and Rightsholder Damages and Enjoyment of Audiovisual Content and Rightsholder Damages*) was based on general WIPO models, IFRS models and the *Valuing the* *Use of Recorded Music*, a methodological guide created by PriceWaterhouseCoopers for IFPI [@pwc_valuing_2008]. Our model aimed to meet high statistical standards [@frank_guy_essnet-culture_2012] and IFRS Fair Value standards [@ifrs_fair_value_2011; @commission_regulation_2012_1255] as adopted in EU law.
+
+This model was developed by CEEMID, a cooperation of European rightsholders including SOZA, to meet data requirements for these valuation techniques. It was used for royalty pricing and compensation claims in Hungary [@antal_szabad_2017_en; @antal_szabad_2018_en], Slovakia [@antal_slovenskom_hudobnom_2019_en], and Croatia [@antal_pcr_croatia_2019], comparing per-hour royalty revenues in various licensing and compensation models, and providing a common metric for mechanical, public performance, streaming, and private copying compensation revenues.
+
+## Market (comparator) models
+
+The market comparator models require that prices under objectively similar conditions are compared.  As WIPO’s valuation introduction states, the “market method is based on a comparison with the actual price paid for the transfer of rights to a similar IP asset under comparable circumstances. This method has the advantage of being simple and based on market information, so it is often used to establish approximate values for use in determining royalty rates, tax, and inputs for the income method.”
+
+Such methods are simple, they do not require complicated microeconomic modelling, welfare analysis, but they are only normative in the sense that they assume that by and large the market process works well, and deviations from a “normal” price are more exceptions than the rule. They are connected to the principle of “fair value”, but not the far more normative “fair and equitable remuneration.” The far value is an arms-length value that is agreeable by licensor and licensee in the absence of market power, which is suitable as a basis of calculating future revenues for valuation purposes or paying taxes. This is the licensor-licensee relationship that a copyright tribunal or a competition authority would find agreeable. This is normative in the sense that it can be generally assumed that it is not breaking the laws on taxation, accounting, transfer pricing or antitrust, but does not imply what actually the price should be, or what level of welfare distribution should occur among the various stakeholders of the music ecossytem, i.e., among the end-users, business intermediaries such as concert promoters or radio stations, and rightsholders.
+
+The important methodological question in the application of the *market (comparator) models* is what constitutes a “similar IP asset” and what is the “market”. We must only compare prices of music IP assets that are sufficiently similar, and prices that are on the same “market”. This is what competition economists call a “relevant market.” We consider assets to be similar that can substitute each other, and the market as a “place” where the same buyers and sellers can trade under same or similar price conditions.
+
+> ::: callout-note
+
+#### Review of the model 
+
+> While the choice to take a primarily national perspective in the analysis is logical, if only as a result of the territoriality of copyright and the national scope of most CMO tariffs, private copying levy systems, etc., it is advised to avoid using the term ‘relevant market’ because of its meaning in competition law, which is distinct from the way the term is used here: within a national music market, there are various relevant (sub)markets from a competition law perspective, which have their own specific dynamics in terms of supply, demand, and substitution
+
+- [ ] We need another methodology for comparison than the "relevant markets" 
+- [ ] Or show better that the use of the national markets is not incidential, it is related to how the market is organised. 
+
+:::
+
+In our valuation, we must not claim that an antitrust authority would use the same definition, but we argue that should such an investigation take place, it should result in a very similar definition of substitutability and geographical availability. There are definitions that are similar to the relevant market definition.
+
+-   Functional comparability (from transfer pricing/TP): looks at the functions, risks, and assets involved in a transaction.
+
+-   Technology classification (e.g., IPC codes): can give superficial similarity but ignores market demand and pricing power.
+
+-   Royalty rate databases comparisons. In a way, we combine this with the ‘relevant market concept’ in our existing methodology.
+
+::: callout-note
+*We are ready to drop the relevant market definition if we receive a methodology sounder and operationalised different comparison methodology, for example, from the economics of transfer pricing, provided it can be well understood in the context of licensing music and it can be operationalised with existing data sources.*
+:::
+
+Radio stations, TV, YouTube, and streaming platforms compete for consumer attention. When a user listens to music in a car, they are not listening to the radio; when watching YouTube, they are not watching television. Similarly, when a vinyl record is played, the digital radio is not on.
+
+Our full-market comparator model extends the market comparator model of PWC, connecting the entire US and European music value chain models. These models traditionally divide the music industry by three revenue streams: live music, publishing, and recording. We incorporated all three revenue streams’ licensing income into the model.
+
+The public performance model has different pricing standards for live music, publishing, and recording. We translated revenues from these income streams into notional hourly royalty figures, comparing live performance revenues with a similar currency unit per-hour format. Notably, live music only uses the public performance model, playing a relatively minor role in the live music ecosystem. Our focus is on the recording and publishing side.
+
+Both the mechanical licensing and public performance models are internationally harmonized, making them easy to replicate for any year or licensing territory. The mechanical licensing model, used for physical products, digital downloads, and home copying, involves lump sum payments, while home copying compensation is annualized. Streaming, on the other hand, combines elements of both mechanical licensing and public performance models.
+
+Price observation in public performance licenses is challenging. Traditional blanket licenses cover any use for a set period, with collective management organizations distributing revenues based on transaction logs or samples. Our approach calculates an implied hourly price per user.
+
+The streaming model is hybrid, requiring licenses from both publishing (mechanical licensing) and public performance. To compare these with other revenues, we translate streaming revenues into hourly figures.
 
 ## Music comparator
 
@@ -15,49 +64,77 @@ $$
 
 $$
 revenue = r_{author} + r_{producer} + r_{performer}
-$$ Music has value for the end-user and the interim business user (for example, a restaurant or a concert promoter who pays a public performance license); the breakup of revenues among authors, producers and performers is indifferent for the enduser. Often, we have information only about author's revenues, and often we only have inforamtion about the summ of the three rights. However, because a licensed use requires all rights to be respected, or general equation is:
+$$ Music has value for the end-user and the interim business user (for example, a restaurant or a concert promoter who pays a public performance license); the breakup of revenues among authors, producers and performers is indifferent for the enduser. Often, we have information only about author's revenues, and often we only have information about the sum of the three rights. However, because a licensed use requires all rights to be respected, or general equation is:
 
 $$
 r_{author} + r_{producer} + r_{performer} = (p_{author} + p_{producer} + p_{performer})*quantity
-$$ The one-stop-shop in public performance aims to ensure that both rights are paid; streaming providers also have contractual arrangements to pay both the author's or publishing side and recording side (producers and performers.) We know that in Slovakia this relationship does not always hold, because the one-stop-shop is not working properly. Nevertheless, in many cases we must assume that it works. Especially when we are survying end-users, they do not understand the structure of author's rigths and neighboring rights, and they cannot tell if all three licenses are in order.
+$$
+
+The one-stop-shop in public performance aims to ensure that both rights are paid; streaming providers also have contractual arrangements to pay both the author's or publishing side and recording side (producers and performers.) We know that in Slovakia this relationship does not always hold, because the one-stop-shop is not working properly. Nevertheless, in many cases we must assume that it works. Especially when we are survying end-users, they do not understand the structure of author's rigths and neighboring rights, and they cannot tell if all three licenses are in order.
 
 ## General considerations
+
 In Hungary, between 2014 and 2019, we followed a highly regulated process when conducting the national Cultural Access and Participation surveys, based on an agreement with the Hungarian competition authority. To avoid legal uncertainty, we literally followed the ESSNet Guidelines, which were not specifically designed for music but for general cultural activities. We constructed model questions based on this methodological document and its annex on model questionnaire building.
 
 In our view, these model questions are not optimal for music participation because, compared to museum or gallery visits, book reading, or theatre attendance, music is ubiquitous. While many cultural activities have a median (typical) value, with an annual 0 or 1 value published as quantities, music listening activities can easily exceed the number of days. This led to a complicated survey setup in Hungary (and in Slovakia and Croatia for comparison purposes), which worked particularly poorly in Croatia, where the survey was administered via CATI instead of CAPI.
 
 To adjust for the possibility that certain forms of listening activities—like playing a vinyl record on the family turntable—happen only a few times a year, a month, or a week, while listening to music on the radio during a daily commute happens nearly every working day, we allowed respondents to provide answers in the following formats:
 
-3 hours a year, which we took at face value
+-   3 hours a year, which we took at face value
 
-2 hours a month, which we annualized by multiplying by 12
+-   2 hours a month, which we annualized by multiplying by 12
 
-1 hour a week, which we annualized by multiplying by 50
+-   1 hour a week, which we annualized by multiplying by 50
 
-2 hours a day, which we annualized by multiplying by 250
+-   2 hours a day, which we annualized by multiplying by 250
 
 To clarify our model, we were interested in the ratios of music listening, not necessarily in true hourly quantities, so we didn’t mind potential distortions. In fact, we wanted to avoid giving stakeholders the false impression of precise quantification. Our multipliers were justified by the following considerations:
 
-Weekly activities should not be multiplied by 52 because, during Christmas or holiday weeks, people have different routines.
+-   Weekly activities should not be multiplied by 52 because, during Christmas or holiday weeks, people have different routines.
 
-When recalling daily activities, people likely think of a “typical day,” which is a working day, not a family Sunday gathering or a vacation day. We opted for a conservative multiplier because we tended to get rather high values.
+-   When recalling daily activities, people likely think of a “typical day,” which is a working day, not a family Sunday gathering or a vacation day. We opted for a conservative multiplier because we tended to get rather high values.
 
 Essentially, our methodology caused extra work in fieldwork programming and quantifying the results because we had to perform two additional tasks:
 
-Convert all answers to annualized notional hours
+-   Convert all answers to annualized notional hours
 
-Filter improbable answers that often contradicted the interview or resulted in extremely high values. We used various outlier detection and modification techniques because we didn’t want to overreport music use.
+-   Filter improbable answers that often contradicted the interview or resulted in extremely high values. We used various outlier detection and modification techniques because we didn’t want to overreport music use.
 
-We believe that the SINUS CAWI solution, which asks respondents to recall the day before, is superior to our model, but there are several challenges with this implementation. First, it requires a scientific explanation backed by facts to justify this deviation from the ESSNet document, which is often seen by stakeholders as authoritative. Unfortunately, we did not have a survey specialist on our team to make this explanation. However, based on many years of surveying experience (including data from 10 CAP surveys), we believe we can easily build this argument.
+Agreeing with what Joost and Arianna said, the shorter the recall period, the better, and we think that the SINUS CAWI solution is a good starting point. It asks respondents to recall the day before, which is superior to our model, but there are several challenges with this implementation. First, it requires a scientific explanation backed by facts to justify this deviation from the ESSNet document, which is often seen by stakeholders as authoritative. Unfortunately, we did not have a survey specialist on our team to make this explanation. However, based on many years of surveying experience (including data from 10 CAP surveys), we believe we can easily build this argument.
 
 The change to asking about one specific day, the day before, is not without trade-offs. Cultural activities are cyclical, with annual, weekly, and daily seasonality. This is not easily handled in a CAPI survey, especially if the survey is only administered on weekdays (creating a blind spot for Fridays and Saturdays, which are peak activity days for certain cultural activities important for our model). This also leads to sparsity in responses for niche uses, like using microcassette tapes or vinyl recordings.
 
 In previous consultations, we agreed to simplify the Hungary and Slovakia CAPI surveys. We are not particularly focused on mechanical licensing (which is difficult to ask about due to the ever-growing number of devices that can hold private copies, licensed copies, and illegally copied copies of music or audiovisual works), but instead, we aim to assess music use quantities with a focus on public performance licensing. Because we do not need to connect the public performance listening mode to devices, the problem of sparse responses (e.g., few people using a turntable with vinyl on a daily basis) is less pronounced. However, public performance enjoyment hours are still subject to monthly, weekly, and daily life activity cycles.
 
-Addressing this issue requires expert judgment in consultation with how the survey will be carried out (e.g., are interviews conducted on Sundays?). It is also essential to ensure that the CAWI version does not create distortions (for instance, if people mainly fill out the questionnaire on Tuesdays, then Monday, a day of low cultural activity, would be overrepresented compared to Saturday, a peak activity day for most people).
-### Quantities of mechanical licenses
+Addressing this issue requires expert judgement, and it really relies on how the sample frame is designed and administered. As we all know, there are no truly random CAPI or CATI surveys available on the market because they are prohibitively expensive. A truly random CAPI survey would ensure that we meet every citizen in the sample with an equal chance, and the interview (if we use the day-before recall) has an equal chance of being administered on Monday or Sunday, in the morning or the afternoon. Given the cyclical nature of cultural participation, the formulation of the question is ultimately a judgement call made by those colleagues who design the survey questionnaire, administration, and sampling.
 
-In the earlier CEEMID valuations, particularly in Hungary, where we had the highest research budget, we conducted in-depth ICET/CAP surveys. In the 2019 Hungary CAP survey, we quantified the enjoyment of *mechanical copies* of music with *further details*. In these background scenarios, we aimed to establish which devices were used, as the purpose of our research was to understand the prevalence and use of private copies.
+The following considerations must be taken into account:
+
+-   [ ] A lot of licensed streaming and mechanical licensing use (i.e., files downloaded or buffered on a device) takes place during weekdays, on the commute to work or school.
+
+-   [ ] Some public performance, particularly radio listening, takes place on weekdays, mainly in cars during the commute.
+
+-   [ ] Certain types of public performance take place only on weekdays, in workplaces, canteens, and self-service restaurants, where music is used to isolate people from noise and clutter.
+
+-   [ ] Certain types of public performance (in cafés, bars, churches, music clubs, etc.) almost predominantly take place on Fridays and Saturdays, with some niches focused on Thursdays and Sundays.
+
+There are several ways to address this problem while keeping the recall time as short as possible:
+
+-   [x] For infrequent events, ask about the last event visited (such as a live music performance), ask about that event, and inquire about the time elapsed since the event, which will indirectly provide us with visiting frequencies.
+
+-   [x] If responses are distributed evenly from Monday to Sunday, recalling the day before is the best solution.
+
+-   [ ] If responses are not evenly distributed from Monday to Sunday, the best approach is to ask about the last weekend and the day before, to capture answers for both a working day and a weekend (as the majority of the workforce does not work on weekends).
+
+::: callout-note
+#### Affected parts of the questionnaire
+
+The issue above is only critical in the SINUS CAWI Q33-Q34, and the former Hungary CAP 20215 xxx/xxx questions.
+:::
+
+In the earlier CEEMID valuations, particularly in Hungary where we had the highest research budget, we conducted in-depth ICET/CAP surveys. In the 2019 Hungary CAP survey, we quantified the enjoyment of mechanical copies of music in greater detail. In these scenarios, we aimed to identify which devices were used, as the focus of our research was to understand the prevalence, volume, and usage of licensed private copies, as well as "illegal" copies.
+
+This focus is not central to our research in 2025, so we do not need to break up the questionnaire to the same extent. When mechanical licensing is the focus, technology plays a crucial role: for example, a vinyl record can only be played on a turntable, and a Spotify subscription requires an internet-connected device. If we are not focusing on the type of copies, we do not need to delve into these technology-driven cases. Additionally, in the Hungary and Slovakia CAP surveys, we aimed to measure both music and audiovisual use, which is not necessary for our current research. As a result, we can treat devices with screens as having a singular use (enjoying music), without the need to separate their use between watching audiovisual content, reading, gaming, and listening to music.
 
 In the OpenMuse 2025 HU and SK surveys, we aim to capture the following variables.
 
@@ -71,11 +148,27 @@ listen_variables_m <- expand.grid(
 
 listen_variables_m <- listen_variables_m %>%
   mutate_all(as.character) %>%
-  mutate (var = paste0(activity, "_", carrier, "_", snakecase::to_snake_case(situation))) %>%
+  mutate (var = paste0(activity, "_", 
+                       carrier, "_",
+                       snakecase::to_snake_case(situation))
+          ) %>%
   mutate ( question = paste0("Q14", 11:(10+nrow(.))))
 
-kbl(listen_variables_m) %>%
+listen_variables_music <- kbl(listen_variables_m) %>%
   add_header_above(c("license" = 3, "variable" = 2))
+
+# Save the table as an HTML file to use with webshot2
+html_file <- "listen_variables_music_output.html"
+writeLines(as.character(listen_variables_music), html_file)
+
+# Use webshot2 to capture the HTML file as a PNG
+if (!is_latex_output() | !is_html_output()) {
+  webshot2::webshot(html_file, 
+                  here("png", "listen_variables_music_table.png"), 
+                  selector = "table")
+  knitr::include_graphics(
+    here("png", "listen_variables_music_table.png"))
+  }
 ```
 
 Recalling music enjoyment is challenging because music serves different purposes in various environments. People often play music with the intent of making it the focus of their attention (foreground music), particularly when they want to listen to specific tracks. In other cases, music acts as an emotional booster, with listeners seeking a particular tempo, volume, and genre. There are also instances when music is used as background noise to create an atmosphere conducive to work, travel, or socializing.
@@ -103,7 +196,7 @@ Sinus uses the following simplified version of the Hungary CAP 2015 questionnair
 
 -   [ ] Yes, while traveling
 
-`\[Question items (rows)\]`
+`[Question items (rows)]`
 
 -   [ ] Music streaming services (e.g. Spotify, Deezer, Apple Music, YouTube Music)
 
@@ -137,349 +230,3 @@ Sinus uses the following simplified version of the Hungary CAP 2015 questionnair
 
 *This is a highly simplified version of ARTISJUS_2015_Q9 to Q17*
 :::
-
-### Quantities of public performance I
-
-The following quantities are estimated by recalling the number of hours that people spend daily, weekly, monthly, or annually listening to music from various sources. The CAP surveys are suboptimal for this type of measurement. Yet, we may hope that even if the notional listening hours are biased, their ratios, such as radio/turntable, are relatively correctly recalled. Because our model works with ratios, the measurement problem is not so severe. Also, because the CAP survey follows the ICET model, we can estimate and correct the biases of transaction-type quantities from more accurate sources.
-
-Our model question connects the `listening activity` concepts with a `frequency` and a `number` for each licensed (or unlicensed) source of music. Because the respondent is not familiar with the licensing model of Artisjus or SOZA, we need to find a precise enough language that clearly differentiates between the following licensing modes:
-
--   broadcast, radio
-
--   broadcast, television
-
--   cable television retransmission
-
--   satellite television retransmission
-
--   streaming services
-
--   listening to mechanical copies (of files, vinyl records, microcassettes, CDs)
-
-::: callout-warning
-#### Consultation Q1
-
-Please review the categories above. Let's decide what can be grouped into one category (for example, cable or satellite television?)
-:::
-
-::: callout-warning
-#### Consultation Q2
-
-As far as we can recall, the decision was already taken to take the situation into consideration in the CAP survey, this needs confirmation from Sinus.
-:::
-
-```{r qpub1, echo=FALSE, results='asis', fig.cap="The questions starting with Q13xx are not in the real database until final decision is made on the level of detail."}
-listen_variables <- expand.grid(
-  situation = c("at home", "at work", "while travelling"),
-  activity = c("listen"), 
-  channel = c("radio", "television", "youtube", "streaming")
-) 
-
-listen_variables <- listen_variables %>%
-  mutate_all(as.character) %>%
-  mutate (var = paste0(activity, "_", channel, "_", snakecase::to_snake_case(situation))) %>%
-  mutate ( question = paste0("Q13", 11:(10+nrow(.))))
-
-kbl(listen_variables) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))  %>%
-  add_header_above(c("license" = 3, "variable" = 2))
-```
-
-### Quantities of public performance events
-
-The following quantities are estimated based on visiting frequencies. In some cases, we have data on revenues and the number of events (such as concerts). In other cases, we rely on indirect information; for example, we may be able to estimate the number of restaurants in a country, how many of them are licensed for music, and the size of the audience that visits these establishments.
-
-#### Model question for quantities
-
-The top level question base type is the CAP "How many times in the last twelve months have you been to a `concert`?", where `concert` can be replaced with any type of event. In our demo database see [Q2957](https://reprexbase.eu/demo/index.php?title=Item:Q2957) It is an instance of (or example of) a question as defined by the DDI standard: [question (disco) (Q1295)](https://reprexbase.eu/demo/index.php?title=Item:Q1295).
-
--   The `value representation` of this question is `numeric base type`, which means that we expect some sort of a machine-readable number to this question.
-
--   The type of event is linked to this question by the `concept reference` property[^musiccomparators-1] an entity such as a question, variable, or data point to the concept it is intended to express, measure, or be about. The question above refers to the concept of a [concert (Q1435)](https://reprexbase.eu/demo/index.php?title=Item:Q1435).
-
--   The question text is attached to this question in two languages; it is clearly stated that Hungarian version of this question is `Az elmúlt tizenkét hónapban hány alkalommal volt koncerten?`.
-
-[^musiccomparators-1]: This property links an entity such as a question, variable, or data point to the concept it is intended to express, measure, or be about.
-
-It is crucial that all concepts are clearly defined in all languages of the survey and are understandable to the respondent. The professional challenge is to use language descriptions for these concepts that are general enough to avoid confusion, yet specific enough to ensure the responses are categorized correctly in the model.
-
-::: callout-note
-#### Visiting frequencies to cultural events
-
-`EB79.2_QB1` *How many times in the last twelve months have you \[performed the following visiting activity\] ?*
-
-In the CAWI version of SINUS, these questions have a scale representation with the following scale.
-
-**\[Answer items\]:** `Not in the last twelve months`, `1-2 times`, `3-5 times`, `More than 5 times`, `I don’t know`.
-
-In the Open Music Europe SK, HU 2015 surveys we will use a numeric representation with filtering potentially exaggerated, outlier values.
-
-**Subquestions with visiting activities resulting in the following variables**
-
--   [ ] Seen a ballet, a dance performance or an opera
-
--   [ ] Been to the cinema
-
--   [ ] Been to the theatre
-
--   [ ] Been to a concert
-
--   [ ] Visited a public library
-
--   [ ] Visited a historical monument or site (palace, castle, church, garden, etc.)
-
--   [ ] Visited a museum or gallery
-
--   [ ] Watched or listened to a cultural programme on TV, on the radio or in a podcast.
-
--   [ ] Read a book
-:::
-
-#### Typology for measured quantities
-
-::: callout-note
-### CAWI music typology
-
-Sinus used the following typology in the CAWI questionniare:
-
--   [ ] Been to a DJ night at a nightclub, bar, disco, etc.
--   [ ] Been to bar or pub with live music
--   [ ] Been to a restaurant with live music
--   [ ] Been to a music festival
--   [ ] Been to a culture festival, fair, or other public event with live music
--   [ ] Been to a dinner show, variety show, theatre performance, etc. with live music
--   [ ] Been to a private event with live music (wedding, party, etc.)
--   [ ] Live-streamed a music performance online
--   [ ] Attended a virtual music event in the Metaverse / in augmented or virtual reality
-:::
-
-`concert` : any ticketed or unticketed event where an important or main attraction of the event was the performance of a musician, a band, a DJ or other musical group.
-
-`festival with music`: any ticketed or unticketed festival, where several music events, or various cultural events took place, but the performance(s) of musicians, band(s), a DJ(s) or other musical group(s) was an important part of the event.
-
-`restaurant`: any establishment where an important purpose of the stay is to consume food and drinks, irrespective if the place is serving pre-made fast food, or food from a menu, or but the establishment has a kitchen and can prepare food.
-
-`café or pub`: any establishment where the main purpose of the stay is to meet friends, colleagues by a drink. They may serve snacks, even food, but the main purpose of the stay is not eating out.
-
-`hotel or hostel`: any establishment where the main purpose is to provide lodging for at least one night, regardless if it is a wellness hotel, a hostel for affordable stay, or a business-travel oriented establishment.
-
-`church or place of worship`: any establishment where the main purpose of the visit is worship or the participation in religious activities which may involve the use of liturgical music.
-
-A potential qualified version of the question is:
-
--   "How many times in the last twelve months have you been to a `concert` `alone`?"
-
--   "How many times in the last twelve months have you been to a `concert` with `a romantic partner or spouse as a couple`?"
-
--   "How many times in the last twelve months have you been to a `concert` with `a group friends or family members` ?"
-
-The advantage of the extended question that it clearly refers to one visitor (one ticket), two visitors (two tickets), and multiple visitors (multiple tickets). Such a question formulation is particularly useful if we ask if the respondent paid for the ticket(s) and what was the value of the total purchase.
-
-With cultural events, the event is often paid by somebody else, such as a parent, romantic partner, or the municipality, so the visiting quantities and ticket purchasing transactions do not match up well.
-
-```{r qvisits, echo=FALSE, results='asis', fig.cap="The questions starting with Q15xx are not in the real database until final decision is made on the level of detail."}
-library(kableExtra)
-listen_variables_p2 <- expand.grid(
-  situation = c("alone", "family", "friends"), 
-  activity = c("vist"), 
-  event = c("concert", "restaurant", "fast food restaurant", "pub & café")
-)
-
-listen_variables_p2 <- listen_variables_p2 %>%
-  mutate_all(as.character) %>%
-  mutate (var = paste0(activity, "_", event, "_", snakecase::to_snake_case(situation))) %>%
-  mutate ( question = paste0("Q15", 11:(10+nrow(.)))) %>%
-  mutate ( question = ifelse(event=="concert",                             "Q2957", question)) 
-
-kbl(listen_variables_p2) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  add_header_above(c("license" = 3, "variable" = 2)) 
-```
-
-The taxonomy or conceptualisation of "hotel", "fast food", "restaurant" should be as detailed as data is needed and available. Because we want to collect some quantities from surveys, grouping is necessary. It is not a problem if one data source (for example, the survey) is not as detailed as the tariff table and the internal revenue source, however, grouping (taxonomy) should be well designed. For example, if we only have "restaurants" in one data source it must be clear that restaurants = "restaurants" +"fast food outlets" in the other source.
-
-::: callout-warning
-#### Consultation Q3
-
--   Please review the categories above. Let's decide what can be grouped into one category (for example, we agreed on fast food restaurant and restaurant?)
-:::
-
-Another question:
-
-::: callout-warning
-#### Consultation Q4
-
--   Shall we go into the qualified question area (with whom?), similar to the listening situations?
-:::
-
-$$
-quantity = visit * 1.5 hours
-$$
-
-### Revenues from mechanical licensing
-
-```{r mechrevenue, echo=FALSE, results='asis', fig.cap="The questions starting with Q25xx are not in the real database until final decision is made on the level of detail."}
-mechanical_revenues <- expand.grid(
-  rightsholder = c("author", "producer", "performer"),
-  carrier = c("file","CD", "casette", "vinyl")
-)
-
-mechanical_revenues  <- mechanical_revenues  %>%
-  mutate_all(as.character) %>%
-  mutate (var = paste0("revenue_", rightsholder, "_", carrier)) %>%
-  mutate ( question = paste0("Q25", 11:(10+nrow(.))))
-
-kbl(mechanical_revenues) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  add_header_above(c("licensed revenue" = 2, "variable" = 2))
-```
-
-Our usual data sources had been the IFPI Global Music Industry Report, the reports of Mahasz and SLOVGRAM. We may have some data from author's right societies mechanical rights data, but it is likely not very complete.
-
-::: callout-warning
-#### Consultation Decision
-
-We do not have neighbouring rights societies that are cooperating with us, and we inquire with IFPI about the academic licensing fee of the Global Music Report.
-:::
-
-In this case, we also must make assumption on the use of unlicensed copies, such as private copying and illegal copying. It is a source of revenue for mechanical licensing, and it directly relates to the listening hours of mechanical copies.
-
-### Revenues from public performance 1
-
--   For radio, television, cable retransmission the main information source are the author's societies and neighbouring rights societies.
-
--   For streaming, we would need data from the recording side, or the IFPI GMR report, because author's societies have very limited knowledge. Although we generally know what is the ratio of author/producer's rights, author's societies do not represent the entire repertoire.
-
-::: callout-warning
-#### Consultation Decision
-
-We do not have neighbouring rights societies that are cooperating with us, and we inquire with IFPI about the academic licensing fee of the Global Music Report.
-:::
-
-```{r publrevenue1, echo=FALSE, results='asis', fig.cap="The questions starting with Q26xx are not in the real database until final decision is made on the level of detail."}
-publicperf_revenues_1 <- expand.grid(
-  rightsholder = c("author", "producer", "performer"),
-  channel = c("radio","tv", "cable", "satellite", "streaming")
-)
-
-publicperf_revenues_1   <- publicperf_revenues_1   %>%
-  mutate_all(as.character) %>%
-  mutate (var = paste0("revenue_", rightsholder, "_", channel)) %>%
-  mutate ( question = paste0("Q26", 11:(10+nrow(.))))
-
-kbl(publicperf_revenues_1 ) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  add_header_above(c("licensed revenue" = 2, "variable" = 2))
-```
-
-### Revenues from public performance 1
-
--   For concerts, we have a full license list, but we need to assess if we can use this information, and if there is any unlicensed market segment.
-
--   How precise information is available for us about prices?
-
--   We can to some extend rely on CAP and music professionals surveys.
-
--   what is the situation with discotheques and other foreground music, where we can assume that the people visit the event mainly for music.
-
--   In the case of background music, we should work with estimates based on total number of establishment, licensed/unlicensed ratios, and CAP survey data on visiting frequencies and audience size.
-
-```{r publrevenue, echo=FALSE, results='asis', fig.cap="The questions starting with Q27xx are not in the real database until final decision is made on the level of detail."}
-publicperf_revenues_2 <- expand.grid(
-  rightsholder = c("author", "producer", "performer"),
-  channel = c("concert", "disco", "restaurant", "fast food", "hotel")
-)
-
-publicperf_revenues_2   <- publicperf_revenues_2   %>%
-  mutate_all(as.character) %>%
-  mutate (var = paste0("revenue_", rightsholder, "_", channel)) %>%
-    mutate ( question = paste0("Q27", 15:29)) %>%
-  mutate ( var = ifelse(var %in% c("revenue_producer_concert"),
-                        yes = "", no = var)) %>%
-  mutate ( question = ifelse(var %in% c(""),
-                        yes = "", no = question)) 
-
-
-kbl(publicperf_revenues_2 ) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  add_header_above(c("licensed revenue" = 2, "variable" = 2))
-```
-
-We want to collect information about concerts and other events' qualitative or quantitative properties. In the previous sections, we talked about concert or restaurant visits in general and in the plural form. We ask about the last event in singular and specificity and ask questions about this event. We ask about the last visited event, which is the easiest to recall.
-
-#### Last concert
-
-Our model question from the CAP 2015 Hungary: `Mikor járt utoljára zenei rendezvényen (koncert, fesztivál, diszkó, zenés gálavacsora)?`
-
-We want to collect information about concerts and other events' qualitative or quantitative properties. In the previous sections, we talked about concert or restaurant visits in general and in the plural. We ask about the last event in singular and specificity and ask questions about this event. We ask about the last visited event, which is the easiest to recall.
-
--   `Time appellation`: What was the last time the person visited a concert? (For example, last week, last month, in 2024, in 2023, in 2022 or earlier.) The time appellation is relative to the time of the fieldwork. The relative time appellation is helpful to cross-check visiting frequencies; for example, if the last concert visit was 24 months ago, then the person could not have visited three concerts in the previous 12 months.
--   `Ticketing`: Was there an entry fee or paid ticket required (to categorise ticketed and "free" concerts)?
--   `Who paid for the ticket?`: - Understand the prevalence of people visiting concerts who did not pay for themselves.
--   `What was the ticket price?` - A ticket price quantification in the local currency.
--   `The location of the event`: understanding travel economic and environmental costs and barriers to visits. We must know from the respondent geography the usual location of the respondent.
--   `How did you travel to the event`: typology to be used for ESRS-E1 transport impacts.
-
-For `WP3`: - `Can you tell me a few things about the waste collection in the concert?`: ESRS-E5 indicators: there were disposable cups and plates and no recycling collectors; there were disposable cups and plates and with plastic and paper recycling; there were no disposable cups available; etc.
-
--   `Can you tell me more about the type of music played in the concert?` Follow up only for indigenous or authentic folk, world music, which relates to ESRS-S3: Was there authentic folk music played; was it played by members of the indigenous community themselves; did it make a good, neutral, or positive impression on the culture of the community?
-
-#### Last catering visit
-
-Our model question from the CAP 2015 Hungary: `Mikor járt utoljára zenei rendezvényen (koncert, fesztivál, diszkó, zenés gálavacsora)?`
-
-We want to collect information about catering venue visits to understand the visiting demography, purchasing power, and the role of music in such visits. In the previous sections, we talked about concert or restaurant visits in general and in the plural. We ask about the last event in singular and specificity and ask questions about this event. We ask about the previously visited venue, which is the easiest to recall.
-
--   `Time appellation`: What was the last time the person visited a restaurant, café, pub, or other similar catering establishment? (For example, last week, last month, in 2024, in 2023, in 2022 or earlier.) The time appellation is relative to the time of the fieldwork. The relative time appellation is helpful in cross-checking visiting frequencies; for example, if the last restaurant visit was 24 months ago, then the person could not have visited 7 restaurants in the previous 12 months.
--   `How many persons did you pay for ?`: - Understand the prevalence of people visiting concerts who did not pay for themselves. Model question: *What was the ticket price? How many pieces did you purchase for yourself or for somebody else?* (See [concert ticket price and quantity (question) (Q2958)](https://reprexbase.eu/demo/index.php?title=Item:Q2958) from CAP 2015)
--   `Paid amount`: Was the amount you paid at the establishment for these people? (See previous model question.)
--   `The location of the venue`: understanding travel economic and environmental costs and visit barriers. We must know from the respondent geography the usual location of the respondent. Model question: [settlement of establishment (quesetion) (Q2965)](https://reprexbase.eu/demo/index.php?title=Item:Q2965)
--   `Can you recall the music played in the establishment?`: yes, no, there was no music.
--   `What did you like about the music?` It fitted the atmosphere, the volume was good, it made us feel safe that we are not overheard, there were no commercial breaks.
--   `What did you not like about the music?` It did not fit the atmosphere, the volume was too loud, too low, it did not make us safe that we are not overheard, there were too many commercial breaks.
--   `Travel cost`: model question: [average music event travel costs (question) (Q2961)](https://reprexbase.eu/demo/index.php?title=Item:Q2961), to understand the monetary and time value sacrificed for going to a concert, beyond the ticket price.
--   `How did you travel to the event`: typology to be used for ESRS-E1 transport impacts.
-
-For `WP3`: - `Can you tell me a few things about the waste collection in the restaurant?`: ESRS-E5 indicators: there were disposable cups and plates and no recycling collectors; there were disposable cups and plates and with plastic and paper recycling; there were no disposable cups available; etc.
-
--   `Can you tell me more about the type cuisine of the restaurant?` Follow up only for indigenous or authentic cuisines, which relates to ESRS-S3: Was there authentic cuisine of an ethnic group or minority served; was the music of this ethnicity or minority played; did the overall experience make a good, neutral, or positive impression on the culture of the community?
-
-#### Last hotel or hostel visit
-
-Our model question from the CAP 2015 Hungary: `Mikor járt utoljára zenei rendezvényen (koncert, fesztivál, diszkó, zenés gálavacsora)?`
-
-We want to collect information about hotel or hostel venue visits to understand the visiting demography, purchasing power, and the role of music in such visits. In the previous sections, we talked about visits in the plural. We ask about the last event in singular and specificity and ask questions about one particular hotel visit. We ask about the last visited venue, which is the easiest to recall.
-
--   `Time appellation`: What was the last time you stayed in a hotel or hostel? (For example, last week, last month, in 2024, in 2023, in 2022 or earlier.) The time appellation is relative to the time of the fieldwork. The relative time appellation is helpful in cross-checking visiting frequencies; for example, if the last hotel visit was 24 months ago, then the person could not have visited 3 hotels in the previous 12 months.
--   `How many persons did you pay for ?`: - Understand the prevalence of people visiting concerts who did not pay for themselves.
--   `Paid amount`: Was the amount you paid at the establishment for these people?
--   `The location of the venue`: understanding travel economic and environmental costs and visit barriers. We must know from the respondent geography the usual location of the respondent. Model question: [settlement of establishment (quesetion) (Q2965)](https://reprexbase.eu/demo/index.php?title=Item:Q2965).
--   `Can you recall the music played in the establishment?`: yes, no, there was no music.
--   `What did you like about the music?` It fitted the atmosphere, the volume was good, it made us feel safe that we are not overheard in the lobby or restaurant, there were no commercial break, we could listen to our own music in the rooms, we could listen to radio or pre-selected music in our rooms.
--   `What did you not like about the music?` It did not fit the atmosphere, the volume was too loud, too low, it did not make us safe that we are not overheard, there were too many commercial breaks, we could not listen to our own music in the rooms, we could not listen to music at all in the rooms.
-
-### Other comparisons
-
-A less detailed but nevertheless useful comparison is revenue sources among GESAC/IFPI societies. The total revenue from restaurants, for example, is a weighted average revenue from different restarant categories.
-
-$$
-r_{restaurant} = w_1 * r_{cat_1} + w_2 * r_{cat_2} + ... + w_{n} *  r_{cat_n}
-$$ While this revenue should can be different among the countries of Slovakia, Netherlands, Estonia, the difference must not be arbitrary, because of the single market hypothesis and the relevant jurisprudence, revenue differences among these countries must be explained by objective economic variables.
-
-*l* = *licensed restaurant rate*
-
-$$
-l_{A} < l_{B}
-$$
-
-If country A and B have similar number of tourist visits, purchasing power for restaurant services, and restaurants, than the revenue for restaurant licensing should be mainly explained by the fact that in country A only 60% of the restaurants are licensed, and in country B it is 80%.
-
-Or, if we do not know the licensing rate, but country A has twice the consumer spending per inhabitant then country B then we should expect significantly higher revenue in country A then B.
-
-$$
-r_{restaurant} ~ l*n_{restaurants} + l*pp_{restaurants} + l*n_{tourists}
-$$ This type of comparison is not suitable for establishing what should be the rate that restaurants are paying. However, if we find that Slovakia has a higher number of restaurants, higher consumer spending for restaurants, and a higher number of tourists than Lithuania (a similar-sized country), yet revenues are below that of Lithuania, then it would be justified to increase revenues in Slovakia. It is also true, that given that rightsholders must not be discriminated negatively just because they happen to live in Slovakia, in Slovakia we must increase the revenues if they are lower below explainable differences.
-
-Such econometric comparisons can be seen as a reality check, or a corroborating evidence to whatever results we receive from other sources.
-
-
