@@ -1,10 +1,10 @@
 # Introduction {.unnumbered}
 
-![](png/skcmdb/banner_open_music_registers.png){fig-align="center"}
+<!--- ![](png/skcmdb/banner_open_music_registers.png){fig-align="center"} --->
 
-**Registration** is a necessary but burdensome process in the music sector. Musicians and their organisations routinely enter the same information—about people, works, recordings, or venues—into multiple systems: membership lists, royalty systems, event calendars, licensing databases, and more. The result is often duplication, outdated records, and growing cases of unregulated data scraping across platforms.
+In the 21st century, as well as in the 20th and 19th centuries, a significant portion of the European economy operates with regulated prices, where legal norms set the process by which prices are determined. It is reasonable to estimate that 30-40% of the European household spending, including practically the entire recorded portion of the music industry, operates under regulated prices that are not established through market processes. The Open Music Europe consortium has committed to collecting more data to fill various gaps, and our grant focuses on the recorded side of the music business, where market-based pricing mechanisms are absent. This is because we are dealing with the legal monopolies of copyrights and neighbouring rights.
 
-This report presents a way forward: by developing open, interoperable registers that can be shared across institutions, we reduce the effort of maintaining music-related metadata and increase its utility for statistics, rights management, and research.
+There are two areas within the recorded music sector where price variation is present, and where supply and demand forces have a relatively direct and immediate effect on how music is paid for and how musicians are remunerated: subscription streaming services and live music. (In the context of this document, we use the standard definition of the music business or industry, which was adopted for Europe by [@leurdijk_statistical_music_2012] based on the U.S. standard model by [@hull_music_2011].)
 
 ::: callout-note
 This document has been prepared by OpenMusE project partners as an account of work carried out within the framework of the EC-GA contract no 101095295 [@openmuse_2023].
@@ -13,54 +13,40 @@ This document has been prepared by OpenMusE project partners as an account of wo
 
 Any dissemination of results must indicate that it reflects only the author’s view and that the Commission Agency is not responsible for any use that may be made of the information it contains.
 
-This is a living document which provides an overview of `D1.2`, which is a linked open data database supported by applications. As a living document conforming to OPA, it can be found at <https://github.com/dataobservatory-eu/music-economy-register> with standardised folders and file names.
+This is a living document which gives input to `T1.3` and the survey design of the project. As a living document conforming to OPA, it can be found at <https://github.com/dataobservatory-eu/openmuse-valuation> with standardised folders and file names.
 
 📚 Live Documentation:
 
--   [HTML Book](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/)
-
--   Download [PDF](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/Open-Music-Registers--Economy---Business.pdf) or [EPUB](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/Open-Music-Registers--Economy---Business.epub)
+-   [GitHub](https://github.com/dataobservatory-eu/openmuse-valuation)
 :::
 
-A **register**, in IT terms, is a dataset that supports structured workflows. For example, a membership register should reflect new and departed members; a rights register should update when a composer dies and an heir inherits. Registers support specific applications: artists register with distributors to publish music, with CMOs to collect royalties, or with researchers to take part in surveys.
+We chose to focus on live music in Open Music Europe due to its rapid growth over the past 15 years. In the advanced music market of the United Kingdom, live music revenues surpassed recorded revenues in 2009; in Hungary and Slovakia, we observed a similar shift during the former CEEMID cooperation from 2014 to 2021.
 
-Maintaining these systems is time-consuming and costly. Many fail not for technical reasons, but because the expected benefits don’t justify the effort required for complete and accurate registration. In some cases, conflicts of interest also discourage collaboration—such as when proprietary identifiers (e.g. ISRC, ISWC) are reused without oversight or cost-sharing.
+Unlike the pricing of royalties paid to composers, performers, and producers—which are mostly regulated and the result of complex, politically and legally determined processes—the pricing for live music performances and the distribution of revenue among producers and performers allows for more flexibility and negotiation among stakeholders. The price of admission to live events directly impacts revenues.
 
-The `Open Music Registers` project presents a new, practical approach to managing registration processes in the music sector. Today, musicians and organisations routinely submit the same data—about people, works, recordings, or venues—across many isolated systems. This redundancy increases administrative costs, creates inconsistencies, and leads to outdated or fragmented records.
+In terms of live music performances, there is one key area of the music value chain where licensing and regulated prices play a significant role: the composer’s share in live performances. This is central to our case study, which builds on the methodological research conducted in WP1.
 
-`Open Music Registers` proposes a solution: a **shared, open, and interoperable infrastructure** where carefully harmonised registers can serve multiple purposes at once—rights management, statistics, cultural policy, research, and business innovation.
+Collective rights management agencies such as Artisjus and SOZA hold a complete or near-complete monopoly over the licensing of composer royalties for live performances within their territorial jurisdictions. These licensing activities are part of broader public performance music licensing, covering a spectrum of uses where music plays either a prominent or background role. For example, in restaurants and cafés, live music sometimes serves as the main attraction to draw in patrons, but often it is simply used to enhance the ambiance for extended social interactions, instead of providing entertainment beyond the usual background noise of eating, drinking, and conversing. At certain social events, such as weddings, music plays an important role. Ticketed concerts, discotheques, and mixed cultural festivals, on the other hand, often place music at the forefront of the cultural experience, with attendees paying for admission and incurring travel costs to see the show or participate in the event.
 
-Building on the foundations of the *Open Music Europe* project \[@openmuse_2023, we apply modern data governance standards (such as the European Interoperability Framework, FAIR principles, and dataspace design patterns) to streamline registration processes while respecting GDPR and domain-specific requirements. We rely on technologies like **Wikibase**—the platform behind **Wikidata**—to create flexible, multilingual, standards-compliant knowledge bases.
-
-Our work focuses initially on Slovakia, where we have constructed a live, updateable **Slovak Music Economy Register** that covers:
-
--   Composers, publishers, performers, and producers,
-
--   In an exploratory phase, venues and events,
-
--   Business entities linked to cultural and economic activities.
-
-*In the `WP2` we are creating a comprehensive database of sound recordings and musical works connected to the composers, performers, publishers, and record labels.*
-
-We align these datasets with international standards (ISNI, ISRC, ISWC, OpenCorporates, ESCO, NACE, ISCO) to ensure interoperability with statistical offices, rights organisations, libraries, and platforms across Europe.
-
-Our system is designed not as a centralised database, but as a **federated dataspace** that respects the autonomy and ownership of each contributor while enabling smarter data reuse, discoverability, and analysis. It integrates seamlessly with European initiatives like the European Collaborative Cloud for Cultural Heritage (ECCCH) and the European Open Science Cloud (EOSC).
-
-The ultimate goal is to reduce the burden on artists, improve the quality and visibility of music metadata, and enable cultural and economic indicators that are currently missing from national and EU statistics. By building a multi-purpose, standards-aligned infrastructure, we help bridge the worlds of cultural heritage, the creative industries, and official statistics—laying the groundwork for more inclusive, efficient, and evidence-based policymaking in the European music sector.
+The role of the model refined in WP1 is to understand the value creation of live music and how it is divided among composer, performer, and producer revenues. We aim to refine empirical data collection methods, particularly surveys, and economic models to better capture this value.
 
 This documentation is structured as follows:
 
--   We introduce the conceptual and policy background for `Open Music Registers` (@sec-ambition);
+-   **Glossary**: Key terminology
 
--   We present how can the user use the existing registers (@sec-working);
+-   @sec-background: Revision of the Reprex-Artisjus-SOZA-CEEMID background
 
--   And we outline how it can be used to support administrative and sample surveys in cultural statistics (@sec-surveying);
+-   @sec-musiccomparators: Overview of the background and model variables
 
--   A detailed technical annex shows the data model and modeling considerations (@sec-t12);
+-   @sec-personaluse: Measuring the home and personal use of music at home, during the commute and at work or study.
 
--   Another Annex gives further information on how to use our system, and provides some overview of the register used for WP2 about the diversity and circulation of musical works and their print and recorded manifestations. (@sec-skcmdb).
+-   @sec-eventquantities: Measuring the social-event based use of music in concerts and various social establishments.
 
-We touch only briefly on the issue of surveying musical diversity, which will be addressed in a separate report. That work focuses not only on agents—composers, producers, performers—but also on their creative outputs: works, lyrics, recordings, and editions.
+-   @sec-sustainability: Questions related to WP2 and WP3 (diversity; social and environmental sustainability)
+
+-   @sec-hedonicpricemodel: Overview of the applicability of the hedonic price method in public performance
+
+-   @sec-experimental: Overview of the usability of the experimental models
 
 ### Acknowledgements {.unnumbered}
 
