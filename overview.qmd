@@ -1,23 +1,23 @@
-# Overview of the Market Comparator Model
+# Overview of the Market Comparator Model {#sec-background}
 
 **Focal Points: Valuation, Pricing, and Market Comparators in Music Licensing**\
 *With References to "The Relevant Market for Music Streaming" by [Daniel Antal (2022)](https://zenodo.org/records/6088844)*
 
-### Valuation versus Pricing
+## Valuation versus Pricing
 
 The value should be the discounted expected revenues of a CMO. In blanket licensing (when it is licensing the entire national radio or TV sector) such revenues are relatively stable. If Radio 1 loses market share to Radio 2, it does not affect the CMO, because the licensing revenue from Radio 2 will be proportionally bigger to the shifted revenue from Radio 1. So the connection of valuation and pricing is strong.
 
 📌 **See Chapter 3.2 “Fair Value”** — This section elaborates on the valuation of music rights using international standards such as IFRS and WIPO, showing how stable revenue streams (like blanket licensing) support discounted cash flow models.\
 📌 **Also see Chapter 2.3 “Prices”** — Describes the reliance on calculated or shadow prices, which aligns with valuation approaches for stable revenue licensing.
 
-### Revenue vs Price
+## Revenue vs Price
 
 Most economic models are made for pricing or valuation, but they always implicitly use the basic equation of revenue, which is quantity x price. In music, often the price is not expressed to a natural quantity measure, and we have access to revenue data. We know the exact licensing revenue from Radio 1 and Radio 2, but unless we treat the number of licenses as q variable, we have no quantities. The reason why we use notional listening hours on radio is to get an average hourly price for listening on radio from radio licensing revenues.
 
 📌 **See Chapter 2.2 “Volumes”** — Discusses the estimation of usage in notional hours using CAP surveys and other sources.\
 📌 **See Chapter 2.4 “Estimation Strategies”** — Details the use of indirect methods to derive price and quantity when only revenue is available. 📌 **Chapter 1** Establishes challenges in defining the "relevant market" in a fragmented and global music industry; this is important because only the prices/revenues of relevant products on relevant territories can be correctly compared.
 
-### Market Comparators
+## Market Comparators
 
 Our most used model is based on observable price comparisons. While in more realistic market conditions this is a very good model, it is not straightforward to use on markets where prices are not observable, or they are implied shadow prices. Yet, we do not have much better.
 
@@ -31,7 +31,7 @@ Our market comparator model uses these rather strict principles:
 
 -   CMOs must not use too low or too high prices, because they have a fiduciary duty to their members. Applying too low a price would reduce the intellectual property value of members that they individually could not cure; applying too high a price in one licensing segment would lead to an abuse of an otherwise legally acquired monopoly position.
 
-![](plots/full_market_example.jpg){fig-align="center"}
+![](png/full_market_example.jpg){fig-align="center"}
 
 📌 **See Chapter 3.2 “Fair Value”** — Discusses fiduciary obligations of CMOs, the regulation of pricing in monopolistic contexts, and the economic/legal rationale for non-discriminatory, proportionate pricing. See particularly *Puca, A., and Zyla, M. L. (2019), "The Intangible Valuation Renaissance: Five Methods"*, *Flignor, P. and Orozco, D. (2006). Intangible asset & intellectual property valuation: A multidisciplinary perspective.* 📌 **See Chapter 3.3 “Equitable Remuneration”** — Explores how price fairness is governed in segmented licensing environments, further supporting the comparator logic.
 

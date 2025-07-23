@@ -1,0 +1,78 @@
+## Measuring home and personal use of music {#sec-personaluse}
+
+```{r homeloadpackages, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(snakecase, quietly = TRUE)
+library(here, quietly = TRUE)
+library(knitr, quietly = TRUE)
+```
+
+The following quantities are estimated by recalling the number of hours that people spend daily, weekly, monthly, or annually listening to music from various sources. The CAP surveys are suboptimal for this type of measurement. Yet, we may hope that even if the notional listening hours are biased, their ratios, such as radio/turntable, are relatively correctly recalled. Because our model works with ratios, the measurement problem is not so severe. Also, because the CAP survey follows the ICET model, we can estimate and correct the biases of transaction-type quantities from more accurate sources.
+
+Our model question connects the `listening activity` concepts with a `frequency` and a `number` for each licensed (or unlicensed) source of music. Because the respondent is not familiar with the licensing model of Artisjus or SOZA, we need to find a precise enough language that clearly differentiates between the following licensing modes:
+
+-   broadcast, radio
+
+-   broadcast, television
+
+-   cable television retransmission
+
+-   satellite television retransmission
+
+-   streaming services
+
+-   listening to mechanical copies (of files, vinyl records, microcassettes, CDs)
+
+::: callout-warning
+#### Consultation Q1: how to treat television
+
+We agreed that we will not make any differentiation between broadcasting, streaming and retransmission of television content, and we take radio cable and satellite retransmissions as exceptional and not measured cases. This means that we leave out the entire audiovisual measurement blocks of the Hungary and Slovakia questionnaire, however, we must rephrase them in a simplified form.
+
+Suggested formulation:
+
+-   ask television watching hours without source (cable, satellite) qualification, or without device qualification; exactly the same way as music (while travelling, at work, at home; we expect of course that at work will be zero in most cases, though night guards of course watch a lot of television.)
+
+-   ask two activities: watching television, and watching music television (video clips, concerts, musicians' biopics)
+
+-   ask follow up question about the importance of "suitable" or "relevant" music in feature films, documentary films, advertisement, and other broadcast programs.
+
+We believe that the amount of foreground music listening via television is not very high, but many televised formats are highly music-intensive.
+:::
+
+::: callout-warning
+#### Consultation Q2
+
+As far as we can recall, the decision was already taken to take the situation into consideration in the CAP survey, this needs confirmation from Sinus.
+:::
+
+```{r qpub1, echo=FALSE, results='asis', fig.cap="The questions starting with Q13xx are not in the real database until final decision is made on the level of detail."}
+listen_variables <- expand.grid(
+  situation = c("at home", "at work", "while travelling"),
+  activity = c("listen"), 
+  channel = c("radio", "television", "youtube", "streaming")
+) 
+
+listen_variables <- listen_variables %>%
+  mutate_all(as.character) %>%
+  mutate (var = paste0(activity, "_", channel, "_", snakecase::to_snake_case(situation))) %>%
+  mutate ( question = paste0("Q13", 11:(10+nrow(.))))
+
+listen_table <- kbl(listen_variables) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))  %>%
+  add_header_above(c("license" = 3, "variable" = 2))
+
+# Save the table as an HTML file to use with webshot2
+html_file <- "listen_table_output.html"
+writeLines(as.character(listen_table), html_file)
+
+# Use webshot2 to capture the HTML file as a PNG
+if (!is_latex_output() | !is_html_output()) {
+  webshot2::webshot(html_file, 
+                  here("png", "listen_table_output.png"), 
+                  selector = "table")
+  knitr::include_graphics(here("png", "listen_table_output.png"))
+} else {
+  listen_table
+}
+```

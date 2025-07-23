@@ -1,4 +1,4 @@
-# Experimental models
+# Experimental models {#sec-experimental}
 
 We all agree that experiments are the best way to establish the value of music. This would entail to find establishment (for example, ones that dispute the licensing fee), and make well-designed experiments on how patrons behave if the music is on and off.
 

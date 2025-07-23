@@ -4,7 +4,7 @@ project:
 
 book:
   title: "Open Music Europe Valuation Case Studies"
-  subtitle: Validating and improving the CEEMID background
+  subtitle: Validating and improving the CEEMID background, and providing inputs for the surveys carried out in WP3
   author:
      - name:
           given: "Daniel"
@@ -30,7 +30,7 @@ book:
                  postal-code: "2516 AH"
                  url: https://reprex.nl/
   date: today
-  repo-url: https://github.com/dataobservatory-eu/reprexbase_tutorials
+  repo-url: https://github.com/dataobservatory-eu/openmuse-valuation
   repo-actions: [edit]
   downloads: [pdf, epub]
   chapters:
@@ -38,17 +38,25 @@ book:
     - glossary.qmd
     - overview.qmd
     - musiccomparators.qmd
+    - personaluse.qmd
+    - eventquantities.qmd
+    - sustainability.qmd
     - hedonicpricemodel.qmd
     - experimentalmodels.qmd
 
-version: 0.1.0
+version: 0.2.0
 
 bibliography:
     - bib/antal.bib
+    - bib/competition.bib
     - bib/datagovernance.bib
     - bib/datamodels.bib
+    - bib/eulaw.bib
+    - bib/ifpi.bib
     - bib/ISOdata.bib
     - bib/dataspace.bib
+    - bib/musicindustry.bib
+    - bib/musicreport2019.bib
     - bib/OpenMuse.bib
 
 format:
@@ -57,7 +65,8 @@ format:
   pdf:
     documentclass: scrreprt
   epub: default
-  docx: default
+  docx:
+    prefer-html: true
 
 editor: visual
 
