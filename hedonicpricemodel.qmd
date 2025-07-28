@@ -1,6 +1,10 @@
 # Hedonic price and related models {#sec-hedonicpricemodel}
 
-In this approach, we create a price equation similar to hedonistic price equations or the Big Mac Index. The Big Mac, or a simple coffee, or a simple beer are relatively homogeneous products that on large territories. The price difference of a Big Mac between Bratislava and Amsterdam usually represents the price difference between real estate prices, fast food staff wage differences, taxes, etc. Similarly, the price of a coffee or a (given brand of) beer is relatively fixed, and the serving price reflects the differences in rental price differences among locations, wage differences, quality differences of the establishment in terms of material and immaterial qualities, and also by the presence of music.
+This approach builds on the logic of hedonic price models and comparative indices such as the *Big Mac Index*. A Big Mac, or a simple coffee or beer, represents a relatively homogeneous product across wide geographic areas. The price differences of these items between locations (e.g., Bratislava and Amsterdam) usually reflect differences in real estate costs, wages, taxes, and other location-specific factors.
+
+Similarly, the price of a simple coffee or a standard serving of beer is largely determined by the cost of inputs and the establishment’s overhead. Variations in serving prices thus capture differences in rental costs, staff wages, local purchasing power, and both the material and immaterial qualities of the venue—including the presence and quality of music.
+
+We define two primary price equations for the cheapest available coffee and a standard-sized beer (0.3–0.5l). For beer, wholesale price differences are typically minimal (especially in Central Europe, where InterBrew and other large breweries dominate), making it a suitable homogeneous benchmark product.
 
 $$
 price_{coffee} = price_{base} + a_{1} + a_{2} + a_{3} + a_{4} + music_{present} + music_{quality} + ε
@@ -9,8 +13,14 @@ $$
 We used to work with two homogeneous products, the cheapest coffee available on the menu, and the 0.3, 0.4 or 0.5l servings of beer. Most of the beers offered in Slovakia and Hungary are InterBrew products, some come from local breweries, but generally we can handle the difference of beer wholesale prices easily.
 
 $$
-price_{beer} = price_{base} + a_{1} + a_{2} + a_{3} + a_{4} + music_{present} + music_{quality} + ε
+price_{beer} = price_{base} + a_{1} + a_{2} + a_{...} + a_{n} + music_{present} + music_{quality} + ε
 $$
+
+-   `price_base`: underlying wholesale/input price\
+-   $a_{1\ldots4}$: establishment and locational attributes\
+-   `music_present`: presence/absence of music (binary)\
+-   `music_quality`: proxy for curation, type, or live performance\
+-   $\varepsilon$: error term with *E(ε) = 0*
 
 The price difference of served products should be related to various, quantifiable factors, such a purchasing power and tourist nights in the location, distance from nearest population center, the presence of music and a random ε difference element which should have an expected value of 0. (It is not a problem if our equation is not correctly guessing the price for each restaurant, but it should overestimate as many places as it underestimates.)
 
@@ -21,36 +31,189 @@ Our aim is not necessarily the direct assignment of a price component to music, 
 Again, this method in itself is not sufficiently detailed to establish the fair value or the price of the music, but it is a strong enough indicator of significant pricing differences. It can be used within one country or across borders. It would be particularly interesting to have a comparison between HU, SK, and perhaps some data points from other countries. BG and PL can also include data points in this work.
 
 ::: callout-note
+#### Review of the methodology {.unnumbered}
 
-#### Review of the methodology
 > While the logic behind the Hedonic Pricing Model (HPM) is straightforward, its empirical implementation is complex, as the estimations are often affected by several econometric issues, such as multicollinearity among attributes, omitted variable bias, reverse causality, and measurement errors. For instance, venue characteristics are typically highly correlated, and even with a comprehensive dataset, it is very difficult to account sufficiently for all potentially relevant variables. Implementing the model with experimental variations—such as changing the type of music—can help mitigate some of these identification challenges. However, experiments alone do not guarantee a strong identification strategy capable of yielding causal, or even robust, estimates. Without careful treatment of endogeneity, estimates may be biased, making it difficult to determine the magnitude or direction of the effects. Moreover, the generalizability of results to other settings or countries is not straightforward.
 >
-> To the extent these technical limitations can be overcome, hedonic price estimations provide valuable information about the value the use of music may generate for professional users. This would then provide an upper bound for the willingness to pay such professional users would have when negotiating with a monopolistic supplier and without the possibility of input substitution (which, against the backdrop of AI-generated music, seems an increasingly problematic condition). This can be described as the ‘deprival value’ of the music use in these cases. However, it is not straightforward how this can be translated to normative claims about ‘fair’ remuneration, as a deprival value is unlikely to
-> deserve this epithet.
+> To the extent these technical limitations can be overcome, hedonic price estimations provide valuable information about the value the use of music may generate for professional users. This would then provide an upper bound for the willingness to pay such professional users would have when negotiating with a monopolistic supplier and without the possibility of input substitution (which, against the backdrop of AI-generated music, seems an increasingly problematic condition). This can be described as the ‘deprival value’ of the music use in these cases. However, it is not straightforward how this can be translated to normative claims about ‘fair’ remuneration, as a deprival value is unlikely to deserve this epithet.
 :::
 
-### Data needs
+## Data needs
 
--   We need to have data on establishments: we need to identify them, tell if they are licensed, how much they pay, and to know some of their objective data. This should come from Artisjus, SOZA (ZAiKS, MusicAutor) CRM.
--   We need to find price data for these establishments. Sometimes we can find the price online, but sometimes we need to assign this task to those people who monitor the places or students. It is sufficient to take a photograph of the price card and -record the data from that card.
+-   **Price Data**: Record the cheapest coffee and beer prices per establishment (online menus or on-site observation via photographed price cards).
 
-3.  We do not need to have data on all licensed establishments, but it would be good to have well-defined coverage or restaurants (only Budapest? only a certain type? etc)
+-   **Establishment Data**: Identify venues, whether they are licensed for music use, and collect objective attributes (size, location, opening hours).
+
+-   **Sample Definition**: It is not necessary to cover all licensed establishments, but samples should have clear boundaries (e.g., only Budapest cafés, only certain restaurant types).
+
+-   **Music Use**: We must know whether the venue plays music and, if possible, its licensing status. Both music and non-music establishments are needed in the sample.
 
 ::: callout-warning
-#### Consultation: Comparative Data
+#### Consultation: Comparative Data {.unnumbered}
 
 -   SOZA will provide access to CRM to well-defined HORECA types, with their address, fees paid, and other important metrics.
 -   Artisjus, ZAiKS, MusicAutor and other societies are requested to provide us with representative comparative data.
 
-Representative data:
+#### Representative data (from surveys): {.unnumbered}
 
-- Anonymised or not anonymised data on restaurant-like, and hotel-like establishments meeting certain size and star-rating categories.
+-   Anonymised or not anonymised data on restaurant-like, and hotel-like establishments meeting certain size and star-rating categories.
 
-- If they are not anonymised, the researchers will look up their public data, including price data, and record it for us (address, price of beer, coffee)
+-   If they are not anonymised, the researchers will look up their public data, including price data, and record it for us (address, price of beer, coffee)
 
-- If they are anonymised, we will ask you to select from your CRM restaurants from certain locations, such as the city of Plovdiv or Debrecen for comparability.
+-   If they are anonymised, we will ask you to select from your CRM restaurants from certain locations, such as the city of Plovdiv or Debrecen for comparability.
 
 *We must know if the place is licensed for use of music, or if the place is known to play music. We need establishments with and without music in the sample*.
 :::
 
+## Potential Variables
 
+::: callout-warning
+#### Methodological Caution {.unnumbered}
+
+Designing a hedonic price model for cafés and restaurants requires careful **pre-selection of variables**. The potential variables listed above are strongly correlated with each other, and the presence of multicollinearity, measurement error, and omitted variable bias can significantly distort the results.
+
+It is *not possible to determine in advance* which variables will prove useful or statistically significant in explaining price differences without exploratory analysis and variable reduction techniques.
+
+This means that: - A pilot study is essential to test variable behavior, for this purpose, to a limited extent, the Artisjus, SOZA, Reprex background can be used. - Data collection should prioritize *consistent measurement* over sheer volume of variables. - The final model will likely include a reduced set of predictors chosen based on statistical performance and theoretical relevance. - Sensitivity analyses should be run to check robustness to different specifications.
+
+This limitation does not invalidate the approach but underlines the importance of *careful variable selection and model diagnostics* before drawing conclusions about the role of music in pricing.
+:::
+
+### Establishment-Specific Variables
+
+-   **Size of the venue**\
+    Floor area or seating capacity. Captures scale effects and overhead costs.
+
+-   **Opening hours categories**: Categories such as daytime weekdays, evenings/weekends, or both. Proxy for target market and utilization rate.
+
+-   **Distance from urban center**: Measured from the city’s population-weighted centroid. Reflects rental levels and foot traffic differences.
+
+### Music Environment Variables
+
+-   **Presence of live music**: Binary variable or measured as frequency per week.
+
+-   **Music genre**: Categorical (e.g., jazz, pop, classical) or vector representation for analysis.
+
+-   **Volume level**: Qualitative categories: quiet, medium, loud. May affect perceived quality and audience type.
+
+-   **Music venue branding**: Whether the establishment positions itself as a dedicated music venue versus a regular café/restaurant.
+
+-   **Sound system quality**: Subjective scoring or derived from equipment/photos. Proxy for investment in music presentation. Or physical properties of the system.
+
+### Menu Variables
+
+-   **Menu focus**: Whether the menu is primarily food-oriented or drink-oriented.
+
+-   **Kitchen:** If the establishment offers warm food; or if the establishment offers any food.
+
+-   **Number of drink items**: Count of drink options; proxy for beverage specialization.
+
+-   **Service charge included**: Binary indicator; affects the base pricing of listed items.
+
+-   **Chain vs. independent**: Identifies whether the establishment is part of a franchise or independent business.
+
+### Ambience/Interior Variables
+
+-   **Seating characteristics**: Presence and size of terrace or outdoor seating areas.
+
+-   **Indoor/outdoor ratio**: Proportion of indoor versus outdoor seating.
+
+-   **Design quality**: Derived from online ratings or visual/photo-based scoring.
+
+-   **Ambient noise**: Non-music noise level; affects overall atmosphere and willingness to pay.
+
+### Customer Base Indicators
+
+-   **Average dwell time**: Estimated based on establishment type and service model.
+
+-   **Tourist/local ratio**: Approximation from review language analysis or geolocation data.
+
+### Locational Variables
+
+-   **Average wage**: Local wage level (neighborhood, municipality, or county).
+
+-   **Tourist nights per capita**: Ratio of annual tourist nights to local population; measures tourism intensity.
+
+-   **Foot traffic density**: Pedestrian counts or mobility index in the vicinity.
+
+-   **Proximity to cultural landmarks**: Distance to theatres, museums, concert halls, or similar venues.
+
+-   **Proximity to nightlife clusters**: Distance to bars, clubs, and entertainment districts.
+
+-   **Share of foreign residents**: Indicator of cultural mix in the area.
+
+-   **Educational attainment**: Proxy for cultural capital in the local population.
+
+-   **Local housing cost index**: Proxy for disposable income levels and alternative rent costs of the establishment.
+
+### Regulatory Environment
+
+-   **Noise ordinances**: Presence and strictness of local noise restrictions impacting music use.
+
+-   **Alcohol licensing regime**: Licensing requirements that can affect beer pricing structure.
+
+### Market/Competitive Variables
+
+-   **Café density**: Number of comparable establishments within a set radius.
+
+-   **Average competitor prices**: Benchmark prices for coffee and beer in the same municipality, district, or county.
+
+-   **Online positioning**: Average rating and price category on major review platforms.
+
+## Measuring the Variables
+
+To operationalize the potential variables, we need a combination of field data, online sources, and administrative datasets. Different variable groups require different collection methods:
+
+### Establishment-Specific Variables
+
+-   **Menu card survey**: Photograph or scan physical menus during visits, or scrape menus published online.\
+-   **Google Places / FourSquare API**: Extract opening hours, business category, and approximate size when available.\
+-   **Physical visits**: Validate seating capacity and measure distance to urban center if not available via GIS.
+
+### Music Environment Variables
+
+-   **Field survey**: Observe presence of live music, note volume levels, and record whether music is curated or from commercial radio/streaming.\
+-   **Self-administered survey to establishments**: Ask about music branding, licensing status, and sound system characteristics.\
+-   **Photo/video documentation**: Useful for later coding of sound system quality and ambiance.
+
+### Menu Variables
+
+-   **Menu data extraction**: Manual coding of menu focus (food vs. drink), number of drink items, and whether a service charge is included.\
+-   **Chain vs. independent classification**: Can be derived from Google Places metadata or national business registries.
+
+### Ambience/Interior Variables
+
+-   **Physical visits**: Observe seating characteristics, indoor/outdoor ratios, and measure ambient noise levels.\
+-   **Crowdsourced photos / Google Street View**: Proxy for design quality and seating setup when in-person data is missing.
+
+### Customer Base Indicators
+
+-   **Review scraping**: Analyze review language to estimate tourist vs. local ratios.\
+-   **Survey of establishments**: Estimate average dwell time based on operator input.
+
+### Locational Variables
+
+-   **Google Mobility / OpenStreetMap**: Foot traffic density and proximity to cultural or nightlife landmarks.\
+-   **Small-area statistics**: Average wage, tourist nights per capita, housing cost index, share of foreign residents, educational attainment from statistical authorities.\
+-   **GIS analysis**: Calculate distance to city center and cultural landmarks.
+
+### Regulatory Environment
+
+-   **Survey of local regulators**: Collect data on noise ordinances and alcohol licensing regimes.\
+-   **Municipal open data portals**: Where available, use published regulatory maps or licensing records.
+
+### Market/Competitive Variables
+
+-   **Google Places API / FourSquare API**: Compute café density and competitor pricing in the immediate area.\
+
+-   **Review scraping**: Extract average ratings and price categories from TripAdvisor, Google Reviews, or Yelp.
+
+-   **Field surveys with physical visits** for ground-truth data and menu documentation.\
+
+-   **Menu card photography** to capture actual pricing of coffee, water, and beer.\
+
+-   **APIs (Google, FourSquare, OpenStreetMap)** for location, footfall, and competitive environment.\
+
+-   **Small-area statistics** from national or regional statistical offices for socioeconomic indicators.\
+
+-   **Self-administered online surveys** of establishments for music environment details and of local regulators for policy variables.
