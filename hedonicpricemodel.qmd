@@ -74,15 +74,22 @@ Designing a hedonic price model for cafés and restaurants requires careful **pr
 
 It is *not possible to determine in advance* which variables will prove useful or statistically significant in explaining price differences without exploratory analysis and variable reduction techniques.
 
-This means that: - A pilot study is essential to test variable behavior, for this purpose, to a limited extent, the Artisjus, SOZA, Reprex background can be used. - Data collection should prioritize *consistent measurement* over sheer volume of variables. - The final model will likely include a reduced set of predictors chosen based on statistical performance and theoretical relevance. - Sensitivity analyses should be run to check robustness to different specifications.
+This means that: -
+
+A pilot study is essential to test variable behavior, for this purpose, to a limited extent, the Artisjus, SOZA, Reprex background can be used; also, it is likely that SSSA's anonymous data collection can be useful for establishing some of the final variables. 
+
+- Data collection should prioritize *consistent measurement* over sheer volume of variables.
+
+- The final model will likely include a reduced set of predictors chosen based on statistical performance and theoretical relevance.
+
+- Sensitivity analyses should be run to check robustness to different specifications.
 
 This limitation does not invalidate the approach but underlines the importance of *careful variable selection and model diagnostics* before drawing conclusions about the role of music in pricing.
 :::
 
 ### Establishment-Specific Variables
 
--   **Size of the venue**\
-    Floor area or seating capacity. Captures scale effects and overhead costs.
+-   **Size of the venue**: Floor area or seating capacity. Captures scale effects and overhead costs.
 
 -   **Opening hours categories**: Categories such as daytime weekdays, evenings/weekends, or both. Proxy for target market and utilization rate.
 
@@ -166,14 +173,18 @@ To operationalize the potential variables, we need a combination of field data, 
 
 ### Establishment-Specific Variables
 
--   **Menu card survey**: Photograph or scan physical menus during visits, or scrape menus published online.\
--   **Google Places / FourSquare API**: Extract opening hours, business category, and approximate size when available.\
+-   **Menu card survey**: Photograph or scan physical menus during visits, or scrape menus published online.
+
+-   **Google Places / FourSquare API**: Extract opening hours, business category, and approximate size when available.
+
 -   **Physical visits**: Validate seating capacity and measure distance to urban center if not available via GIS.
 
 ### Music Environment Variables
 
--   **Field survey**: Observe presence of live music, note volume levels, and record whether music is curated or from commercial radio/streaming.\
--   **Self-administered survey to establishments**: Ask about music branding, licensing status, and sound system characteristics.\
+-   **Field survey**: Observe presence of live music, note volume levels, and record whether music is curated or from commercial radio/streaming.
+
+-   **Self-administered survey to establishments**: Ask about music branding, licensing status, and sound system characteristics.
+
 -   **Photo/video documentation**: Useful for later coding of sound system quality and ambiance.
 
 ### Menu Variables
@@ -183,12 +194,14 @@ To operationalize the potential variables, we need a combination of field data, 
 
 ### Ambience/Interior Variables
 
--   **Physical visits**: Observe seating characteristics, indoor/outdoor ratios, and measure ambient noise levels.\
+-   **Physical visits**: Observe seating characteristics, indoor/outdoor ratios, and measure ambient noise levels.
+
 -   **Crowdsourced photos / Google Street View**: Proxy for design quality and seating setup when in-person data is missing.
 
 ### Customer Base Indicators
 
--   **Review scraping**: Analyze review language to estimate tourist vs. local ratios.\
+-   **Review scraping**: Analyze review language to estimate tourist vs. local ratios.
+
 -   **Survey of establishments**: Estimate average dwell time based on operator input.
 
 ### Locational Variables
