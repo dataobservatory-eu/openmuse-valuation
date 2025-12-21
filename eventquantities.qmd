@@ -201,7 +201,7 @@ Our usual data sources had been the *IFPI Global Music Industry Report*, the rep
 
 -   The Slovak market data are published by IFPI CZ, see for example, *Tisková zpráva: Výsledky trhu 2024. Slovensko* [@ifpi_cz_slovakia_2024]
 
-The CISAC data collection has the following mechanical rights categories.  They may be available for the society that does the valuation, or some sort of estimation needs to divide aggregated data. For example, in our case, the Radio+TV aggregate is not useful, because we decided to put together all television end-uses, regardless of retransmission or broadcasting. 
+The CISAC data collection has the following mechanical rights categories. They may be available for the society that does the valuation, or some sort of estimation needs to divide aggregated data. For example, in our case, the Radio+TV aggregate is not useful, because we decided to put together all television end-uses, regardless of retransmission or broadcasting.
 
 ```{r cisacmechanical, echo=FALSE}
 readxl::read_excel(here::here("data-raw", "cisac_data_sources.xlsx"), 
@@ -211,12 +211,12 @@ readxl::read_excel(here::here("data-raw", "cisac_data_sources.xlsx"),
   knitr::kable()
 ```
 
-DJ Licensing may not be available, but if it is, it is related to foreground music. The sale abroad and locally is important for our model; we want to compare market revenues within a country.  If such a separation is not available, then we can estimate it with the help of the CISAC table about reconciliation with sister societies (revenues sent abroad and received from abroad.)
+DJ Licensing may not be available, but if it is, it is related to foreground music. The sale abroad and locally is important for our model; we want to compare market revenues within a country. If such a separation is not available, then we can estimate it with the help of the CISAC table about reconciliation with sister societies (revenues sent abroad and received from abroad.)
 
 ::: callout-warning
 #### Consultation Decision
 
-We do not have neighbouring rights societies that are cooperating with us, and we inquire with IFPI about the academic licensing fee of the Global Music Report. This will be done by EUBA. 
+We do not have neighbouring rights societies that are cooperating with us, and we inquire with IFPI about the academic licensing fee of the Global Music Report. This will be done by EUBA.
 
 In the absence of cooperation with IFPI, we will rely on the data published by IFPI CZ about Slovakia and Mahasz about Hungary.
 :::
@@ -266,8 +266,6 @@ if (!is_latex_output() | !is_html_output()) {
   publicperf_revenues_1_table
 }
 ```
-
-
 
 ## Revenues from public performance 1
 
@@ -440,7 +438,6 @@ readxl::read_excel(here::here("data-raw", "cisac_data_sources.xlsx"),
   knitr::kable()
 ```
 
-
-Generally, the public performance in restaurants, hotels, is available only as an aggregate called "background music".  We need to work with at least the the data from concerts and discotheques.
+Generally, the public performance in restaurants, hotels, is available only as an aggregate called "background music". We need to work with at least the the data from concerts and discotheques.
 
 If radio and television is grouped, then television should include broadcast and retransmission revenues (like in the case of mechanical rights revenues.)

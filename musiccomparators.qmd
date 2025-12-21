@@ -1,34 +1,4 @@
-## Music Comparators {#sec-musiccomparators}
-
-```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
-library(here, quietly = TRUE)
-library(knitr, quietly = TRUE)
-library(kableExtra, quietly = TRUE)
-library(tidyverse, quietly = TRUE)
-```
-
-The CEEMID full-market model (introduced in *Music Use and Rightsholder Damages and Enjoyment of Audiovisual Content and Rightsholder Damages*) was based on general WIPO models, IFRS models and the *Valuing the* *Use of Recorded Music*, a methodological guide created by PriceWaterhouseCoopers for IFPI [@pwc_valuing_2008]. Our model aimed to meet high statistical standards [@frank_guy_essnet-culture_2012] and IFRS Fair Value standards [@ifrs_fair_value_2011; @commission_regulation_2012_1255] as adopted in EU law.
-
-This model was developed by CEEMID, a cooperation of European rightsholders including SOZA, to meet data requirements for these valuation techniques. It was used for royalty pricing and compensation claims in Hungary [@antal_szabad_2017_en; @antal_szabad_2018_en], Slovakia [@antal_slovenskom_hudobnom_2019_en], and Croatia [@antal_pcr_croatia_2019], comparing per-hour royalty revenues in various licensing and compensation models, and providing a common metric for mechanical, public performance, streaming, and private copying compensation revenues.
-
-## Market (comparator) models
-
-The market comparator models require that prices under objectively similar conditions are compared.  As WIPO’s valuation introduction states, the “market method is based on a comparison with the actual price paid for the transfer of rights to a similar IP asset under comparable circumstances. This method has the advantage of being simple and based on market information, so it is often used to establish approximate values for use in determining royalty rates, tax, and inputs for the income method.”
-
-Such methods are simple, they do not require complicated microeconomic modelling, welfare analysis, but they are only normative in the sense that they assume that by and large the market process works well, and deviations from a “normal” price are more exceptions than the rule. They are connected to the principle of “fair value”, but not the far more normative “fair and equitable remuneration.” The far value is an arms-length value that is agreeable by licensor and licensee in the absence of market power, which is suitable as a basis of calculating future revenues for valuation purposes or paying taxes. This is the licensor-licensee relationship that a copyright tribunal or a competition authority would find agreeable. This is normative in the sense that it can be generally assumed that it is not breaking the laws on taxation, accounting, transfer pricing or antitrust, but does not imply what actually the price should be, or what level of welfare distribution should occur among the various stakeholders of the music ecossytem, i.e., among the end-users, business intermediaries such as concert promoters or radio stations, and rightsholders.
-
-The important methodological question in the application of the *market (comparator) models* is what constitutes a “similar IP asset” and what is the “market”. We must only compare prices of music IP assets that are sufficiently similar, and prices that are on the same “market”. This is what competition economists call a “relevant market.” We consider assets to be similar that can substitute each other, and the market as a “place” where the same buyers and sellers can trade under same or similar price conditions.
-
-> ::: callout-note
-
-#### Review of the model 
-
-> While the choice to take a primarily national perspective in the analysis is logical, if only as a result of the territoriality of copyright and the national scope of most CMO tariffs, private copying levy systems, etc., it is advised to avoid using the term ‘relevant market’ because of its meaning in competition law, which is distinct from the way the term is used here: within a national music market, there are various relevant (sub)markets from a competition law perspective, which have their own specific dynamics in terms of supply, demand, and substitution
-
-- [ ] We need another methodology for comparison than the "relevant markets" 
-- [ ] Or show better that the use of the national markets is not incidential, it is related to how the market is organised. 
-
-:::
+## Music Comparators {@sec-musiccomparators}
 
 In our valuation, we must not claim that an antitrust authority would use the same definition, but we argue that should such an investigation take place, it should result in a very similar definition of substitutability and geographical availability. There are definitions that are similar to the relevant market definition.
 
@@ -139,6 +109,7 @@ This focus is not central to our research in 2025, so we do not need to break up
 In the OpenMuse 2025 HU and SK surveys, we aim to capture the following variables.
 
 ```{r qmechanic, echo=FALSE}
+library(dplyr)
 library(kableExtra)
 listen_variables_m <- expand.grid(
   situation = c("at home", "at work", "while travelling"),
@@ -154,7 +125,8 @@ listen_variables_m <- listen_variables_m %>%
           ) %>%
   mutate ( question = paste0("Q14", 11:(10+nrow(.))))
 
-listen_variables_music <- kbl(listen_variables_m) %>%
+listen_variables_music <- kbl(
+  listen_variables_m) %>%
   add_header_above(c("license" = 3, "variable" = 2))
 
 # Save the table as an HTML file to use with webshot2
@@ -162,12 +134,13 @@ html_file <- "listen_variables_music_output.html"
 writeLines(as.character(listen_variables_music), html_file)
 
 # Use webshot2 to capture the HTML file as a PNG
-if (!is_latex_output() | !is_html_output()) {
+if (!knitr::is_latex_output() |
+    !knitr::is_html_output()) {
   webshot2::webshot(html_file, 
-                  here("png", "listen_variables_music_table.png"), 
+                  here::here("png", "listen_variables_music_table.png"), 
                   selector = "table")
   knitr::include_graphics(
-    here("png", "listen_variables_music_table.png"))
+    here::here("png", "listen_variables_music_table.png"))
   }
 ```
 
