@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 ## Music Comparators {@sec-musiccomparators}
 
+=======
+>>>>>>> 55546d33a2c7387be48bdae6dd870872a652696f
 In our valuation, we must not claim that an antitrust authority would use the same definition, but we argue that should such an investigation take place, it should result in a very similar definition of substitutability and geographical availability. There are definitions that are similar to the relevant market definition.
 
 -   Functional comparability (from transfer pricing/TP): looks at the functions, risks, and assets involved in a transaction.
