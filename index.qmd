@@ -2,6 +2,13 @@
 
 <!--- ![](png/skcmdb/banner_open_music_registers.png){fig-align="center"} --->
 
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(here)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+```
+
 In the 21st century, as well as in the 20th and 19th centuries, a significant portion of the European economy operates with regulated prices, where legal norms set the process by which prices are determined. It is reasonable to estimate that 30-40% of the European household spending, including practically the entire recorded portion of the music industry, operates under regulated prices that are not established through market processes. The Open Music Europe consortium has committed to collecting more data to fill various gaps, and our grant focuses on the recorded side of the music business, where market-based pricing mechanisms are absent. This is because we are dealing with the legal monopolies of copyrights and neighbouring rights.
 
 There are two areas within the recorded music sector where price variation is present, and where supply and demand forces have a relatively direct and immediate effect on how music is paid for and how musicians are remunerated: subscription streaming services and live music. (In the context of this document, we use the standard definition of the music business or industry, which was adopted for Europe by [@leurdijk_statistical_music_2012] based on the U.S. standard model by [@hull_music_2011].)
