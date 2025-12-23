@@ -46,6 +46,7 @@ bibliography:
     - bib/competition.bib
     - bib/datagovernance.bib
     - bib/datamodels.bib
+    - bib/ddi.bib
     - bib/eulaw.bib
     - bib/ifpi.bib
     - bib/ISOdata.bib
@@ -146,9 +147,11 @@ Crucially, the purpose of the synthetic data is not to approximate actual values
 
 ## Key Modelling Decisions {#sec-pilot-key-modelling-decisions}
 
-The modelling framework was developed within the CEEMID cooperation among Hungarian, Slovak, and Croatian authors’, producers’, and performers’ rights stakeholders, as well as organisations representing audiovisual and image rights. Variants of the framework have been applied in different contexts: publicly and in simplified form in Croatia [@antal_pcr_croatia_2019], in advocacy-oriented industry reporting in Slovakia [@antal_slovenskom_hudobnom_2019], and most extensively in Hungary. In the Hungarian case, the framework was implemented under a voluntary commitments procedure with the national competition authority, following a preliminary inquiry into pricing practices. This report is not public[^pilot-4].
+The modelling framework was developed within the CEEMID cooperation among Hungarian, Slovak, and Croatian authors’, producers’, and performers’ rights stakeholders, as well as organisations representing audiovisual and image rights[^pilot-4]. Variants of the framework have been applied in different contexts: publicly and in simplified form in Croatia [@antal_pcr_croatia_2019], in advocacy-oriented industry reporting in Slovakia [@antal_slovenskom_hudobnom_2019], and most extensively in Hungary. In the Hungarian case, the framework was implemented under a voluntary commitments procedure with the national competition authority, following a preliminary inquiry into pricing practices. This report is not public[^pilot-5].
 
-[^pilot-4]: The Competition of Unlicensed, Licensed and Illegal uses on the Markets of Music and Audiovisual Works \[original title: *A szabad felhasználások, a jogosított tartalmak és az illegális felhasználások versenye a zenék és audiovizuális alkotások hazai piacán*\] [@antal_szabad_2019_en]
+[^pilot-4]: The Open Music Europe project grew out of the Central & Eastern European Music Industry Databases (CEEMID) initiative in 2014 [@artisjus_measuring_2014], in which rightsholders from three countries attempted to solve these data problem, and bring seemingly data poor Central European countries to a level of data availability that allows better price setting or the creation of better creative industry policies or business strategies.
+
+[^pilot-5]: The Competition of Unlicensed, Licensed and Illegal uses on the Markets of Music and Audiovisual Works \[original title: *A szabad felhasználások, a jogosított tartalmak és az illegális felhasználások versenye a zenék és audiovizuális alkotások hazai piacán*\] [@antal_szabad_2019_en]
 
 ![An example of an analysis in Hungary in 2019.](png/full_market_example.jpg){fig-align="center"}
 
@@ -280,29 +283,29 @@ Cultural access and participation (CAP) surveys are used in the valuation framew
 
 The ICET-based CAP surveys were first applied by the former CEEMID project in Hungary, Slovakia, and Croatia with the explicit aim of improving the measurement of music use quantities in contexts where transactional data are incomplete or unavailable. Over multiple survey waves, these survey-based quantity estimates were cross-checked against both public and non-public transactional data sources wherever such data were available. These validation exercises indicated that self-reported listening quantities are subject to recall and reporting error, but provided no evidence of systematic directional bias across countries, use contexts, or survey waves. In aggregation, the observed errors behaved as non-systematic measurement noise rather than as structural distortion. On this basis, and in line with ESSNet-Culture recommendations, no alternative modelling framework was identified that would offer better coverage of both market and non-market music use while remaining feasible within realistic survey length and respondent burden constraints.
 
-Reprex grew out of the CEEMID project as a research and development company and brought this methodological background into the OpenMusE project. Following the Open Policy Analysis guidelines, the methodological description of this background was made available for internal and external stakeholders in 2023.[^pilot-5]
+Reprex grew out of the CEEMID project as a research and development company and brought this methodological background into the OpenMusE project. Following the Open Policy Analysis guidelines, the methodological description of this background was made available for internal and external stakeholders in 2023.[^pilot-6]
 
-[^pilot-5]: The source file on GitHub and the authoritative early copy with DOI: [@openmuse_opa_folder_market_comparators; @antal_market_comparator_2023].
+[^pilot-6]: The source file on GitHub and the authoritative early copy with DOI: [@openmuse_opa_folder_market_comparators; @antal_market_comparator_2023].
 
 To operationalise the survey-based measurement required for the valuation framework, Reprex organised the full set of survey questions needed for this analysis into a structured *QuestionBank*, which forms part of the Open Music Observatory (OMO). The QuestionBank provides a curated and reusable collection of survey questions defined independently of their specific placement or ordering in any single questionnaire instrument. This design supports reuse across survey waves, countries, and analytical contexts, while preserving clear provenance, version control, and multilingual documentation.
 
-The QuestionBank is implemented within the OMO data model using a Wikibase-based knowledge representation, with explicit mappings to the *DDI-RDF Discovery Vocabulary*[^pilot-6] (the Disco model). In this model, abstract survey questions correspond to `disco:Question` entities, while their concrete uses in questionnaires are represented as question usages equivalent to DDI QuestionConstructs. Multilingual versions of question wording are stored separately from question identity and can be exported losslessly as `disco:questionText`, ensuring full interoperability with DDI-compliant tools and survey documentation systems.
+The QuestionBank is implemented within the OMO data model using a Wikibase-based knowledge representation, with explicit mappings to the *DDI-RDF Discovery Vocabulary*[^pilot-7] (the Disco model). In this model, abstract survey questions correspond to `disco:Question` entities, while their concrete uses in questionnaires are represented as question usages equivalent to DDI QuestionConstructs. Multilingual versions of question wording are stored separately from question identity and can be exported losslessly as `disco:questionText`, ensuring full interoperability with DDI-compliant tools and survey documentation systems.
 
-[^pilot-6]: *DDI-RDF Discovery Vocabulary (Disco): A vocabulary for publishing metadata about research and survey data on the Web of Linked Data* [@ddi-rdf_discovery_2025]
+[^pilot-7]: *DDI-RDF Discovery Vocabulary (Disco): A vocabulary for publishing metadata about research and survey data on the Web of Linked Data* [@ddi-rdf_discovery_2025]
 
-This alignment is situated within the broader framework of the *Generic Statistical Information Model* (GSIM)[^pilot-7], developed under the auspices of the *United Nations Economic Commission for Europe* (UNECE).
+This alignment is situated within the broader framework of the *Generic Statistical Information Model* (GSIM)[^pilot-8], developed under the auspices of the *United Nations Economic Commission for Europe* (UNECE).
 
-[^pilot-7]: *Generic Statistical Information Model* [@GSIM_v20_2025]
+[^pilot-8]: *Generic Statistical Information Model* [@GSIM_v20_2025]
 
-GSIM provides a technology-neutral reference model for the production of official statistics, defining core information objects such as concepts, variables, classifications, data sets, and statistical processes. Within GSIM, DDI and SDMX function as complementary implementation standards: DDI focuses on the documentation of data collection instruments, microdata, and their metadata, while SDMX provides the standardised structures and semantics for the representation and exchange of aggregated statistical data and data cubes[^pilot-8].
+GSIM provides a technology-neutral reference model for the production of official statistics, defining core information objects such as concepts, variables, classifications, data sets, and statistical processes. Within GSIM, DDI and SDMX function as complementary implementation standards: DDI focuses on the documentation of data collection instruments, microdata, and their metadata, while SDMX provides the standardised structures and semantics for the representation and exchange of aggregated statistical data and data cubes[^pilot-9].
 
-[^pilot-8]: *SDMX 3.0 Technical Specifications. Section 2 Information Model: {UML} Conceptual Design. Version 3.0* [@sdmx_information_model_v3]
+[^pilot-9]: *SDMX 3.0 Technical Specifications. Section 2 Information Model: {UML} Conceptual Design. Version 3.0* [@sdmx_information_model_v3]
 
 By aligning the OMO QuestionBank and questionnaire metadata with DDI-Disco, and by structuring derived indicators and aggregates in a manner consistent with SDMX and the *W3C Data Cube* model, the Open Music Observatory data architecture conforms to the GSIM information model. This alignment allows the CAP surveys used in this project to be fully harmonised with European and national statistical surveys, facilitating integration with official statistics workflows and comparative analysis across countries and time, and the replication of our piloting work presented here.
 
-On this foundation, the CAP questionnaire used in OpenMusE was designed by Reprex as an operational implementation of the ICET framework, informed by experience from approximately ten national CAP surveys conducted over the past decade.[^pilot-9] The questionnaire design explicitly targets the construction of use quantities rather than the inference of prices, preferences, or welfare measures. Questions are formulated to elicit notional listening time, which can subsequently be normalised into annual listening hours and aligned with the quantity definitions used throughout the market comparator framework.
+On this foundation, the CAP questionnaire used in OpenMusE was designed by Reprex as an operational implementation of the ICET framework, informed by experience from approximately ten national CAP surveys conducted over the past decade.[^pilot-10] The questionnaire design explicitly targets the construction of use quantities rather than the inference of prices, preferences, or welfare measures. Questions are formulated to elicit notional listening time, which can subsequently be normalised into annual listening hours and aligned with the quantity definitions used throughout the market comparator framework.
 
-[^pilot-9]: The OPA folder for this work with the source files can be found at [@openmuse_opa_folder_valuation]
+[^pilot-10]: The OPA folder for this work with the source files can be found at [@openmuse_opa_folder_valuation]
 
 The recall strategy reflects an explicit recognition of the cognitive limits of self-reported listening behaviour. Music listening has become increasingly ubiquitous over the past decade as smartphones and mobile internet access have integrated music into commuting, work, and other everyday activities. This ubiquity reduces the salience of listening events and complicates recall. To mitigate this effect, the questionnaire triangulates different recall horizons, asking about listening behaviour using weekly, monthly, and annualised formulations. In addition, listening time is elicited separately for different contexts—at home, while travelling, and at work or study—not as analytically distinct locations, but as memory cues. These contextual prompts help respondents recall different devices and listening modes, such as turntables or physical media at home, radio listening in vehicles during travel, or streaming services used to mask background noise at work.
 

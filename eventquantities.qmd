@@ -236,6 +236,7 @@ We do not have neighbouring rights societies that are cooperating with us, and w
 :::
 
 ```{r publrevenue1, echo=FALSE, results='asis', fig.cap="The questions starting with Q26xx are not in the real database until final decision is made on the level of detail."}
+library(dplyr)
 publicperf_revenues_1 <- expand.grid(
   rightsholder = c("author", "producer", "performer"),
   channel = c("radio","tv", "cable", "satellite", "streaming")
@@ -247,8 +248,12 @@ publicperf_revenues_1   <- publicperf_revenues_1   %>%
   mutate ( question = paste0("Q26", 11:(10+nrow(.))))
 
 publicperf_revenues_1_table <- kbl(publicperf_revenues_1 ) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  add_header_above(c("licensed revenue" = 2, "variable" = 2))
+  kable_styling(bootstrap_options = 
+                  c("striped", "hover", "condensed")
+                ) %>%
+  add_header_above(c("licensed revenue" = 2, 
+                     "variable" = 2)
+                   )
 
 # Save the table as an HTML file to use with webshot2
 html_file <- "publicperf_revenues_1_table_output.html"
