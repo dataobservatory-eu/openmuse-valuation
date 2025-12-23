@@ -1,5 +1,6 @@
 ---
-title: "Pilot"
+title: "Market Comparator Model Application for Valuation"
+subtitle: "Part of D1.6"
 author:
   - name: "Antal, Dániel"
     orcid: 0000-0001-7513-6760
@@ -7,14 +8,81 @@ author:
   - name: "Poort, Joost"
     orcid: 0000-0003-4611-8816
     role: Work Package leader
----
+    
+project:
+  type: website
+  output-dir: docs
 
+version: "0.1.0"
+format: 
+   html: 
+     toc: true
+     toc-depth: 3
+     citation-style: chicago-author-date.csl
+   epub: 
+     toc: true
+     toc-depth: 3
+     output-file: pilot.epub
+     citation-style: chicago-author-date.csl
+   docx: 
+     toc-depth: 2 
+     citation-style: chicago-author-date.csl
+     output-file: pilot.docx
+   pdf:
+    colorlinks: true
+    toc: true
+    toc-depth: 3
+    output-file: pilot.pdf
+    latex: 
+       - lof: true
+       
+papersize: A4
+
+editor: visual
+
+bibliography:
+    - bib/antal.bib
+    - bib/CISAC.bib
+    - bib/competition.bib
+    - bib/datagovernance.bib
+    - bib/datamodels.bib
+    - bib/eulaw.bib
+    - bib/ifpi.bib
+    - bib/ISOdata.bib
+    - bib/dataspace.bib
+    - bib/musicindustry.bib
+    - bib/musicreport2019.bib
+    - bib/opa.bib
+    - bib/OpenMuse.bib
+---
 
 ## Context & Objective {#sec-pilot-context}
 
 This pilot study is developed in the context of a complex and, in several respects, problematic research project, where planned data deliveries and formal analytical components were not provided by research partners as originally foreseen. As a result, the pilot serves both as a methodological demonstration and as a defensible reconstruction of what can be achieved with limited, fragmented, or incomplete inputs. The emphasis is therefore placed on transparency of assumptions, reproducibility of methods, and robustness of the analytical framework, rather than on the completeness or authority of any single dataset.
 
 The analytical framework used in the pilot is the market comparator model. This model relates observed or estimated quantities of use to observed revenues in order to infer implicit or shadow prices, allowing comparisons across uses, markets, or territories. In music markets, where prices are often unobservable or embedded in bundled and zero-price business models, the market comparator model provides a coherent way to compare value across heterogeneous forms of consumption.
+
+::: callout-note
+This is an early draft of a part of the D1.6 deliverable of the Open Music Europe consortium. It has not been approved, amended, consulted with many contributors, and therefore it is not intended for use or citation. We make this version available in compliance with the *Open Policy Analysis* guidelines. The latest working copy is available [here](https://downloads.reprex.nl/2025/valuation-pilot/pilot.html).
+
+**Transparency note**: Importantly, this document does not present a purely conceptual or speculative policy design. Substantial parts of the analysis synthesis lessons from policy-embedded implementation activities carried out using *Open Policy Analysis* methods[^pilot-1], including openly documented data, code, workflows, and methodological decisions.
+
+Following the principles of **Open Policy Analysis**, all related deliverables and technical documentation are publicly accessible to foster broad engagement and ensure a clear audit trail. Reprex, Artisjus and SOZA brought as a background the valuation and quantiative estimation methods developed in their former CEEMID project, and made it available for methodological refinement for the project partners in open folders and authoritative copies placed on Zenodo [@openmuse_opa_folder_market_comparators; @antal_market_comparator_2023]. Subsequent work was carried out in different task and different folders. *these will be added here*
+
+**Funding acknowledgement:** This project has received funding from the European Union’s Horizon Europe programme under Grant Agreement No. [101095295](https://cordis.europa.eu/project/id/101095295). The views expressed are those of the authors only and do not necessarily reflect those of the European Commission or its agencies[^pilot-2].
+
+**Citation note:** When citing this document, please use the latest **versioned DOI** available on Zenodo (current version: [10.5281/zenodo.17999571](https://doi.org/10.5281/zenodo.17999571)), and include the date of access if referring to material hosted on our GitHub repository.[^pilot-3] This is an early 0.4.0 version.)
+:::
+
+[^pilot-1]: The *Guidelines for Open Policy Analysis* form an actionable and practical set of directives that the OpenMusE consoritum was mandated to use under the Grant Agreement. It can be seen as good implementation framework for *Evidence-based policy making in the European Commission* and *The practice of reproducible research* [@opa_guidelines; @openmuse_2023; [@evidence_based_policy_eu_2015; @practice_of_reproducible_research_2018].
+
+[^pilot-2]: This document has been prepared by *Open Music Europe* (OpenMusE) project partners as an account of work carried out within the framework of this contract. Any dissemination of results must indicate that it reflects only the author’s view and that the Commission Agency is not responsible for any use that may be made of the information it contains. Neither Project Coordinator, nor any signatory party of *Open Music Europe (OpenMusE) Project Consortium Agreement*, nor any person acting on behalf of any of them:\
+    (a) makes any warranty or representation whatsoever, express or implied, (i) with respect to the use of any information, apparatus, method, process, or similar item disclosed in this document, including merchantability and fitness for a particular purpose, or (ii) that such use does not infringe on or interfere with privately owned rights, including any party's intellectual property, or (iii) that this document is suitable to any particular user's circumstance; or\
+    (b) assumes responsibility for any damages or other liability whatsoever (including any consequential damages, even if advised of the possibility) resulting from your selection or use of this document or any information, apparatus, method, process, or similar item disclosed herein.
+
+[^pilot-3]: Always use the latest versioned DOI when citing this document, available via Zenodo. If you rely on supporting material hosted in the GitHub repository, please add the date of access in your reference.
+
+{{< pagebreak >}}
 
 The immediate objective of the pilot study is to demonstrate the application of this model using a fully specified but synthetic dataset. Rather than relying on sensitive or proprietary data, the study constructs a complete set of revenue and quantity tables for a hypothetical country, Livonia. This allows the full analytical workflow to be shown end to end, including data reconciliation, aggregation, and interpretation, without exposing confidential information or creating incentives for reverse engineering.
 
@@ -31,7 +99,6 @@ The use of a fictional territory is deliberate. It enables the creation of fully
 Within the broader Open Music Europe project, and in particular in the Open Music Observatory and Work Package 2, the term “Livonian Music Database” is used for a database of authentic folk music, music compositions, their recordings and textual or music notation (sheet music) manifestations, and their related statistical data in connection with the the Livonians or Livs, an autochthonous ethnolinguistic group historically associated with the broader Livonian region. It also emphasises our methodological drive to create statistical indicators beyond the often too broad national level, for sub-national regions or for genres, or other market niches.
 
 The fictional Livonia used here is not associated with the Livs, their culture, or their historical territory, and the name is employed solely as a neutral and non-identifying label for a synthetic case study.
-
 
 ## Data Sources
 
@@ -55,10 +122,9 @@ The Hungarian and Slovak contexts are used as calibration references rather than
 
 In Hungary, Mahasz publishes an extensive historical series of recorded music market data aligned with the figures reported to IFPI for the *Global Music Report*, and has made these data publicly available in spreadsheet form since 2003, albeit with some structural changes over time. This long time series illustrates how IFPI-aligned reporting can be implemented consistently at national level and reused for analytical and modelling purposes.
 
-In Slovakia, the *Výsledky trhu 2024: Slovensko* \[Market Results 2024: Slovakia\] provides country-level recorded music market data published by the national IFPI affiliate, following the same classification logic as the IFPI *Global Music Report*. Unlike global or regional summaries, this document offers direct insight into the structure and scale of the Slovak recorded music market, typically presenting revenues by major format such as physical, digital, and streaming. As a publicly available national annex, it demonstrates how IFPI-aligned data can be accessed at country level even when the full *Global Music Report* is not available. In this pilot study, the Slovak report functions as an elementary data source that illustrates how national market figures can be used to calibrate and validate the structure of synthetic neighbouring rights revenue tables without relying on confidential or proprietary datasets.
+In Slovakia, the *Výsledky trhu 2024: Slovensko* \[Market Results 2024: Slovakia\] provides country-level recorded music market data published by the national IFPI affiliate [@ifpi_slovakia_market_results_2024], following the same classification logic as the IFPI *Global Music Report*. Unlike global or regional summaries, this document offers direct insight into the structure and scale of the Slovak recorded music market, typically presenting revenues by major format such as physical, digital, and streaming. As a publicly available national annex, it demonstrates how IFPI-aligned data can be accessed at country level even when the full *Global Music Report* is not available. In this pilot study, the Slovak report functions as an elementary data source that illustrates how national market figures can be used to calibrate and validate the structure of synthetic neighbouring rights revenue tables without relying on confidential or proprietary datasets.
 
 For the purposes of the Livonian example, the emphasis is on the recording-side perspective and its compatibility with the market comparator model. IFPI-style data provide observed revenues by market segment and format, which can be aligned with measured or estimated quantities of use. The pilot study therefore applies IFPI reporting logic to construct synthetic neighbouring rights revenue tables for Livonia, ensuring that they are consistent with publicly observable market structures while remaining sufficiently abstracted to avoid disclosure of sensitive or proprietary information.
-
 
 ### Quantities {#sec-pilot-quantities}
 
@@ -78,8 +144,13 @@ The synthetic datasets used for the Livonian example are generated through rando
 
 Crucially, the purpose of the synthetic data is not to approximate actual values, but to preserve the structural logic required by the market comparator model. The synthetic tables reproduce the same categories, hierarchies, and reconciliation constraints that appear in CISAC- and IFPI-aligned reporting, and they align with realistic patterns of music consumption derived from CAP survey data. This ensures that the model can be fully specified, tested, and communicated, while making clear that meaningful results can only be obtained by users who apply the method to their own authorised data.
 
+## Key Modelling Decisions {#sec-pilot-key-modelling-decisions}
 
-## Key Modelling Decisions
+The modelling framework was developed within the CEEMID cooperation among Hungarian, Slovak, and Croatian authors’, producers’, and performers’ rights stakeholders, as well as organisations representing audiovisual and image rights. Variants of the framework have been applied in different contexts: publicly and in simplified form in Croatia [@antal_pcr_croatia_2019], in advocacy-oriented industry reporting in Slovakia [@antal_slovenskom_hudobnom_2019], and most extensively in Hungary. In the Hungarian case, the framework was implemented under a voluntary commitments procedure with the national competition authority, following a preliminary inquiry into pricing practices. This report is not public[^pilot-4].
+
+[^pilot-4]: The Competition of Unlicensed, Licensed and Illegal uses on the Markets of Music and Audiovisual Works \[original title: *A szabad felhasználások, a jogosított tartalmak és az illegális felhasználások versenye a zenék és audiovizuális alkotások hazai piacán*\] [@antal_szabad_2019_en]
+
+![An example of an analysis in Hungary in 2019.](png/full_market_example.jpg){fig-align="center"}
 
 ### Total Music Value vs Rightsholder-Specific Value
 
@@ -87,16 +158,77 @@ A central modelling decision in this pilot study is to focus on the total value 
 
 There is no *a priori* correct or universal split of music value between authors, performers, and producers. The division of revenues reflects legal frameworks, collective bargaining outcomes, contractual practices, and historical institutional arrangements, all of which vary across countries and over time. Even within the European Union, where copyright law is partially harmonised, neighbouring rights and collective management practices differ substantially between jurisdictions. Treating any particular split as normative would therefore introduce assumptions that are external to the market comparator model and not supported by observable market behaviour.
 
+$$
+R_{u} = R^{A}_{u} + R^{PF}_{u} + R^{PD}_{u}
+$$ where $R^{A}_{u}$ denote's the author's, $R^{PF}_{u}$ the performers' and $R^{PD}_{u}$ the producer's revenue, the last two taken together as $R^{N}_{u}$ neighbouring rights revenue.
+
+$$
+R^{N}_{u} = R^{PF}_{u} + R^{PD}_{u}
+$$
+
 Focusing on total music value has important implications for data aggregation. Revenues from different rights categories and collecting entities must be aggregated across authors’ rights and neighbouring rights, and quantities of use must be defined in a way that is consistent across these domains. Prices are then interpreted as average or shadow prices per unit of use, rather than as contractually specified tariffs for individual rights. This approach allows the model to remain agnostic about institutional detail while still producing meaningful comparative results, and it makes the framework more robust and transferable across countries with different rights management structures.
 
+### Stock–Flow Conversion and Temporal Normalisation of Use
+
+A further central modelling decision concerns the conversion between stock-based and flow-based measures of music consumption and revenues. The market comparator model requires quantities and revenues to be expressed on a common temporal basis. In music markets, however, different uses generate revenues and are measured over fundamentally different time horizons, creating a stock–flow mismatch that must be addressed explicitly.
+
+Some music uses are naturally observed as flows. Streaming, broadcasting, and most forms of public performance generate revenues that accrue continuously and are typically reported over monthly or annual accounting periods. Corresponding quantities, such as streams, airplay counts, or listening hours, are likewise flow variables that can be aggregated over a year without conceptual difficulty. In these cases, the alignment between quantities and revenues is relatively direct.
+
+Other uses, particularly mechanical reproductions such as physical sales or permanent downloads, generate revenues as one-off transactions, while consumption unfolds over a potentially long period. From the rightsholder’s accounting perspective, the relevant revenue is realised at the moment of sale and recognised fully in the accounting period in which it occurs. From the user’s perspective, however, the purchased recording may be consumed repeatedly over many years, implying a long-lived stock of listening potential with diminishing marginal use over time.
+
+The modelling choice adopted in this pilot follows a flow normalisation approach. All quantities are converted into notional annual listening hours, irrespective of whether the underlying use is based on a one-off transaction or a continuous service. This reflects the observation that, at the aggregate level, listening in any given year is supported by a mix of newly acquired recordings and recordings acquired in previous years. Purchases made in earlier periods continue to generate listening in the current period, while purchases made in the current period will generate listening in future periods. Under stable consumption patterns, these effects tend to offset each other, allowing annual listening hours to be treated as a consistent flow measure.
+
+This approach is consistent with standard practices in time-use accounting and avoids the need to specify detailed assumptions about asset lifetimes, depreciation schedules, or discount rates for individual recordings. While alternative formulations are possible—such as explicitly modelling the useful life of recordings and amortising revenues over time—these would introduce additional parameters that are difficult to observe and would not materially improve comparability for the purposes of the market comparator model.
+
+Different categories of use nonetheless retain distinct economic characteristics and are therefore kept separate at the quantity level. Streaming, broadcasting, public performance, mechanical reproductions, and live performances are each associated with different pricing mechanisms and institutional arrangements. By maintaining separate quantity aggregates for these uses while normalising them to a common annual time basis, the model allows implicit prices to differ across uses in a way that reflects real economic differences rather than artefacts of accounting conventions.
+
+In this sense, the stock–flow conversion is not a technical adjustment but a substantive modelling decision. It enables revenues recognised within a given accounting year to be meaningfully compared to contemporaneous patterns of music consumption, while preserving the heterogeneity of uses that is essential for interpretation and policy relevance.
+
+### Market Definition {#sec-pilot-market-definition}
+
+The modelling framework presented in this pilot study is informed by analytical traditions that are also used in competition law and regulatory contexts, particularly in assessments of whether prices or remuneration levels can be considered fair, equitable, and reasonable (FER). In several European jurisdictions, market comparator approaches have been employed by collecting societies and regulators as one of multiple tools to assess pricing practices, often in the context of investigations or negotiated remedies rather than formal infringement decisions.
+
+The CEEMID framework was developed and refined in settings where competition-law considerations were explicitly present, most notably in Hungary, where its most detailed implementation formed part of a voluntary commitments procedure following a preliminary inquiry by the national competition authority. In that context, the model was used to support transparency, proportionality, and consistency in pricing analysis, rather than to mechanically derive or impose tariffs. This history informs the design of the framework but does not define its scope in the present pilot study.
+
+It is important to stress that the market comparator model, as applied here, is not a legal test and is not intended to substitute for competition-law analysis. Competition law requires case-specific assessment, including consideration of market power, counterfactuals, efficiency justifications, and legal standards that go beyond quantitative comparison. The present pilot does not claim that its outputs can be directly used to establish FER compliance or non-compliance in a legal sense.
+
+Nevertheless, the model rests on a shared analytical premise: that meaningful comparison requires a well-defined market concept. This includes clarity about the relevant product or service scope and the relevant geographic scope. Without such definition, prices, quantities, and revenues cannot be aligned in a way that allows economically interpretable comparison. The model therefore adopts an explicit, operationalised notion of the market as a necessary precondition for comparison, even though alternative definitions may be equally valid in other analytical or legal contexts.
+
+From a geographic perspective, the model assumes that meaningful comparisons can generally be made at the level of a copyright jurisdiction, which in most cases corresponds to the territory of a national polity. This reflects the territorial nature of copyright and neighbouring rights and the way in which royalties are collected, accounted for, and distributed. From a product perspective, the model requires explicit decisions about which uses of music are included, such as licensed uses versus exceptions, and how boundaries are drawn between different forms of audio content.
+
+Within these boundaries, the market comparator model provides a structured way to relate revenues to use and to infer implicit prices. These inferred prices are best understood as economic signals, not as normative benchmarks. They can highlight relative differences across uses, markets, or territories and can support discussion about proportionality and consistency, but they do not, on their own, determine what is legally or contractually appropriate.
+
+By making these assumptions explicit, the pilot study positions the model as a transparent and adaptable analytical tool. It can inform policy discussions, regulatory dialogue, and internal assessment by stakeholders, while leaving legal interpretation and enforcement to the appropriate institutional frameworks.
 
 ### Copyright and Neighbouring Rights Conventions {#sec-pilot-segment-conventions}
 
-A key modelling challenge arises from the fact that authors’ rights and neighbouring rights are reported using different conceptual and accounting frameworks. CISAC-aligned data are organised around legal rights and modes of use, such as public performance, broadcasting, mechanical reproduction, and private copying. This rights-based logic reflects how collective management organisations account for and distribute royalties to authors and publishers. In contrast, IFPI-aligned data adopt a market-based perspective, structuring revenues by product format and channel, such as physical sales, downloads, subscription streaming, ad-supported streaming, performance rights, and synchronisation. These two reporting logics are internally consistent but not directly comparable without further reconciliation.
+A key modelling challenge arises from the fact that authors’ rights and neighbouring rights are reported using different conceptual and accounting frameworks. *CISAC-aligned data are organised around legal rights and modes of use, such as public performance, broadcasting, mechanical reproduction, and private copyin*g. This rights-based logic reflects how collective management organisations account for and distribute royalties to authors and publishers.
+
+In contrast, *IFPI-aligned data adopt a market-based perspective, structuring revenues by product format and channel*, such as physical sales, downloads, subscription streaming, ad-supported streaming, performance rights, and synchronisation. These two reporting logics are internally consistent but not directly comparable without further reconciliation.
 
 The category commonly labelled as “Digital & Multimedia” illustrates this mismatch particularly clearly. In CISAC-style tables, Digital & Multimedia may appear under both performing rights and mechanical reproduction rights, reflecting the coexistence of communication-to-the-public and reproduction components in digital uses. In IFPI-style reporting, the same underlying consumer behaviour is captured through market segments such as downloads or streaming, without explicit reference to the underlying legal rights. As a result, Digital & Multimedia functions as a cross-right category in rights-based accounting, while appearing as a unified market segment in recording-industry data.
 
-To apply the market comparator model, these differences must be reconciled conceptually. This does not require a perfect one-to-one mapping between CISAC and IFPI categories, but it does require a consistent aggregation logic that aligns revenues and quantities at a comparable level. In this pilot study, reconciliation is achieved by abstracting from legal distinctions where necessary and focusing on economically meaningful units of use. Rights-based categories are aggregated to match market-based segments, or vice versa, using documented assumptions and, where available, external calibration sources. This approach allows the model to bridge institutional reporting differences while remaining transparent about the assumptions involved.
+To apply the market comparator model, these differences must be reconciled conceptually. *This does not require a perfect one-to-one mapping between CISAC and IFPI categories*, but it does require a consistent aggregation logic that aligns revenues and quantities at a comparable level.
+
+In this pilot study, reconciliation is achieved by abstracting from legal distinctions where necessary and focusing on economically meaningful units of use. Rights-based categories are aggregated to match market-based segments, or vice versa, using documented assumptions and, where available, external calibration sources. This approach allows the model to bridge institutional reporting differences while remaining transparent about the assumptions involved.
+
+### National and Domestic Revenue
+
+A fundamental and often underappreciated issue in applying market comparator models to music markets concerns the territorial interpretation of revenues reported in national datasets. Both CISAC-aligned authors’ reports and IFPI-aligned national market reports are commonly read as describing activity “in” a country. In practice, however, they often reflect a mixture of domestic and foreign consumption, depending on institutional reporting conventions and data availability.
+
+In principle, IFPI national market reports are intended to capture revenues earned in a given market, *meaning revenues generated by consumption within the national territory*. Under this interpretation, streaming revenues would ideally be split between domestic consumption and export revenues generated abroad. In practice, such a distinction is rarely observable in published data. National IFPI affiliates typically aggregate the total revenues reported by their member labels without systematically distinguishing whether streams occurred domestically or in foreign territories. As a result, national market figures for streaming tend to be de facto national-by-affiliation rather than strictly national-by-consumption.
+
+A similar ambiguity exists on the authors’ side. In CISAC-aligned reporting, *revenues from foreign uses are often visible only in aggregated form as royalties received from sister societies, either gross or net of reciprocal deductions*. For domestic uses such as radio and television broadcasting, the territorial logic is relatively clear: usage occurs within the country, is monitored domestically, and is licensed and accounted for accordingly.
+
+By contrast, digital uses—particularly streaming—are less clearly territorialised. When a platform reports streaming data to a collective management organisation, *the reporting may be based on repertoire affiliation rather than listener location*, or on contractual outsourcing arrangements for digital collection. As a result, digital royalties received by a national society may include significant foreign consumption without being explicitly labelled as such.
+
+From a modelling perspective, this creates a tension between two conceptions of the market: a territorial market defined by place of consumption, and an institutional market defined by affiliation or repertoire ownership. *Publicly available data sources often sit somewhere between these two conceptions*, without fully satisfying either. This is not a flaw of any single dataset, but a structural feature of how digital music markets are organised and reported.
+
+In this pilot study, the ambiguity is treated explicitly as a limitation rather than resolved through strong assumptions. *Revenues are interpreted as national in the sense of being reported by national institutions, not as strictly domestic consumption measures*. Quantities derived from CAP surveys, by contrast, are inherently domestic, as they measure listening behaviour of residents within a country. The model therefore aligns domestic quantities with institutionally reported revenues under the pragmatic assumption that, at an aggregate level, export and import effects partially offset across uses and periods.
+
+This assumption is more defensible for some uses than others. For broadcasting and most forms of public performance, the territorial alignment between use and revenue is relatively strong. For streaming and other digital uses, it is weaker, and the resulting implicit prices should be interpreted with caution. The model does not claim to measure the value of domestic consumption in a strict economic sense, nor the global value of a national repertoire. Instead, it provides a consistent framework for comparing reported revenues to observed patterns of use within a defined institutional scope.
+
+Recognising this limitation is essential for interpretation. It also points toward possible extensions of the model, where micro-level royalty statement data, platform-side reporting, or distributor datasets could be used to disentangle domestic and export components more precisely. Such extensions, however, require access to data that are not publicly available and are therefore beyond the scope of this pilot.
 
 ### The Problem of Streaming {#sec-pilot-streaming-problem}
 
@@ -118,7 +250,9 @@ The replication strategy therefore separates method from data access. The publis
 
 CISAC-aligned data can be retrieved internally from accounting systems that follow CISAC reporting conventions. With a series of assumptions and estimates, such data can also be partially reconstructed from CISAC members’ published annual financial reports, in particular from profit and loss statements. However, in our experience, reconstructions based solely on public financial reports are necessarily crude and insufficient for detailed analysis. The essential requirement for replicating the market comparator model is therefore not access to published summaries, but the ability to organise authors’ revenue data according to standard CISAC categories, such as type of right, mode of use, and high-level revenue aggregates.
 
-For replication of the model, a limited and clearly defined set of variables is required. At minimum, these include identifiers for rights categories and uses, gross collected revenues, and, where available, net distributable amounts. In practice, net distributable revenues provide the most appropriate comparison point, as they represent the economic value available to rightsholders after collection and administrative deductions. Data should be aggregated at a level that is stable across countries, avoiding overly granular distinctions that reflect national legal or organisational particularities. For comparative purposes, consistency of categories and aggregation levels across countries is more important than completeness of detail.
+For replication of the model, a limited and clearly defined set of variables is required. At minimum, these include identifiers for rights categories and uses, gross collected revenues, and, where available, n*et distributable amounts*.
+
+In practice, *net distributable revenues provide the most appropriate comparison point*, as they represent the economic value available to rightsholders after collection and administrative deductions. Data should be aggregated at a level that is stable across countries, avoiding overly granular distinctions that reflect national legal or organisational particularities. For comparative purposes, consistency of categories and aggregation levels across countries is more important than completeness of detail.
 
 The synthetic Livonian datasets published alongside this pilot study are structured to closely resemble the expected CISAC-aligned input tables. They demonstrate the required hierarchy, naming conventions, and aggregation logic without exposing sensitive values. Users who are able to map their own CISAC-aligned data into this tabular format can directly reuse the provided computational notebooks and workflows, replacing the synthetic inputs with their own authorised data without further modification of the model.
 
@@ -126,33 +260,53 @@ The synthetic Livonian datasets published alongside this pilot study are structu
 
 IFPI-aligned data are used in the pilot study to calibrate the recording-side revenues of the music market and to provide a market-based counterpart to CISAC-aligned authors’ revenues. Public IFPI reports, including global, regional, and national publications, present recorded music revenues by format and distribution channel, such as physical sales, downloads, subscription streaming, ad-supported streaming, performance rights, and synchronisation. These data reflect revenues accruing to producers after platform shares and intermediary costs, and therefore correspond conceptually to net distributable revenues on the CISAC side.
 
-For reconciliation within the market comparator model, the key variables required from IFPI-aligned data are revenue totals by market segment and, where available, distinctions between major formats or channels. These variables allow recording-side revenues to be aligned with quantities of use derived from CAP surveys and with aggregated authors’ revenues. As with CISAC-aligned data, stability and comparability of categories across countries are prioritised over fine-grained detail.
+For reconciliation within the market comparator model, the key variables required from IFPI-aligned data *are revenue totals by market segment* and, where available, distinctions between major formats or channels. These variables allow recording-side revenues to be aligned with quantities of use derived from CAP surveys and with aggregated authors’ revenues. As with CISAC-aligned data, stability and comparability of categories across countries are prioritised over fine-grained detail.
 
 Important differences exist between national, regional, and global IFPI reporting structures. Global reports provide harmonised definitions and benchmarks, regional reports such as those for the European Union place market data in a policy and comparative context, and national reports or country annexes offer more detailed insight into local market structures. The replication strategy presented here accommodates all three levels, allowing users to rely on whichever IFPI-aligned sources are publicly available or internally accessible in their national context.
 
 ### Reconciliation Between Rights Groups {#sec-pilot-reconcile-rightsholder-groups}
 
-Reconciling authors’, performers’, and producers’ data is a necessary step when applying the market comparator model to total music value. Each group is represented through different reporting systems and institutional arrangements, and their revenues are not observed within a single, unified accounting framework. Authors’ revenues are typically reported through CISAC-aligned collective management data, while producers’ and, in part, performers’ revenues are captured through IFPI-aligned market reports or neighbouring rights organisations. The reconciliation task therefore consists of aligning these perspectives at an aggregate level, rather than attempting to replicate contractual or legal distributions in detail.
+Reconciling authors’, performers’, and producers’ data is a necessary step when applying the market comparator model to total music value. Each group is represented through different reporting systems and institutional arrangements, and their revenues are not observed within a single, unified accounting framework.
+
+Authors’ revenues are typically reported through CISAC-aligned collective management data, while producers’ and, in part, performers’ revenues are captured through IFPI-aligned market reports or neighbouring rights organisations. The reconciliation task therefore consists of aligning these perspectives at an aggregate level, rather than attempting to replicate contractual or legal distributions in detail.
 
 A central concern in this process is the avoidance of double counting. Certain uses of music generate revenues for multiple rightsholder groups from the same underlying act of consumption, most notably in digital uses such as streaming. In the pilot study, overlaps are handled by clearly separating revenue sources by reporting origin and by aggregating only once at the level of total value. Rights-based categories are first harmonised within their respective domains and then combined using a consistent aggregation logic that ensures each revenue stream enters the model a single time. Where categories overlap conceptually, they are reconciled through documented assumptions rather than through mechanical summation.
 
 Institutional differences across countries are acknowledged but not modelled in detail at this stage. The number of collecting societies, the degree of fragmentation between authors’ and neighbouring rights, and the scope of collectively managed versus individually managed rights all vary by jurisdiction. The reconciliation approach adopted here abstracts from these differences and focuses on the economic function of each revenue stream. This allows the model to remain transferable and comparable across countries, while leaving room for users to introduce country-specific refinements when authorised data and detailed institutional knowledge are available.
 
-### Using a CAP Survey
+### Using a CAP Survey {#sec-pilot-cap}
 
-- Explain mapping from CAP listening variables to use categories.
-- Describe aggregation across locations (home, work, travel).
-- Clarify limits of behavioural data for price inference.
+Cultural access and participation (CAP) surveys are used in the valuation framework to construct consistent quantity measures of music use across market and non-market contexts. The surveys applied in this project build on the ICET model recommended by the ESSNet-Culture statistical working group, which was established by Eurostat together with the national statistical offices of 15 Member States to develop harmonised approaches for measuring cultural and creative industries. The ICET model structures cultural participation into four dimensions—Information; Communication and community; Enjoyment and expression; and Transaction—and explicitly covers both market-based and non-market forms of cultural engagement [@frank_guy_essnet-culture_2012, pp 237–239]. The model has a long tradition in quantitative sociology and media research, with several decades of empirical application [@de_haan_virtuele_2008; @de_haan_nowadays_2012].
+
+The ICET-based CAP surveys were first applied by the former CEEMID project in Hungary, Slovakia, and Croatia with the explicit aim of improving the measurement of music use quantities in contexts where transactional data are incomplete or unavailable. Over multiple survey waves, these survey-based quantity estimates were cross-checked against both public and non-public transactional data sources wherever such data were available. These validation exercises indicated that self-reported listening quantities are subject to recall and reporting error, but provided no evidence of systematic directional bias across countries, use contexts, or survey waves. In aggregation, the observed errors behaved as non-systematic measurement noise rather than as structural distortion. On this basis, and in line with ESSNet-Culture recommendations, no alternative modelling framework was identified that would offer better coverage of both market and non-market music use while remaining feasible within realistic survey length and respondent burden constraints.
+
+Reprex grew out of the CEEMID project as a research and development company, and brought this methodology as a background to the OpenMusE project. Following the Open Policy Guidelines, the methodological description of the background was made available for internal and external stakeholders in 2023.[^pilot-5]
+
+[^pilot-5]: The source file on GitHub and the authoritative early copy with DOI: [@openmuse_opa_folder_market_comparators; @antal_market_comparator_2023].
+
+On this foundation, the CAP questionnaire used in OpenMusE was designed by Reprex as an operational implementation of the ICET framework, informed by experience from approximately ten national CAP surveys conducted over the past decade[^pilot-6]. The questionnaire design explicitly targets the construction of use quantities rather than the inference of prices, preferences, or welfare measures. Questions are formulated to elicit notional listening time, which can subsequently be normalised into annual listening hours and aligned with the quantity definitions used throughout the market comparator framework.
+
+[^pilot-6]: The OPA folder for this work with the source files can be found at [@openmuse_opa_folder_valuation]
+
+The recall strategy reflects an explicit recognition of the cognitive limits of self-reported listening behaviour. Music listening has become increasingly ubiquitous over the past decade as smartphones and mobile internet access have integrated music into commuting, work, and other everyday activities. This ubiquity reduces the salience of listening events and complicates recall. To mitigate this effect, the questionnaire triangulates different recall horizons, asking about listening behaviour using weekly, monthly, and annualised formulations. In addition, listening time is elicited separately for different contexts—at home, while travelling, and at work or study—not as analytically distinct locations, but as memory cues. These contextual prompts help respondents recall different devices and listening modes, such as turntables or physical media at home, radio listening in cars during travel, or streaming services used to mask background noise at work.
+
+Survey responses are mapped from listening behaviour to analytical use categories prior to aggregation. Once classified, listening time across locations is aggregated within the same use category and annualised to ensure consistency with other quantity measures in the model. This approach avoids double counting and ensures that CAP-derived quantities are directly comparable with quantities derived from transactional and administrative sources.
+
+The sample frame design follows the same error-minimisation logic. Based on earlier CAP surveys, which showed relatively stable response distributions over time, and on the well-documented decline of cultural participation with age in almost all European countries, the sampling strategy intentionally overrepresents younger cohorts at the data collection stage. Younger respondents account for a disproportionate share of music listening time, and quantity estimates are therefore particularly sensitive to sparse participation among older cohorts. Overrepresentation of younger age groups reduces total measurement error for quantity estimates once post-stratification weighting is applied to restore population representativeness. This design choice is optimal for quantity construction and is consistent with established survey methodology for behaviours that are highly age-dependent.
+
+CAP survey data are thus used exclusively on the quantity side of the valuation framework. They provide harmonised measures of music use across market and non-market contexts, but do not contain information on transaction prices, willingness to pay, or welfare effects. Prices enter the model only through observed market data or through revenue–quantity comparisons that yield implicit prices at an aggregate level. Behavioural survey data are not used to infer prices or welfare measures, and their role is limited to supporting consistent and comprehensive quantity estimation.
 
 ## Known Limitations & Assumptions {#sec-pilot-limitations}
 
-The market comparator model applied in this pilot study builds on earlier analytical practices developed by organisations such as Reprex, Artisjus, and SOZA, where similar approaches were used in contexts partly informed by competition law. In those settings, the notion of a “relevant market” was employed to operationalise the scope within which prices, quantities, and revenues could be meaningfully observed and compared. This tradition informs the present work, particularly in the way uses and revenue streams are delineated and aggregated.
+The market comparator model applied in this pilot study builds on earlier analytical practices developed by organisations such as Reprex, Artisjus, and SOZA, where similar approaches were used in contexts partly informed by competition law. In those settings, the notion of a “*relevant market*” was employed to operationalise the scope within which prices, quantities, and revenues could be meaningfully observed and compared. This tradition informs the present work, particularly in the way uses and revenue streams are delineated and aggregated.
 
 At the same time, this pilot study does not assume that this is the only possible or universally valid way to operationalise music markets. Nor do we claim that the results of this methodology, as presented here, can be directly used in competition law–based economic analysis without further assumptions, refinements, and legal interpretation. The focus of the pilot is methodological: to show how a market comparator model can be constructed and applied in a transparent and reproducible way given realistic data constraints.
 
-Nevertheless, we maintain that some well-defined and operationalised concept of the market is a necessary precondition for applying any market comparator model. A relevant market definition requires at least two dimensions: product or service homogeneity and geographical homogeneity. Without clear boundaries defining what constitutes a unit of use, a revenue stream, or a comparable segment, quantities and revenues cannot be meaningfully aligned.
+Nevertheless, we maintain that *some well-defined and operationalised concept of the market is a necessary precondition for applying any market comparator model*. A relevant market definition requires at least two dimensions: product or service homogeneity and geographical homogeneity. Without clear boundaries defining what constitutes a unit of use, a revenue stream, or a comparable segment, quantities and revenues cannot be meaningfully aligned.
 
-In music markets, both dimensions raise non-trivial issues. Royalty revenues arising from the use of recorded music and from authors’ shares in live performances are territorial in nature. As a result, it is usually reasonable to assume that meaningful comparisons can be constructed at the level of a copyright jurisdiction, which in most cases corresponds to the territory of a national polity. The product dimension is more ambiguous. It requires explicit choices about whether the analysis is limited to licensed uses of music or also includes exceptions such as private copying, and whether measured illegal use is within scope. Further boundary questions arise around the distinction between audiobooks, podcasts, and music sound recordings, which are all technically audio recordings but are subject to different rights regimes and market practices.
+In music markets, both dimensions raise non-trivial issues. Royalty revenues arising from the use of recorded music and from authors’ shares in live performances *are territorial in nature*. As a result, it is usually reasonable to assume that meaningful comparisons can be constructed at the level of a copyright jurisdiction, which in most cases corresponds to the territory of a national polity.
+
+The *product dimension is more ambiguous*. It requires explicit choices about whether the analysis is limited to licensed uses of music or also includes exceptions such as private copying, and whether measured illegal use is within scope. Further boundary questions arise around the distinction between audiobooks, podcasts, and music sound recordings, which are all technically audio recordings but are subject to different rights regimes and market practices.
 
 The assumptions adopted in this pilot study are therefore explicit and deliberately limited in scope. They are not intended to prescribe a single correct market definition, but to provide a transparent and adaptable framework that can be refined or re-specified when the model is applied in different legal, institutional, or analytical contexts.
 
@@ -174,8 +328,258 @@ In the Livonian example, a simplified split between producers’ and performers�
 
 It is important to stress that this split is a modelling parameter, not a normative or legal assumption. Different countries apply different rules, contractual practices, and institutional arrangements to the allocation of neighbouring rights revenues. Users applying the model to real data are expected to replace this simplified split with authorised and context-specific information where available.
 
+### National and Domestic Revenues
+
+Several of the limitations discussed above are not intrinsic to digital music markets, but rather reflect the aggregation level of currently available public data. In particular, national market reports typically do not distinguish between domestic and foreign streaming revenues, nor do they expose platform- or tier-specific price–quantity relationships. A separate methodological preprint explores how these limitations could be addressed using distributor-level reporting, demonstrating that it is, in principle, possible to disentangle territorial revenues and effective prices under appropriate data-access conditions. We return to the implications of this approach in the concluding @sec-conclusion.
+
 ### Country-Specific Institutional Differences {#sec-pilot-institutional-differences}
 
 Rights management structures vary significantly across countries. Differences include the number of collecting societies, the degree of separation or consolidation between authors’ and neighbouring rights, and the balance between collective and individual management. These institutional variations affect how data are produced, reported, and accessed.
 
-In this pilot study, such differences are deliberately abstracted in order to focus on the core logic of the market comparator model. The synthetic Livonian case represents a simplified but plausible institutional configuration. In practical applications, local adaptation will be required to map national data sources into the common structure used by the model. The replication strategy outlined earlier is designed to support such adaptations without altering the underlying analytical framework.
+In this pilot study, such differences are deliberately abstracted in order to focus on the core logic of the market comparator model. The synthetic Livonian case represents a simplified but plausible institutional configuration, closely resembling that of Hungary, where each institution with its own separate financial reporting clearly represents a class of rights (authors', producers' or performers' rights.) In Slovakia, SLOVGRAM represents both producer's and performer's rights, but SOZA does not represent literary author's rights that Artisjus represents.
+
+In practical applications, local adaptation will be required to map national data sources into the common structure used by the model. The replication strategy outlined earlier is designed to support such adaptations without altering the underlying analytical framework.
+
+## Data Comparisons {#sec-pilot-comparisons}
+
+This section describes how revenues, quantities, and prices are aligned within the market comparator framework. Two complementary comparison strategies are applied:
+
+-   revenue–quantity comparisons used to infer implicit (shadow) prices, and
+
+-   quantity–price comparisons used where observable prices exist.
+
+Both rely on *a common normalisation* of use to annual notional listening hours.
+
+### Conceptual Framework for Comparisons {#sec-pilot-compare-concept}
+
+At the core of the market comparator model is the identity
+
+$$
+R_{u} = Q_{u} \times P_{u}
+$$
+
+where $R_{u}$ denotes revenue associated with use category $u$, $Q_{u}$ denotes the quantity of use, and $P_{u}$ denotes the unit price. This identity is not a behavioural model but an accounting relationship that must hold by definition once the three elements are measured or inferred on a consistent basis.
+
+The usefulness of this identity in music markets lies in the fact that, for most uses of music, not all three components are observable at the same level of aggregation or from the same data source. In some cases, detailed price and quantity information exists at the level of individual rightsholders or intermediaries, but is not available in aggregated public data. In other cases, revenues are observed while quantities of use must be inferred or normalised.
+
+In *streaming markets*, unit prices are in principle observable for rightsholders. Royalty statements provided by digital distributors typically contain information on per-unit remuneration, quantities of streams, and differentiation by platform and subscription tier, such as premium, family, student, trial, or ad-supported offers. However, this granular information is not available in publicly accessible, national-level IFPI-aligned market reports. At that level, streaming revenues are reported in aggregated form by market segment, without corresponding quantities or effective prices, which necessitates inference when working with public data sources.
+
+![](png/streaming/streaming_price_regional_comparison_2025Q3_6x4.png){fig-align="center"}
+
+In *public performance*, the observability problem is reversed. For broadcasting uses, such as radio and television, quantities of use are in principle observable and often reported through playlists, cue sheets, or monitoring systems, albeit with varying degrees of completeness and accuracy. For other forms of public performance, particularly background music use in hotels, restaurants, catering establishments, retail spaces, and similar environments, actual use is rarely measured directly. Revenues are typically collected on the basis of tariffs or estimated usage profiles, meaning that quantities of use must be approximated rather than observed.
+
+As a result, t*he market comparator model does not assume that prices or quantities are inherently unobservable*, but recognises that they are not jointly observable in a consistent, aggregated form suitable for comparative analysis.
+
+The model therefore treats the identity $R_{u} = Q_{u} \times P_{u}$ as an inferential tool. Depending on the use category and data availability, either prices or quantities are inferred from observed revenues and complementary information, using explicit assumptions and documented proxies.
+
+A key distinction in the model is between observed price $P_{u}$ and *inferred, or shadow, prices* $\hat{P}_{u}$.
+
+**Observed prices** exist where users pay a directly identifiable price per unit, such as subscription fees, download prices, or physical sales prices.
+
+**Shadow prices** arise where no explicit unit price is observable and must be derived implicitly as
+
+$$
+\hat{P}_{u} = \frac{R_{u}}{Q_{u}}
+$$
+
+These shadow prices represent average remuneration per unit of use within a defined category and period. They are not tariffs, contractual rates, or marginal prices, but economic indicators that allow relative comparison across uses, markets, or territories.
+
+The scope of comparison in this pilot is the total economic value of music by use category $u$.
+
+Revenues are aggregated across authors’ rights and neighbouring rights to reflect the full value generated by music consumption, irrespective of institutional distribution. Use categories are defined to be economically meaningful and sufficiently stable across countries, such as streaming, broadcasting, public performance, mechanical reproduction, and live performance.
+
+These shadow prices represent average remuneration per unit of use within a defined category and period. They are not tariffs, contractual rates, or marginal prices, but economic indicators that allow relative comparison across uses, markets, or territories.
+
+The scope of comparison in this pilot is the total economic value of music by use category $u$. Revenues are aggregated across authors’ rights and neighbouring rights to reflect the full value generated by music consumption, irrespective of institutional distribution. Use categories are defined to be economically meaningful and sufficiently stable across countries, such as streaming, broadcasting, public performance, mechanical reproduction, and live performance.
+
+### Revenue–Quantity Comparisons (Implicit Prices) {#sec-pilot-rq-comparisons}
+
+#### Purpose and Interpretation {#sec-pilot-rq-purpose}
+
+When prices are not directly observable, implicit (shadow) prices are inferred by rearranging the market comparator equation:
+
+$$
+\hat{P}_{u} = \frac{R_{u}}{Q_{u}}
+$$
+
+This approach allows relative price levels to be compared across uses, markets, or territories, even when no explicit tariff or transaction price exists.
+
+-   When and why shadow prices $\hat{P}_{u}$ are inferred
+-   Economic interpretation of implicit prices as average value per unit of use
+-   Limits of interpretation (not contractual or normative prices)
+
+#### Revenue Inputs {#sec-pilot-rq-revenue-inputs}
+
+Revenues $R_{u}$ are constructed from multiple reporting systems and aggregated to reflect total music value.
+
+-   CISAC-aligned authors’ revenues
+-   IFPI-aligned neighbouring rights revenues
+-   Net distributable revenues as the preferred comparison basis
+-   Aggregation rules and avoidance of double counting
+
+Formally, for each use category $u$:
+
+$$
+R_{u} = R^{A}_{u} + R^{N}_{u}
+$$
+
+where $R^{A}_{u}$ denotes authors’ revenues and $R^{N}_{u}$ denotes neighbouring rights revenues.
+
+#### Quantity Inputs {#sec-pilot-rq-quantity-inputs}
+
+Quantities $Q_{u}$ are derived from CAP survey data and expressed as annual notional listening hours.
+
+-   CAP-based listening hours
+-   Mapping of CAP variables to use categories
+-   Aggregation across locations (home, work, travel)
+
+For a given use category $u$:
+
+$$
+Q_{u} = \sum_{l} H_{u,l}
+$$
+
+where $H_{u,l}$ denotes listening hours in location $l$.
+
+#### Matching Revenues to Quantities {#sec-pilot-rq-matching}
+
+-   Definition of comparable use categories $u$
+-   Handling of cross-right and mixed-use categories
+-   Treatment of residual or estimated uses
+
+The matching process ensures that each $R_{u}$ is paired with a conceptually consistent $Q_{u}$.
+
+#### Outputs {#sec-pilot-rq-outputs}
+
+-   Implicit price per listening hour $\hat{P}_{u}$
+-   Relative price indicators across uses: $\frac{\hat{P}_{u}}{\hat{P}_{v}}$
+-   Cross-country comparability considerations
+
+### Quantity–Price Comparisons (Observed Prices) {#sec-pilot-qp-comparisons}
+
+#### Purpose and Role in the Model {#sec-pilot-qp-purpose}
+
+Where prices are directly observable, the model reverses the logic and validates revenue–quantity results.
+
+-   Validation and calibration of shadow prices
+-   Complementarity with revenue–quantity comparisons
+
+#### Observable Price Sources {#sec-pilot-observable-price}
+
+Observed prices $P_{u}$ are available for a limited subset of music uses. Where such prices exist, they can be used either directly in quantity–price comparisons or indirectly as calibration and validation points for inferred (shadow) prices derived from revenue–quantity comparisons.
+
+![Subscription prices are the most visible and widely observed prices in contemporary music markets.](png/streaming/streaming_price_dispersion_eu_2025Q3_6x4.png){fig-align="center"}
+
+Subscription prices are the most visible and widely observed prices in contemporary music markets. Retail subscription fees for streaming services are publicly advertised and vary across subscription tiers, such as individual, family, student, and ad-supported plans. While these prices are not prices per unit of music use, they provide meaningful proxies for relative price differences across platforms and user segments. In this pilot study, subscription prices are treated as contextual benchmarks rather than as direct unit prices, and their analytical implications are explored further in Section @sec-conclusion.
+
+Download prices are, in principle, observable at the level of individual transactions. Retail prices for permanent downloads are publicly listed by digital stores and platforms, and, when combined with sales volume data, can be used to derive average prices per unit sold. However, download markets are increasingly fragmented and declining in importance, and publicly available aggregate statistics are often limited. As a result, download prices are treated cautiously and primarily as supplementary calibration points.
+
+Physical sales prices are observable through industry reporting in some countries. In Hungary, Mahasz publishes a long historical series of annual statistics on physical music sales, spanning more than two decades. These data include breakdowns by format and, in some cases, by repertoire categories such as local, international, or classical music. By combining revenues and unit sales, average prices per physical unit can be derived. These prices reflect one-off transactions rather than ongoing use and therefore require stock–flow normalisation when compared to annual listening quantities.
+
+Ticket prices for live performances constitute another category of observed prices. Collective management organisations routinely collect information on average ticket prices for concerts, as these figures are required to calculate authors’ and performers’ remuneration. Similar information is available for discotheques and other forms of foreground public performance, where remuneration is often linked to ticketed or attendance-based events. These prices can be aligned relatively directly with event-based quantities, although they still require aggregation to an annual basis.
+
+Platform-level pricing for streaming, in the sense of effective price per stream or per listening hour, is technically observable at the level of individual rightsholders through distributor reports. Such reports contain detailed information on quantities and revenues by platform, territory, and subscription tier. However, this level of detail is not available in aggregated national IFPI reports or other public data sources. Consequently, in this pilot study, platform-level pricing is approximated by dividing total national streaming revenues by notional listening hours derived from CAP survey data. This approach yields an average implicit price per listening hour at the country level, suitable for comparative analysis but not for platform-specific pricing assessment.
+
+Together, these observable price sources provide partial anchors for the market comparator model. They do not eliminate the need for inferred prices, but they support validation, sensitivity analysis, and interpretation of the results derived from revenue–quantity comparisons.
+
+#### Observable Quantity Sources {#sec-pilot-observable-quantity}
+
+-   Sales volumes
+-   Subscription counts
+-   Stream counts (where available)
+-   Conversion to listening hours
+
+Observed quantities $Q_{u}$ are transformed to notional hours to maintain consistency:
+
+$$
+Q_{u} = V_{u} \times \alpha_{u}
+$$
+
+where $V_{u}$ denotes observed volume and $\alpha_{u}$ is a conversion factor to listening hours.
+
+#### Price–Quantity Alignment {#sec-pilot-price-quantity-alignment}
+
+Aligning prices and quantities requires careful attention to unit consistency, temporal alignment, and the treatment of bundled or averaged pricing structures. Observed prices rarely correspond directly to the units in which quantities are measured, and both must be normalised to ensure that inferred or observed prices are economically meaningful.
+
+Prices are mapped to quantities at the level of comparable use categories. Subscription prices are aligned with aggregated listening hours associated with streaming use, download prices with listening derived from permanent acquisitions, and ticket prices with event-based listening quantities. Where prices apply to bundles of access or consumption rather than to individual units, quantities are aggregated accordingly before alignment.
+
+Unit consistency is achieved by expressing both prices and quantities in annual terms. Revenues are treated as annual flows recognised within the accounting period, and quantities are converted into annual notional listening hours. This ensures that price estimates reflect an implicit price per hour of use rather than per transaction or per access right.
+
+Temporal alignment is particularly important for stock-based uses such as physical recordings and downloads. While revenues are recognised at the time of sale, consumption may occur over multiple years. As discussed in Section @sec-pilot-key-modelling-decisions, this pilot adopts a flow normalisation approach in which annual listening hours are treated as representative of contemporaneous consumption supported by a mix of current and past purchases. This avoids the need for explicit depreciation or amortisation assumptions while maintaining internal consistency.
+
+Bundled and averaged prices are handled through aggregation. Subscription fees, background music licences, and blanket public performance tariffs apply to bundles of music use rather than to individual tracks or events. In these cases, prices are interpreted as average prices over a bundle of listening activity, and quantities are aggregated to the same level. The resulting price–quantity pairs therefore represent average economic relationships rather than marginal prices.
+
+Through these alignment steps, observable prices and quantities can be combined to derive meaningful price indicators or to validate inferred prices obtained from revenue–quantity comparisons. While the resulting prices should not be interpreted as contractual tariffs, they provide a coherent basis for comparative analysis across uses, markets, and territories.
+
+#### Outputs {#sec-pilot-qp-outputs}
+
+Implied price per listening hour:
+
+$$P^{*}_{u} = \frac{P_{u}}{\alpha_{u}}$$
+
+-   Comparison with shadow prices $\hat{P}_{u}$
+-   Sensitivity to assumptions
+
+### Stock–Flow Conversion and Annualisation {#sec-pilot-stock-flow}
+
+### Use-Specific Treatment {#sec-pilot-use-treatment}
+
+#### Streaming {#sec-pilot-use-streaming}
+
+-   Revenue and quantity alignment
+-   Subscription vs ad-supported uses
+
+#### Broadcasting (Radio and Television) {#sec-pilot-use-broadcast}
+
+-   Use measurement
+-   Revenue attribution
+
+#### Public Performance {#sec-pilot-use-public-performance}
+
+-   Background music and horeca
+-   Event-based vs estimated uses
+
+#### Mechanical Uses {#sec-pilot-use-mechanical}
+
+-   Downloads and physical sales
+-   One-off transactions and repeated consumption
+
+#### Live Performances {#sec-pilot-use-live}
+
+-   Event-based quantities
+-   Revenue timing and allocation
+
+### Mapping and Consistency Checks {#sec-pilot-mapping-checks}
+
+-   Use–revenue–quantity mapping table
+-   Identification of gaps and overlaps
+-   Internal consistency checks: $\sum_{u} R_{u} \approx R_{\text{total}}$
+
+### Limitations of Comparisons {#sec-pilot-comparison-limitations}
+
+-   Partial observability of prices
+-   Dependence on proxy measures
+-   Implications for interpretation
+
+#### Annualisation Assumptions {.unnumbered}
+
+All quantities are expressed as annual flows:
+
+$$
+Q^{\text{annual}}_{u} = \sum_{t=1}^{T} q_{u,t}
+$$
+
+-   Flow normalisation to annual listening hours
+-   Treatment of legacy consumption
+-   Rationale for avoiding explicit asset depreciation
+
+## Conclusion and Further Work {#sec-conclusion}
+
+This pilot study demonstrates how a market comparator model can be implemented using standardised, publicly available, and institutionally familiar data sources, while remaining transparent about assumptions and limitations. In doing so, it deliberately operates at a level of aggregation that reflects what is normally observable to researchers, regulators, and stakeholders. One consequence of this choice is that certain dimensions of digital music markets—most notably the territorial allocation of streaming revenues and the detailed mapping between prices and quantities—remain only partially observable within the model.
+
+Recent methodological work documented in *Microphone Check: What Platform-Level Data Could Change in Music Market Analysis* illustrates that these constraints are not purely technical [@antal_microphone_check_2025]. Using a fictitious sound recording and simulated distributor-level reporting, the study shows how platform-specific prices, subscription tiers, and territorial revenue flows can be reconstructed when more granular data are available. This approach makes it possible to separate domestic and foreign revenues, to identify effective unit prices, and to align consumption volumes more precisely with remuneration outcomes. While such analyses are not currently replicable using public market reports, they point to a feasible direction for future transparency, regulatory cooperation, and evidence-based policy design. Together with the present pilot, this work suggests a layered research agenda: robust comparative analysis using standard data today, and progressively richer market insights as data accessibility improves.
+
+## References
+
+::: {#refs}
+:::

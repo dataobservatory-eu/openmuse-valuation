@@ -36,35 +36,39 @@ The documentation is continuously updated to support the development of linked o
 
 The `bib/` folder contains all the bibliographic references used throughout the documentation. Each `.bib` file is organized by thematic areas related to administrative data, cultural data spaces, economic classification systems, and music sector metadata standards.
 
--   **bib/administrativedata.bib**: References on the usage of administrative data for economic and social measurements.
+-   `bib/administrativedata.bib`: References on the usage of administrative data for economic and social measurements.
 
--   **bib/datagovernance.bib**: Key references on data governance frameworks and practices relevant to music economy datasets.
+-   `bib/CISAC.bib`: resources related to CISAC and the ISWC system.
 
--   **bib/datamodels.bib**: Bibliography on conceptual and logical data models, including those used for registers and identifiers.
+-   `bib/datagovernance.bib`: Key references on data governance frameworks and practices relevant to music economy datasets.
 
--   **bib/dataspace.bib**: Resources focusing on the European Data Spaces initiative and related technical frameworks.
+-   `bib/datamodels.bib`: Bibliography on conceptual and logical data models, including those used for registers and identifiers.
 
--   **bib/ddi.bib**: References on the Data Documentation Initiative (DDI) standards, especially metadata for social, behavioral, and economic sciences.
+-   `bib/dataspace.bib`: Resources focusing on the European Data Spaces initiative and related technical frameworks.
 
--   **bib/eulaw.bib**: Relevant European Union legislation, directives, and regulations impacting data spaces, copyright, and cultural sectors.
+-   `bib/ddi.bib`: References on the Data Documentation Initiative (DDI) standards, especially metadata for social, behavioral, and economic sciences.
 
--   **bib/ILO.bib**: References to International Labour Organization (ILO) standards, classifications, and surveys.
+-   `bib/eulaw.bib`: Relevant European Union legislation, directives, and regulations impacting data spaces, copyright, and cultural sectors.
 
--   **bib/ifpi.bib**: References to IFPI international or national IFPI chapter data sources.
+-   `bib/ILO.bib`: References to International Labour Organization (ILO) standards, classifications, and surveys.
 
--   **bib/ISOdata.bib**: Bibliography for ISO standards relevant to music metadata, publishing, and administrative records.
+-   `bib/ifpi.bib`: References to IFPI international or national IFPI chapter data sources.
 
--   **bib/metadata.bib**: General references on metadata standards and practices across multiple domains.
+-   `bib/ISOdata.bib`: Bibliography for ISO standards relevant to music metadata, publishing, and administrative records.
 
--   **bib/OpenMusE.bib**: Publications and references specifically related to the [Open Music Europe](https://openmuse.eu/) (OpenMusE) project.
+-   `bib/metadata.bib`: General references on metadata standards and practices across multiple domains.
 
--   **bib/ontologies.bib**: Bibliography on ontologies for cultural heritage, creative industries, and linked open data.
+-   `bib/opa.bib`: bibliography on the Open Policy Analysis Guidelines.
 
--   **bib/privatelyhelddata.bib**: Literature on the governance, access, and use of privately-held data relevant to cultural economy research.
+-   `bib/OpenMusE.bib`: Publications and references specifically related to the [Open Music Europe](https://openmuse.eu/) (OpenMusE) project.
 
--   **bib/esco_nace.bib**: Bibliography concerning European Skills, Competences, Qualifications and Occupations (ESCO) and NACE economic classifications.
+-   `bib/ontologies.bib`: Bibliography on ontologies for cultural heritage, creative industries, and linked open data.
 
--   **bib/thesauri.bib**: Resources on thesauri and controlled vocabularies used for cultural data description and interoperability.
+-   `bib/privatelyhelddata.bib`: Literature on the governance, access, and use of privately-held data relevant to cultural economy research.
+
+-   `bib/esco_nace.bib`: Bibliography concerning European Skills, Competences, Qualifications and Occupations (ESCO) and NACE economic classifications.
+
+-   `bib/thesauri.bib`: Resources on thesauri and controlled vocabularies used for cultural data description and interoperability.
 
 # How to Contribute
 
