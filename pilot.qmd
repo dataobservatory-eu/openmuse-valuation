@@ -524,25 +524,37 @@ $$P^{*}_{u} = \frac{P_{u}}{\alpha_{u}}$$
 
 ### Use-Specific Treatment {#sec-pilot-use-treatment}
 
-#### Streaming {#sec-pilot-use-streaming}
 
--   Revenue and quantity alignment
--   Subscription vs ad-supported uses
 
 #### Broadcasting (Radio and Television) {#sec-pilot-use-broadcast}
 
--   Use measurement
--   Revenue attribution
+We measured the listening (enjoyment) time of recorded music using a **model survey question** entitled **“***Listening duration to recorded music by source and place (last working day)***”** ([omo:Q2044](https://reprexbase.eu/openmusic/Item:Q2044)). This item is classified in the Open Music Observatory (OMO) knowledge base as a member of the `survey question` class, which is defined as an exact semantic equivalent of `disco:Question` in the DDI-RDF Discovery Vocabulary.
 
-#### Public Performance {#sec-pilot-use-public-performance}
+The model survey question represents the abstract definition of the question, independent of any specific questionnaire, ordering, or survey instrument. Multilingual versions of the question wording were recorded using the `title` property, qualified by language tags. These title statements correspond directly to `disco:questionText`, enabling lossless export to DDI-Disco–compliant tools.
 
--   Background music and horeca
--   Event-based vs estimated uses
+The model question was then *contextualised through a set of question usage items*, corresponding to *DDI QuestionConstructs*, which represent the concrete use of the question in specific analytical contexts. These QuestionConstruct items bind the abstract model question to particular combinations of listening source and listening place, and to their placement within a questionnaire instrument.
+
+For the measurement of listening time in broadcast media, the model question was instantiated for the sources **radio** and **television**, and for the listening contexts **at home**, **while travelling**, and **at work**. In these instantiations, the same underlying question wording and measurement concept were reused, while the contextual parameters (source and place) were fixed through structured properties rather than through textual variation.
+
+For reasons of analytical clarity and feasibility, no distinction was made between different broadcast transmission technologies. In particular, *satellite broadcasting, cable retransmission, and terrestrial broadcasting of radio or television* were treated as a *single radio* and *single television* category*.* This simplification was adopted to ensure consistency across datasets and to align with the level of detail available in the underlying survey data.
+
+This modelling approach allows a clear separation between question definition and question usage, supports multilingual documentation, and ensures full interoperability with DDI-Disco, while remaining compatible with the OMO Wikibase data model and downstream statistical processing workflows.
+
 
 #### Mechanical Uses {#sec-pilot-use-mechanical}
 
 -   Downloads and physical sales
 -   One-off transactions and repeated consumption
+
+#### Streaming {#sec-pilot-use-streaming}
+
+-   Revenue and quantity alignment
+-   Subscription vs ad-supported uses
+
+#### Public Performance {#sec-pilot-use-public-performance}
+
+-   Background music and horeca
+-   Event-based vs estimated uses
 
 #### Live Performances {#sec-pilot-use-live}
 
