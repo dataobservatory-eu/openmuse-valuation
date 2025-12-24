@@ -32,6 +32,10 @@ This repository uses [Quarto](https://quarto.org/) to generate a technical book.
 
 The documentation is continuously updated to support the development of linked open datasets and practical register management tools.
 
+## Data 
+
+- `data-raw`: contains the unprocessed, and publicly reusable data
+
 ## Bibliography Files
 
 The `bib/` folder contains all the bibliographic references used throughout the documentation. Each `.bib` file is organized by thematic areas related to administrative data, cultural data spaces, economic classification systems, and music sector metadata standards.
@@ -91,11 +95,8 @@ If you are working on administrative data, cultural data spaces, or open data fo
 
 -   **Richard Demčák** (SOZA) - collective management interoperability
 
--   **Asmah Frederico** (Reprex) - data modelling and data management support
-
 -   **Anna Márta Mester** (Reprex) - data modelling and data stewardship
 
--   **Edite Punka** (Reprex) - metadata support
 
 ## License
 
