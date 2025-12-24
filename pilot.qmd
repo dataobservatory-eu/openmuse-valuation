@@ -5,29 +5,27 @@ author:
   - name: "Antal, Dániel"
     orcid: 0000-0001-7513-6760
     role: author
-  - name: "Poort, Joost"
-    orcid: 0000-0003-4611-8816
-    role: Work Package leader
     
 project:
   type: website
   output-dir: docs
 
-version: "0.1.0"
+version: "0.5.0"
 format: 
    html: 
      toc: true
      toc-depth: 3
+     output-file: pilot.html
      citation-style: chicago-author-date.csl
    epub: 
      toc: true
      toc-depth: 3
-     output-file: pilot.epub
+     output-file: pilot_v05.epub
      citation-style: chicago-author-date.csl
    docx: 
      toc-depth: 2 
      citation-style: chicago-author-date.csl
-     output-file: pilot.docx
+     output-file: pilot_v05.docx
    pdf:
     colorlinks: true
     toc: true
@@ -72,7 +70,9 @@ Following the principles of **Open Policy Analysis**, all related deliverables a
 
 **Funding acknowledgement:** This project has received funding from the European Union’s Horizon Europe programme under Grant Agreement No. [101095295](https://cordis.europa.eu/project/id/101095295). The views expressed are those of the authors only and do not necessarily reflect those of the European Commission or its agencies[^pilot-2].
 
-**Citation note:** When citing this document, please use the latest **versioned DOI** available on Zenodo (current version: [10.5281/zenodo.17999571](https://doi.org/10.5281/zenodo.17999571)), and include the date of access if referring to material hosted on our GitHub repository.[^pilot-3] This is an early 0.4.0 version.)
+**Contributors**: Joost Poort (WP Leader, supervisor), Richard Demcak (SOZA), Balázs Huszár (Artisjus), Eszter Kabai (Artisjus), Anna Márta Mester (Reprex), Tomas Miks (SOZA).
+
+**Citation note:** When citing this document, please use the latest **versioned DOI** available on Zenodo (current version: [10.5281/zenodo.17999571](https://doi.org/10.5281/zenodo.17999571)), and include the date of access if referring to material hosted on our GitHub repository.[^pilot-3] This is an early 0.5.0 version.)
 :::
 
 [^pilot-1]: The *Guidelines for Open Policy Analysis* form an actionable and practical set of directives that the OpenMusE consoritum was mandated to use under the Grant Agreement. It can be seen as good implementation framework for *Evidence-based policy making in the European Commission* and *The practice of reproducible research* [@opa_guidelines; @openmuse_2023; [@evidence_based_policy_eu_2015; @practice_of_reproducible_research_2018].
@@ -91,15 +91,33 @@ A central design goal is transferability. The model, data structures, and comput
 
 Throughout the pilot, the focus remains on the method and the model rather than on publishing results about any real country, organisation, or market. The synthetic example is used to demonstrate how authorised users, with access to their own national data, can apply the same approach to generate meaningful comparative insights within their own legal and institutional constraints.
 
+## Synthetic data construction and safeguards {#sec-pilot-synthetic}
+
+To support reproducibility while fully respecting the confidentiality obligations of participating collective management organisations, all empirical examples in this pilot are based on **synthetic datasets**.
+
+In addition to the fictional territory of Livonia, we introduce a second fictional country, **Pomerelia**, named after a historical duchy that is today fully absorbed into Poland. Neither Livonia nor Pomerelia corresponds to any contemporary state, collecting society, or institutional arrangement.
+
+The authors’ rights revenue data for both fictional countries were constructed as **linear combinations of aggregated data patterns** drawn from the 2023 and 2024 annual reports of Artisjus (Hungary) and SOZA (Slovakia), with the explicit purpose of avoiding disclosure of any real society’s data. The specific weights used in these combinations are undisclosed, and additional stochastic noise was introduced. This design ensures that the resulting datasets remain economically realistic while preventing reverse inference about the actual strengths, weaknesses, or collection structures of any real collecting society.
+
+As a result, while the synthetic Livonia datasets resemble one real society somewhat more closely and the synthetic Pomerelia datasets resemble another, the combination of undisclosed weighting and random noise makes it likely that an entirely different CISAC member society could exhibit closer similarity. Year-to-year changes between 2023 and 2024 in both fictional cases are **purely random** and do not reflect the actual collection dynamics of either Hungary or Slovakia.
+
+For readability and comparability, total authors’ revenues were normalised to approximately **€10 million per year for Livonia** and **€20 million per year for Pomerelia**. These orders of magnitude do not correspond to the actual scale of either Artisjus or SOZA. The fictional authors’ societies are therefore referred to as **LIVA** (Livonia) and **POLA** (Pomerelia).
+
+Neighbouring-rights revenues were constructed using the same synthetic approach, but with lower granularity. For valuation purposes, no confidential data were available from neighbouring-rights organisations such as MAHASZ or EJI in Hungary, or SLOVGRAM in Slovakia. We therefore created simplified but realistic revenue tables for the fictional neighbouring-rights societies **LIVPERF**, **LIVGRAM**, **POLPERF**, and **POLGRAM**, sufficient to support comparative analysis without exposing sensitive information.
+
+The aim of these hypothetical datasets is not to approximate any specific national market, but to provide a **fully reproducible, analytically valid example** that mirrors real CISAC-aligned reporting structures while respecting legal, ethical, and contractual constraints on data disclosure.
+
 ### Livonia {#sec-pilot-livonia-case}
 
-Livonia is introduced as a fictional territory used exclusively for the purpose of this pilot study. The name is derived from the historical Duchy of Livonia, a former region in the eastern Baltic area, but the contemporary territory described in this study has no real-world political, economic, or institutional counterpart. The choice of Livonia allows the construction of a realistic but non-identifiable example that avoids any implicit reference to existing countries or collecting societies.
+Livonia is introduced as a fictional territory used exclusively for the purposes of this pilot study. The name is derived from the historical *Duchy of Livonia*, a former region in the eastern Baltic area, but the contemporary entity described here has **no real-world political, economic, or institutional counterpart**.
 
-The use of a fictional territory is deliberate. It enables the creation of fully synthetic datasets that resemble real-world reporting structures while ensuring that no sensitive data can be inferred or attributed. All revenue figures, quantities, and internal distributions associated with Livonia are artificial, even where they are calibrated to resemble plausible European patterns.
+The use of a fictional territory is deliberate. It enables the construction of synthetic datasets that closely follow real-world reporting conventions—particularly CISAC-aligned structures—while ensuring that no sensitive data can be inferred, attributed, or reverse-engineered. All revenue figures, quantities, distributions, and growth patterns associated with Livonia are artificial, even where they are calibrated to resemble plausible European scenarios.
 
-Within the broader Open Music Europe project, and in particular in the Open Music Observatory and Work Package 2, the term “Livonian Music Database” is used for a database of authentic folk music, music compositions, their recordings and textual or music notation (sheet music) manifestations, and their related statistical data in connection with the the Livonians or Livs, an autochthonous ethnolinguistic group historically associated with the broader Livonian region. It also emphasises our methodological drive to create statistical indicators beyond the often too broad national level, for sub-national regions or for genres, or other market niches.
+This deliverable is supported by several datasets and a data paper; they contain a *Livonian Music Database* for the diversity-related D2.3 deliverable. This actual dataset is not synthetic, it contains recorded music data concerning vocal music in the Liv language, which is the heritage of Livs (in English, often referred to as Livonians), an autochthonous ethnolinguistic group historically associated with the eastern Baltic region. That usage reflects a separate methodological ambition: the development of statistical indicators below the national level, including for sub-national regions, minority cultures, genres, or other specific market segments.
 
-The fictional Livonia used here is not associated with the Livs, their culture, or their historical territory, and the name is employed solely as a neutral and non-identifying label for a synthetic case study.
+The fictional Livonia used in this section is **not associated** with the Livs, their culture, or their historical territory. The name is employed solely as a neutral, non-identifying label for a synthetic case study designed to illustrate methodology, not to represent any real community or institution.
+
+Similarly, the reference to a historical region of Poland, Pomerelia, only reflects our ambition to extend our Slovak and Hungarian valuation to Poland at one point; no data from Poland was used for this pilot report.
 
 ## Data Sources
 
@@ -251,13 +269,101 @@ The replication strategy therefore separates method from data access. The publis
 
 ### CISAC-Aligned Data {#sec-pilot-cisac-replication}
 
-CISAC-aligned data can be retrieved internally from accounting systems that follow CISAC reporting conventions. With a series of assumptions and estimates, such data can also be partially reconstructed from CISAC members’ published annual financial reports, in particular from profit and loss statements. However, in our experience, reconstructions based solely on public financial reports are necessarily crude and insufficient for detailed analysis. The essential requirement for replicating the market comparator model is therefore not access to published summaries, but the ability to organise authors’ revenue data according to standard CISAC categories, such as type of right, mode of use, and high-level revenue aggregates.
+### Grouping and interpretation of CISAC-aligned variables
 
-For replication of the model, a limited and clearly defined set of variables is required. At minimum, these include identifiers for rights categories and uses, gross collected revenues, and, where available, n*et distributable amounts*.
+For the purposes of replication and cross-country comparability, the individual CISAC-aligned variables listed above are not analysed in isolation, but are grouped into use-based aggregates that reflect how authors’ revenues are reported and compared within the CISAC framework. The guiding principle is that functional equivalence across countries is more important than fine-grained national distinctions.
 
-In practice, *net distributable revenues provide the most appropriate comparison point*, as they represent the economic value available to rightsholders after collection and administrative deductions. Data should be aggregated at a level that is stable across countries, avoiding overly granular distinctions that reflect national legal or organisational particularities. For comparative purposes, consistency of categories and aggregation levels across countries is more important than completeness of detail.
+#### Why CISAC alignment matters
 
-The synthetic Livonian datasets published alongside this pilot study are structured to closely resemble the expected CISAC-aligned input tables. They demonstrate the required hierarchy, naming conventions, and aggregation logic without exposing sensitive values. Users who are able to map their own CISAC-aligned data into this tabular format can directly reuse the provided computational notebooks and workflows, replacing the synthetic inputs with their own authorised data without further modification of the model.
+Alignment with CISAC reporting categories is critical because it provides one of the few internationally stable, operationally validated classification systems for music rights revenues that is already embedded in real-world accounting, distribution, and governance processes. From a policy perspective, CISAC-aligned data operationalises several of the core requirements articulated in the Copyright Infrastructure Task Force (CITF) framework: authoritative identifiers, lifecycle-aware aggregation, and auditable provenance of rights-related data.
+
+At the same time, CISAC alignment makes music data legible to cross-domain initiatives such as the EU Culture Data Hub, where comparability, transparency, and methodological consistency across Member States are prerequisites. Rather than introducing a parallel or music-specific accounting logic, CISAC alignment allows music-sector data to plug into emerging European data infrastructures using categories that are already recognised by collective management organisations, statistical offices, and policymakers, thereby reducing translation costs and governance friction.
+
+#### Radio use
+
+For authors, the economic value of radio use is represented as the sum of:
+
+-   gross performing royalty revenue from radio use (authors) (omo:Q2056), and
+-   gross mechanical royalty revenue from radio use (authors) (omo:Q2055).
+
+These two streams together capture the total value of radio exploitation accruing to authors under collective management.
+
+If the analysis is extended beyond authors to include neighbouring rights, additional estimates are required. In that case, radio use must also include:
+
+-   gross performing royalty revenue from radio use (performers), and
+-   gross performing royalty revenue from radio use (producers).
+
+Mechanical royalties do not apply to performers and producers in the context of sound recordings and are therefore excluded on the neighbouring-rights side.
+
+#### Television use
+
+Television use follows the same aggregation logic as radio. For authors, total television value is constructed by summing:
+
+-   gross performing royalty revenue from television (authors) (omo:Q2058), and
+-   gross mechanical royalty revenue from television (authors) (omo:Q2059).
+
+For analytical stability and cross-border comparability, terrestrial broadcasting, cable retransmission, satellite transmission, and web-based television are treated as a single television category. This avoids artificial fragmentation driven by national regulatory or licensing structures rather than by economic substance.
+
+Where neighbouring rights are included, the authors’ totals are complemented by:
+
+-   gross performing royalty revenue from television use (performers), and
+-   gross performing royalty revenue from television use (producers),
+
+again excluding mechanical royalties on the recording side.
+
+#### Discotheques and background music
+
+Public performance outside broadcasting is grouped into two closely related categories:
+
+-   discotheques (foreground use), and
+-   background music (shops, hospitality, public venues).
+
+For authors, these uses are covered by:
+
+-   gross performance royalties from discotheques (authors) (omo:Q2060), and
+-   gross performance royalties from background music (authors) (omo:Q2062).
+
+Live music requires a specific clarification. From a CISAC perspective, live performance royalties apply only to authors, as reflected in:
+
+-   gross performance royalties from concerts (authors) (omo:Q2061).
+
+However, the total economic value of concerts extends beyond authors’ royalties. Performers’ remuneration, technical crew costs, and live production management are typically financed from ticket revenues and are not fully reflected in CISAC-aligned accounting data. For this reason, concert values are treated asymmetrically: authors’ royalties are included directly, while neighbouring-rights income requires separate estimation if a full value-chain analysis is undertaken.
+
+#### Digital and multimedia uses
+
+Digital and multimedia uses are captured for authors through:
+
+-   gross mechanical royalty revenue from digital and multimedia uses (authors) (omo:Q2070), and
+-   gross performance royalty revenue from digital and multimedia uses (authors) (omo:Q2071).
+
+In this analysis, gross mechanical royalty revenue from digital and multimedia uses is defined consistently as the gross, pre-tax amount received by the final rightsholders—self-publishing authors or publishers—after platform and distributor deductions, but before taxation, marketing costs, or other downstream expenses.
+
+In CISAC-aligned reporting terms, this corresponds to the **net distributable amount**. This definition is chosen deliberately to ensure consistency with the treatment of neighbouring-rights revenues, where gross performer or producer income is likewise defined net of distributor and platform costs, but prior to taxation or further commercial deductions. Using this harmonised definition improves comparability across rights categories and avoids distortions caused by differences in contractual or fiscal arrangements across countries.
+
+These two revenue streams are aggregated to represent the total value of online and multimedia exploitation for authors.
+
+On the neighbouring-rights side, the aggregation logic may differ by country and licensing model. Some uses generate performer and producer revenues through collective management, while others are handled contractually. The CISAC-aligned framework therefore treats neighbouring-rights digital revenues as an extension layer that must be harmonised carefully to maintain comparability.
+
+#### Phonograms and physical or digital sales
+
+For authors, revenues from sound recordings are captured through:
+
+-   gross mechanical royalty revenue from phonograms (authors) (omo:Q2065).
+
+However, producer and performer revenues from phonograms—whether physical sales or downloads—are not collectively managed in the same way and therefore do not appear in CISAC accounting tables. To approximate the full economic value of phonogram exploitation, authors’ mechanical royalties should be combined with producer and performer revenues derived from direct sales, using external industry or statistical sources where necessary.
+
+#### Total cost of use
+
+Finally, high-level aggregates such as
+
+-   gross royalty revenue from radio use (authors) (Q2054),
+-   gross royalty revenue from television (authors) (Q2057)
+
+are used for analytical purposes within the market comparator model.
+
+In this model, these aggregates can be compared directly with observable indicators of radio or television use. From the perspective of the end user (the radio listener or television viewer), or from that of the payer of the royalty (the broadcasting organisation), the legal basis of individual royalty components is irrelevant. What matters is the total cost of lawful use.
+
+This reinforces our methodological preference for analysing total revenue streams—combining authors’, performers’, and producers’ revenues—wherever all three rights apply. In such cases, lawful exploitation is not possible without securing all required licences, regardless of how the total payment is divided across legal claims. For end users and licensees alike, it is immaterial whether the paid amount is allocated across two, three, or even five separate rights categories. The internal breakdown of revenues reflects the structure of the licensing system, not the economic reality of use. A familiar analogy can be found in cinema production, where producers typically clear a large number of underlying rights, yet cinemas and audiences encounter only a single licence fee or ticket price. The same logic applies to music: the disaggregation of total value is a matter of rights administration, while the market comparator model is concerned with the total economic value of use.
 
 ### IFPI-Aligned Data {#sec-pilot-ifpi-replication}
 
@@ -266,6 +372,13 @@ IFPI-aligned data are used in the pilot study to calibrate the recording-side re
 For reconciliation within the market comparator model, the key variables required from IFPI-aligned data *are revenue totals by market segment* and, where available, distinctions between major formats or channels. These variables allow recording-side revenues to be aligned with quantities of use derived from CAP surveys and with aggregated authors’ revenues. As with CISAC-aligned data, stability and comparability of categories across countries are prioritised over fine-grained detail.
 
 Important differences exist between national, regional, and global IFPI reporting structures. Global reports provide harmonised definitions and benchmarks, regional reports such as those for the European Union place market data in a policy and comparative context, and national reports or country annexes offer more detailed insight into local market structures. The replication strategy presented here accommodates all three levels, allowing users to rely on whichever IFPI-aligned sources are publicly available or internally accessible in their national context.
+
+| concept/variable | description |
+|----|----|
+| physical music sales revenue (retail) [omo:Q2072](https://reprexbase.eu/openmusic/Item:Q2072) | gross revenue generated from retail sales of physical music formats, such as CDs and vinyl records, within a specified territory, measured at consumer-facing retail prices; the reference period (e.g. quarterly or annual) is defined by the dataset rather than by the variable itself; a variable aligned with IFPI's global and territorial reports |
+| digital download music sales revenue (retail); [omo:Q2073](https://reprexbase.eu/openmusic/Item:Q2073) | gross revenue generated from consumer purchases of downloadable music recordings within a specified territory, measured at retail prices; includes permanent digital downloads of music tracks and albums and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset |
+| streaming music revenue (neighboring rights);  [omo:Q2074](https://reprexbase.eu/openmusic/Item:Q2074) | gross revenue generated from consumer access to music recordings via on-demand or programmed digital streaming services within a specified territory, measured at retail prices; includes subscription fees and advertising-supported streaming revenues attributable to music consumption, and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset |
+| public performance music revenue (neighboring rights) [omo:Q2075](https://reprexbase.eu/openmusic/Item:Q2075) | gross revenue generated from the public performance and communication of music in commercial and public settings, including broadcast, live venues, background music services, and other public uses, within a specified territory, measured at retail or tariff value; reflects total performance-related revenue rather than only distributions to rightsholders; the reference period (e.g. quarterly or annual) is defined by the dataset. |
 
 ### Reconciliation Between Rights Groups {#sec-pilot-reconcile-rightsholder-groups}
 
