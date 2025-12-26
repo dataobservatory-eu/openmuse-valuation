@@ -32,9 +32,25 @@ This repository uses [Quarto](https://quarto.org/) to generate a technical book.
 
 The documentation is continuously updated to support the development of linked open datasets and practical register management tools.
 
-## Data 
+## Data
 
-- `data-raw`: contains the unprocessed, and publicly reusable data
+-   `data-raw`: contains the unprocessed, and publicly reusable data
+-   `data`: contains the replication data of the pilot study
+
+## R
+
+-  `R`: contains the R source files of the pilot study.
+
+Required packages: 
+
+```
+require(here)         # platform independent file paths
+require(readxl)       # read xlsx files
+require(dplyr)        # data wrangling
+require(tidyr)
+require(knitr)        # for printing the tables
+require(kableExtra)   # for printing the tables
+```
 
 ## Bibliography Files
 
@@ -96,7 +112,6 @@ If you are working on administrative data, cultural data spaces, or open data fo
 -   **Richard Demčák** (SOZA) - collective management interoperability
 
 -   **Anna Márta Mester** (Reprex) - data modelling and data stewardship
-
 
 ## License
 
