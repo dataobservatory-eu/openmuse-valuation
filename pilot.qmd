@@ -13,7 +13,7 @@ project:
 prefer-html: true
 
 params:
-  create_new_figures: false
+  create_new_figures: yes
   fig_counter_start: 0
 
 version: "0.5.0"
@@ -197,10 +197,11 @@ small_cap_tbl <- synthetic_cap_reduced_table %>%
     booktabs = TRUE
   ) %>%
   kable_styling(
-    latex_options = c("hold_position", "scale_down"),
-    bootstrap_options = c("striped", 
-                          "hover", "condensed", 
-                           "responsive"), 
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c(
+      "striped", 
+      "hover", "condensed", 
+      "responsive"), 
     full_width = FALSE) %>%
     column_spec(c(1,3), width = "4cm") %>%
     column_spec(c(2,4), width = "2.5cm")
@@ -252,13 +253,12 @@ save_kbl_if_needed(kbl_obj = single_cap_tbl,
 
 render_kbl_or_image(kbl_obj = single_cap_tbl,
                     path = fname,
-                    figure_dir = save_dir )
-
+                    figure_dir = save_dir)
 ```
 
 The uri variable shows the machine-readable variable definition in the OMO; the long-form variable label is omitted to show a few select row's data:\
 
-```{r showselectrows, echo=FALSE, results='asis'}
+```{r showselectrows, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 tbl_no <- next_table_number()
 fname <- sprintf(
   "fig-%02d-valuation-pilot.png", tbl_no)
@@ -271,9 +271,12 @@ synthetic_revenues[c(1,2,11,12,25), ] %>%
   kbl( caption = fig_caption, 
        booktabs = TRUE) %>%
   kable_styling(
-    latex_options = "hold_position",
-    full_width = FALSE
-  )  %>%
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c(
+      "striped", 
+      "hover", "condensed", 
+      "responsive"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
                      "Pomeralia" = 2))
@@ -320,8 +323,8 @@ synthetic_cap_reduced <- synthetic_cap %>%
   mutate(source = ifelse(
     source == "ad_stream", "stream", source)
     ) %>%
-  group_by (source, country, year) %>%
-  summarise (hours = sum(hours, na.rm=TRUE))
+  group_by(source, country, year) %>%
+  summarise(hours = sum(hours, na.rm=TRUE))
 ```
 
 For loading the synthetic CISAC- and IFPI aligned revenue data:
