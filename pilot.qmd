@@ -107,7 +107,7 @@ Neighbouring-rights revenues were constructed using the same synthetic approach,
 
 The aim of these hypothetical datasets is not to approximate any specific national market, but to provide a **fully reproducible, analytically valid example** that mirrors real CISAC-aligned reporting structures while respecting legal, ethical, and contractual constraints on data disclosure.
 
-### Livonia {#sec-pilot-livonia-case}
+### Livonia and Pomerelia {#sec-pilot-livonia-case}
 
 Livonia is introduced as a fictional territory used exclusively for the purposes of this pilot study. The name is derived from the historical *Duchy of Livonia*, a former region in the eastern Baltic area, but the contemporary entity described here has **no real-world political, economic, or institutional counterpart**.
 
@@ -121,13 +121,45 @@ Similarly, the reference to a historical region of Poland, Pomerelia, only refle
 
 ## Data Sources
 
+Within the Open Music Observatory, we distinguish two subclasses of statistical concepts for revenue-related data.
+
+In the Open Music Observatory data model, these variables are treated as *statistical concepts*. Their primary source, however, consists of *administrative royalty accounting data* provided by collective management organisations (Artisjus and SOZA). As a result, the variables correspond both to statistical concepts and to accounting concepts.
+
+To avoid parallel or duplicated conceptualisations, variable definitions explicitly reference:
+
+- **IFRS** (International Financial Reporting Standards), applicable to accounting data across EU member states; and  
+- **ESA 2010** (European System of Accounts), which governs statistical variables derived from administrative and accounting data sources in the EU.
+
+CISAC-aligned data (`CISAC-aligned authors’ royalty revenue concepts`) used in this pilot study originate from authors’ royalty collections in Hungary and Slovakia. For methodological testing and illustration, we also generate synthetic data for the fictitious territories of Livonia and Pomerania.
+
+IFPI-aligned data (`IFPI-aligned recorded music revenue concepts`) describe recorded music revenues by market segment and territory, following the classifications and aggregation logic used in IFPI global and territorial reports.
+
+CISAC- and IFPI-algined data are recorded under a common valuation basis (market prices), with source-specific interpretations documented in methodological notes.
+
 ### Authors’ Revenues {#sec-pilot-authors-revenues}
 
-Authors’ revenues in this pilot study are represented using CISAC-style royalty tables, which provide a highly standardised view of how authors’ rights are collected and accounted for across Europe. These tables are organised by rights category and mode of use, such as public performance, broadcasting, digital uses, and private copying, and they distinguish between gross collections, deductions, and distributable income. The emphasis of the model is on this reporting structure rather than on the absolute levels of revenue, as the structure is what enables comparability across countries.
+Authors’ revenues in this pilot study are represented using CISAC-style royalty tables, which provide a highly standardised view of how authors’ rights are collected and accounted for across Europe. These tables are organised by rights category (reproduction and performing rights) such as radio broadcasting, digital uses. They distinguish between gross collections, deductions, and distributable income. The emphasis of the model is on this reporting structure rather than on the absolute levels of revenue, as the structure is what enables comparability across countries.
 
 Artisjus in Hungary and SOZA in Slovakia are used as structural references because their published reports follow the CISAC reporting conventions closely and illustrate the range of categories that typically appear in authors’ royalty accounting. They serve as practical examples of how CISAC-aligned data are organised, not as sources of values to be reproduced. In the pilot study, their structures inform the design of the Livonian authors’ revenue table, while the numerical values are altered and synthesised to prevent any inference about the real revenues or internal distributions of these organisations.
 
 Accordingly, the analysis focuses on how revenues are grouped, aggregated, and reconciled within the CISAC framework, rather than on the specific financial outcomes of any collecting society. This allows the market comparator model to be applied in a way that is transferable across countries, while respecting the confidentiality and sensitivity of real-world authors’ royalty data.
+
+We treat CISAC-aligned data sources as administrative data sources for statistical aggregation. 
+
+CISAC-aligned data (`CISAC-aligned authors’ royalty revenue concepts`) used in this pilot study originate from authors’ royalty collections in Hungary and Slovakia. For methodological testing and illustration, we also generate synthetic data for the fictitious territories of Livonia and Pomerania
+
+The conceptual structure applied to CISAC-aligned variables is:
+
+`CISAC-aligned authors’ royalty revenue concepts` ([omo:Q2079](https://reprexbase.eu/openmusic/Item:Q2079))\
+  ┣ `recording context`: accrual basis ([omo:Q2082](https://reprexbase.eu/openmusic/Item:Q2082))\
+  ┗ `valuation context`: market prices ([omo:Q2087](https://reprexbase.eu/openmusic/Item:Q2087))\
+
+The `recording context` (in these cases, accrual basis), and `valuation context` (in these cases, gross basis) are added with the `has measurement context` property qualified with a subclass of a `recording context`, 
+like 
+`valuation basis (SDMX)` ([omo:Q2084](https://reprexbase.eu/openmusic/Item:Q2084))
+
+An example of such variable representation is `gross mechanical royalty revenue from radio use (authors)` ([Q2055](https://reprexbase.eu/openmusic/Item:Q2055)) 
+
 
 ### Neighbouring Rights Revenues {#sec-pilot-neighbouring-revenues}
 
@@ -147,23 +179,44 @@ In Slovakia, the *Výsledky trhu 2023: Slovensko* \[Market Results 2023: Slovaki
 
 For the purposes of the Livonian example, the emphasis is on the recording-side perspective and its compatibility with the market comparator model. IFPI-style data provide observed revenues by market segment and format, which can be aligned with measured or estimated quantities of use. The pilot study therefore applies IFPI reporting logic to construct synthetic neighbouring rights revenue tables for Livonia, ensuring that they are consistent with publicly observable market structures while remaining sufficiently abstracted to avoid disclosure of sensitive or proprietary information.
 
+IFPI-aligned data (`IFPI-aligned recorded music revenue concepts`) describe recorded music revenues by market segment and territory, following the classifications and aggregation logic used in IFPI global and territorial reports.
+
+These variables are also treated as *statistical concepts*, independent of contractual or royalty-based interpretations. Their conceptual structure mirrors that used for CISAC-aligned data:
+
+`IFPI-aligned recorded music revenue concepts` ([omo:Q2077](https://reprexbase.eu/openmusic/Item:Q2077))\
+  ┣ `recording context`: accrual basis ([omo:Q2082](https://reprexbase.eu/openmusic/Item:Q2082))\
+  ┗ `valuation context`: market prices ([omo:Q2087](https://reprexbase.eu/openmusic/Item:Q2087))\
+
+A key methodological distinction between the two data families concerns the *price reference point*, which is documented at dataset level rather than encoded structurally in the data model:
+
+- IFPI-aligned data reflect retail-level values as reported in IFPI market statistics.
+- CISAC-aligned data reflect gross licensing fees collected from users (e.g. broadcasters and venues).
+
+
 ### Quantities {#sec-pilot-quantities}
 
-Quantities in the market comparator model are derived from *Cultural Access and Participation* (CAP) survey data, which are used to approximate how music is actually consumed across different contexts and channels. CAP surveys are designed to capture participation in cultural activities, including listening to music via radio, television, streaming platforms, and user-uploaded content services, as well as listening at home, at work, or while travelling. In the absence of directly observable transaction-based quantities for many music uses, these surveys provide a structured and widely accepted source of information on patterns of consumption.
+Quantities in the market comparator model are derived from *Cultural Access and Participation* (CAP) survey data. These surveys are used to approximate how recorded music is actually consumed across different contexts and channels, including radio, television, streaming platforms, user-uploaded content services, and listening at home, at work, or while travelling.
 
-In this pilot study, quantities are operationalised as nominal listening hours, which serve as proxies for use intensity. These measures are not unbiased estimates of absolute consumption levels: they are affected by recall bias, survey design, and the limits of self-reported behaviour. However, for the purposes of the market comparator model, absolute precision is not required. The model relies on relative proportions of use across channels and contexts, and there is no strong reason to believe that these proportions are systematically biased across uses within the same survey framework. As a result, nominal listening hours provide a suitable basis for allocating quantities when comparing revenues and inferring implicit or shadow prices.
+CAP surveys are designed to measure participation in cultural activities rather than to capture transaction-based usage. In many areas of music consumption, directly observable quantities are not available. In such cases, CAP surveys provide a structured, well-established, and widely accepted source of information on patterns of use.
+
+In this pilot study, quantities are operationalised as *nominal listening hours*, derived from survey responses and aggregated to annual values. These measures act as proxies for use intensity rather than as precise estimates of absolute consumption. They are subject to known limitations, including recall bias, survey design effects, and the constraints of self-reported behaviour.
+
+For the purposes of the market comparator model, absolute precision is not required. The model relies primarily on *relative proportions of use across channels and contexts*. There is no strong reason to assume that these proportions are systematically biased across uses within the same survey framework. As a result, nominal listening hours provide a suitable basis for allocating quantities when comparing revenues and inferring implicit or shadow prices.
 
 The CAP surveys used in the *Open Music Europe* project follow the methodological principles established by ESSNet-Culture, in particular the ICET model, which is recognised as best practice for measuring cultural participation in Europe. This ensures conceptual alignment with official statistics and comparability with other national and European cultural participation surveys. The questionnaires, variables, and harmonisation principles are documented in the Open Music Europe *Data Management Plan* and related methodological deliverables.
 
-Within the project, two CAP surveys were carried out and were intended to be processed through the Open Music Europe statistical software system ecosystem. For the purposes of this pilot study, however, only the raw contractor files were available, and the data are used solely for illustrative purposes. The CAP variables are therefore employed to generate synthetic Livonian quantities that mirror realistic listening patterns, without disclosing or reproducing any sensitive or project-internal data.
+Within the project, two CAP surveys were conducted and were intended to be processed through the Open Music Europe statistical software ecosystem. For the purposes of this pilot study, however, only the raw contractor files were available. The data are therefore used solely for illustrative purposes.
+
+CAP-derived variables are employed to generate *synthetic Livonian and Pomerelia quantities* that mirror realistic listening patterns, without disclosing or reproducing any sensitive or project-internal data.
+
 
 ### Synthetic Data {#sec-pilot-synthetic-data}
 
-Synthetic data are used throughout this pilot study to address confidentiality, non-disclosure obligations, and ethical constraints associated with the use of real-world royalty and market data. The underlying sources referenced in this work include internal financial reports of collective management organisations, contractor-delivered survey data, and commercially sensitive market information. None of these data can be published, redistributed, or reverse engineered in a public research output. The use of synthetic data therefore allows the analytical method to be demonstrated transparently without exposing protected information or breaching contractual or legal constraints.
+In this pilot, the Cultural Access and Participation (CAP) survey’s core enjoyment transaction—listening to music—is operationalised as notional listening hours. Individual responses are aggregated using post-stratification weights to represent the national population. The resulting values are not behavioural measurements of specific individuals, but statistically weighted population estimates suitable for macro-level comparison and modelling.
 
-The synthetic datasets used for the Livonian example are generated through randomised and non-reversible transformations applied to structurally realistic input data. These transformations preserve orders of magnitude, relative proportions, and internal accounting relationships, while deliberately breaking any stable numerical linkage to the original sources. Random multipliers, asymmetric perturbations, and selective aggregation are applied in ways that make it impossible to infer original revenues, market shares, or internal distributions of any real organisation or country.
+The synthetic CAP-derived tables express notional listening hours across five dimensions: source, situation, country, year, and hours. Listening sources include ad-supported streaming, premium streaming, downloads, physical formats, radio, television, background music, discotheques, and concerts. Situations distinguish listening at home, during travel, at work, and at events. Country coverage is limited to the synthetic territories of Livonia and Pomeralia, and the temporal scope covers the years 2023 and 2024. The hours variable represents aggregated, weighted notional listening time for each combination of dimensions.
 
-Crucially, the purpose of the synthetic data is not to approximate actual values, but to preserve the structural logic required by the market comparator model. The synthetic tables reproduce the same categories, hierarchies, and reconciliation constraints that appear in CISAC- and IFPI-aligned reporting, and they align with realistic patterns of music consumption derived from CAP survey data. This ensures that the model can be fully specified, tested, and communicated, while making clear that meaningful results can only be obtained by users who apply the method to their own authorised data.
+This breakdown reflects the operationalisation of the CAP survey developed by Reprex, drawing on experience from five national CAP surveys in Hungary, two in Slovakia, and one in Croatia. In response to increasingly ubiquitous smartphone and portable device use, the survey design emphasises listening situations (home, travel, work) and attendance-based contexts (concerts, discotheques, and other venues with background music) to improve recall accuracy and reduce respondent burden. This structure supports realistic consumption patterns while remaining compatible with synthetic data generation and downstream market-level reconciliation.
 
 ## Key Modelling Decisions {#sec-pilot-key-modelling-decisions}
 
@@ -191,7 +244,7 @@ $$
 
 Focusing on total music value has important implications for data aggregation. Revenues from different rights categories and collecting entities must be aggregated across authors’ rights and neighbouring rights, and quantities of use must be defined in a way that is consistent across these domains. Prices are then interpreted as average or shadow prices per unit of use, rather than as contractually specified tariffs for individual rights. This approach allows the model to remain agnostic about institutional detail while still producing meaningful comparative results, and it makes the framework more robust and transferable across countries with different rights management structures.
 
-### Stock–Flow Conversion and Temporal Normalisation of Use
+### Stock–Flow Conversion and Temporal Normalisation of Use  {#sec-pilot-stock-flow}
 
 A further central modelling decision concerns the conversion between stock-based and flow-based measures of music consumption and revenues. The market comparator model requires quantities and revenues to be expressed on a common temporal basis. In music markets, however, different uses generate revenues and are measured over fundamentally different time horizons, creating a stock–flow mismatch that must be addressed explicitly.
 
@@ -271,8 +324,6 @@ The replication strategy therefore separates method from data access. The publis
 
 ### CISAC-Aligned Data {#sec-pilot-cisac-replication}
 
-### Grouping and interpretation of CISAC-aligned variables
-
 For the purposes of replication and cross-country comparability, the individual CISAC-aligned variables listed above are not analysed in isolation, but are grouped into use-based aggregates that reflect how authors’ revenues are reported and compared within the CISAC framework. The guiding principle is that functional equivalence across countries is more important than fine-grained national distinctions.
 
 #### Why CISAC alignment matters
@@ -285,10 +336,13 @@ At the same time, CISAC alignment makes music data legible to cross-domain initi
 
 For authors, the economic value of radio use is represented as the sum of:
 
--   gross performing royalty revenue from radio use (authors) (omo:Q2056), and
--   gross mechanical royalty revenue from radio use (authors) (omo:Q2055).
+| concept/variable | description |
+|----|----|
+| gross performing royalty revenue from radio use (authors) [omo:Q2056](https://reprexbase.eu/openmusic/Item:Q2056) | gross revenue from performing rights royalties generated by radio broadcasting, attributable to authors |
+| gross mechanical royalty revenue from radio use (authors) [omo:Q2055](https://reprexbase.eu/openmusic/Item:Q2055) | gross revenue from mechanical rights royalties generated by radio broadcasting, attributable to authors |
+| gross royalty revenue from radio use (authors) [omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054) | gross royalty revenue generated by radio broadcasting, attributable to authors, combining mechanical and performing rights royalties |
 
-These two streams together capture the total value of radio exploitation accruing to authors under collective management.
+The performing and reproduction streams together capture the total value of radio exploitation ([omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054)) accruing to authors under collective management.
 
 If the analysis is extended beyond authors to include neighbouring rights, additional estimates are required. In that case, radio use must also include:
 
@@ -301,8 +355,11 @@ Mechanical royalties do not apply to performers and producers in the context of 
 
 Television use follows the same aggregation logic as radio. For authors, total television value is constructed by summing:
 
--   gross performing royalty revenue from television (authors) (omo:Q2058), and
--   gross mechanical royalty revenue from television (authors) (omo:Q2059).
+| concept/variable | description |
+|----|----|
+| gross performing royalty revenue from television (authors) [omo:Q2058](https://reprexbase.eu/openmusic/Item:Q2058) | gross royalty income accruing to authors from the public performance and communication to the public of their works in television services, before any deductions; this consolidated category includes royalties from terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
+| gross mechanical royalty revenue from television (authors)  [omo:Q2059](https://reprexbase.eu/openmusic/Item:Q2059) | gross royalty income accruing to authors from mechanical rights related to the reproduction and fixation of their works for television services, before any deductions; this consolidated category includes revenues arising from terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
+| gross royalty revenue from television (authors) [omo:Q2057](https://reprexbase.eu/openmusic/Item:Q2057) | total gross royalty income accruing to authors from the use of their works in television services, before any deductions, consolidation adjustments, or cost offsets; this is a consolidated revenue category covering terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
 
 For analytical stability and cross-border comparability, terrestrial broadcasting, cable retransmission, satellite transmission, and web-based television are treated as a single television category. This avoids artificial fragmentation driven by national regulatory or licensing structures rather than by economic substance.
 
@@ -315,19 +372,19 @@ again excluding mechanical royalties on the recording side.
 
 #### Discotheques and background music
 
-Public performance outside broadcasting is grouped into two closely related categories:
+Public performance outside broadcasting is grouped into two closely related categories. For authors, these uses are covered by:
 
--   discotheques (foreground use), and
--   background music (shops, hospitality, public venues).
+| concept/variable | description |
+|----|----|
+| gross performance royalties from background music (authors) [omo:Q2062](https://reprexbase.eu/openmusic/Item:Q2062) | total gross revenue from performance rights collected for authors for the use of music as background sound in public or commercial spaces, such as retail, hospitality, or workplaces, where music is not the primary focus of attention; reported before deductions |
+|  gross performance royalties from discotheques (authors)  [omo:Q2060](https://reprexbase.eu/openmusic/Item:Q2060) | total gross revenue from performance rights collected for authors for the public performance of music in discotheques and similar venues, where recorded music is the primary focus of the performance; includes nightclub, DJ-led, and dance-oriented uses before deductions, costs, or distributions |
 
-For authors, these uses are covered by:
-
--   gross performance royalties from discotheques (authors) (omo:Q2060), and
--   gross performance royalties from background music (authors) (omo:Q2062).
 
 Live music requires a specific clarification. From a CISAC perspective, live performance royalties apply only to authors, as reflected in:
 
--   gross performance royalties from concerts (authors) (omo:Q2061).
+| concept/variable | description |
+|----|----|
+| gross performance royalties from concerts (authors) [omo:Q2061](https://reprexbase.eu/openmusic/Item:Q2061) | total gross revenue from performance rights collected for authors for concert performances, where recorded music may be used but the majority of the performance is live and not pre-recorded; reported before any deductions, costs, or distributions |
 
 However, the total economic value of concerts extends beyond authors’ royalties. Performers’ remuneration, technical crew costs, and live production management are typically financed from ticket revenues and are not fully reflected in CISAC-aligned accounting data. For this reason, concert values are treated asymmetrically: authors’ royalties are included directly, while neighbouring-rights income requires separate estimation if a full value-chain analysis is undertaken.
 
@@ -335,12 +392,11 @@ However, the total economic value of concerts extends beyond authors’ royaltie
 
 Digital and multimedia uses are captured for authors through:
 
--   gross mechanical royalty revenue from digital and multimedia uses (authors) (omo:Q2070), and
--   gross performance royalty revenue from digital and multimedia uses (authors) (omo:Q2071).
-
-In this analysis, gross mechanical royalty revenue from digital and multimedia uses is defined consistently as the gross, pre-tax amount received by the final rightsholders—self-publishing authors or publishers—after platform and distributor deductions, but before taxation, marketing costs, or other downstream expenses.
-
-In CISAC-aligned reporting terms, this corresponds to the **net distributable amount**. This definition is chosen deliberately to ensure consistency with the treatment of neighbouring-rights revenues, where gross performer or producer income is likewise defined net of distributor and platform costs, but prior to taxation or further commercial deductions. Using this harmonised definition improves comparability across rights categories and avoids distortions caused by differences in contractual or fiscal arrangements across countries.
+| concept/variable | description |
+|----|----|
+| gross mechanical royalty revenue from digital and multimedia uses (authors) [omo:Q2070](https://reprexbase.eu/openmusic/Item:Q2070) | total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works |
+|  gross performance royalty revenue from digital and multimedia uses (authors) [omo:Q2071](https://reprexbase.eu/openmusic/Item:Q2071) | total gross revenue from performance rights collected for authors for digital and multimedia uses of music, including online streaming, webcasting, platform-based performances, and other digitally mediated public communication of musical works |
+|gross royalty revenue from digital and multimedia uses [Q2089](https://reprexbase.eu/openmusic/Item:Q2089) | total gross revenue from both performing and reproduction rights collected for authors for digital and multimedia uses of music, including online streaming, webcasting, platform-based performances, and other digitally mediated public communication of musical works |
 
 These two revenue streams are aggregated to represent the total value of online and multimedia exploitation for authors.
 
@@ -350,7 +406,9 @@ On the neighbouring-rights side, the aggregation logic may differ by country and
 
 For authors, revenues from sound recordings are captured through:
 
--   gross mechanical royalty revenue from phonograms (authors) (omo:Q2065).
+| concept/variable | description |
+|----|----|
+| gross mechanical royalty revenue from digital and multimedia uses (authors) [omo:Q2065](https://reprexbase.eu/openmusic/Item:Q2065) | total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works |
 
 However, producer and performer revenues from phonograms—whether physical sales or downloads—are not collectively managed in the same way and therefore do not appear in CISAC accounting tables. To approximate the full economic value of phonogram exploitation, authors’ mechanical royalties should be combined with producer and performer revenues derived from direct sales, using external industry or statistical sources where necessary.
 
@@ -358,8 +416,9 @@ However, producer and performer revenues from phonograms—whether physical sale
 
 Finally, high-level aggregates such as
 
--   gross royalty revenue from radio use (authors) (Q2054),
--   gross royalty revenue from television (authors) (Q2057)
+- gross royalty revenue from digital and multimedia uses [Q2089](https://reprexbase.eu/openmusic/Item:Q2089)
+-    gross royalty revenue from radio use (authors) [omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054) 
+-   gross royalty revenue from television (authors) [omo:Q2057](https://reprexbase.eu/openmusic/Item:Q2057)
 
 are used for analytical purposes within the market comparator model.
 
@@ -559,7 +618,7 @@ $$
 R_{u} = R^{A}_{u} + R^{N}_{u}
 $$
 
-where $R^{A}_{u}$ denotes authors’ revenues and $R^{N}_{u}$ denotes neighbouring rights revenues.
+where $R^{A}_{u}$ denotes authors’ revenues and $R^{N}_{u}$ denotes neighbouring rights revenues. The specific computations are reported in @sec-pilot-use-treatment. 
 
 #### Quantity Inputs {#sec-pilot-rq-quantity-inputs}
 
@@ -583,13 +642,16 @@ where $H_{u,l}$ denotes listening hours in location $l$.
 -   Handling of cross-right and mixed-use categories
 -   Treatment of residual or estimated uses
 
-The matching process ensures that each $R_{u}$ is paired with a conceptually consistent $Q_{u}$.
+The matching process ensures that each $R_{u}$ is paired with a conceptually consistent $Q_{u}$. The following, 
+@sec-pilot-use-treatment, explains in detail the matching process in each use category.
 
 #### Outputs {#sec-pilot-rq-outputs}
 
 -   Implicit price per listening hour $\hat{P}_{u}$
 -   Relative price indicators across uses: $\frac{\hat{P}_{u}}{\hat{P}_{v}}$
 -   Cross-country comparability considerations
+
+$$\frac{\hat{P}_{u}}{\hat{P}_{v}}$$
 
 ### Quantity–Price Comparisons (Observed Prices) {#sec-pilot-qp-comparisons}
 
@@ -633,6 +695,12 @@ $$
 
 where $V_{u}$ denotes observed volume and $\alpha_{u}$ is a conversion factor to listening hours.
 
+For example, we assume that concerts are on average 90 minutes or 1.5 hours long:
+
+$$
+Q_{l} = V_{l} \times 1.5
+$$
+
 #### Price–Quantity Alignment {#sec-pilot-price-quantity-alignment}
 
 Aligning prices and quantities requires careful attention to unit consistency, temporal alignment, and the treatment of bundled or averaged pricing structures. Observed prices rarely correspond directly to the units in which quantities are measured, and both must be normalised to ensure that inferred or observed prices are economically meaningful.
@@ -647,22 +715,24 @@ Bundled and averaged prices are handled through aggregation. Subscription fees, 
 
 Through these alignment steps, observable prices and quantities can be combined to derive meaningful price indicators or to validate inferred prices obtained from revenue–quantity comparisons. While the resulting prices should not be interpreted as contractual tariffs, they provide a coherent basis for comparative analysis across uses, markets, and territories.
 
-#### Outputs {#sec-pilot-qp-outputs}
+### Stock–Flow Conversion and Annualisation
 
-Implied price per listening hour:
 
-$$P^{*}_{u} = \frac{P_{u}}{\alpha_{u}}$$
+All quantities are expressed as annual flows:
 
--   Comparison with shadow prices $\hat{P}_{u}$
--   Sensitivity to assumptions
+$$
+Q^{\text{annual}}_{u} = \sum_{t=1}^{T} q_{u,t}
+$$
 
-### Stock–Flow Conversion and Annualisation {#sec-pilot-stock-flow}
+-   Flow normalisation to annual listening hours
+-   Treatment of legacy consumption
+-   Rationale for avoiding explicit asset depreciation
 
 ### Use-Specific Treatment {#sec-pilot-use-treatment}
 
-#### Broadcasting (Radio and Television) {#sec-pilot-use-broadcast}
+#### Radio {#sec-pilot-use-radio}
 
-We measured the listening (enjoyment) time of recorded music using a **model survey question** entitled **“***Listening duration to recorded music by source and place (last working day)***”** ([omo:Q2044](https://reprexbase.eu/openmusic/Item:Q2044)). This item is classified in the Open Music Observatory (OMO) knowledge base as a member of the `survey question` class, which is defined as an exact semantic equivalent of `disco:Question` in the DDI-RDF Discovery Vocabulary.
+We measured the listening (enjoyment) time of recorded music using a **model survey question** entitled **“Listening duration to recorded music by source and place (last working day)”** ([omo:Q2044](https://reprexbase.eu/openmusic/Item:Q2044)). This item is classified in the Open Music Observatory (OMO) knowledge base as a member of the `survey question` class, which is defined as an exact semantic equivalent of `disco:Question` in the DDI-RDF Discovery Vocabulary.
 
 The model survey question represents the abstract definition of the question, independent of any specific questionnaire, ordering, or survey instrument. Multilingual versions of the question wording were recorded using the `title` property, qualified by language tags. These title statements correspond directly to `disco:questionText`, enabling lossless export to DDI-Disco–compliant tools.
 
@@ -670,29 +740,136 @@ The model question was then *contextualised through a set of question usage item
 
 For the measurement of listening time in broadcast media, the model question was instantiated for the sources **radio** and **television**, and for the listening contexts **at home**, **while travelling**, and **at work**. In these instantiations, the same underlying question wording and measurement concept were reused, while the contextual parameters (source and place) were fixed through structured properties rather than through textual variation.
 
-For reasons of analytical clarity and feasibility, no distinction was made between different broadcast transmission technologies. In particular, *satellite broadcasting, cable retransmission, and terrestrial broadcasting of radio or television* were treated as a *single radio* and *single television* category. This simplification was adopted to ensure consistency across datasets and to align with the level of detail available in the underlying survey data.
+$$
+R_{r} = R^{A}_{r} + R^{N}_{r}
+$$
+If we do not have directly neighboring rights radio revenues, then we use the simplified formula for the total radio use revenue as 
+
+$$
+R^{T}_{r} = R^{A}_{r}  \times \beta_{perf}
+$$
+where  $\beta_{perf}$ is the multiplier for increasing the revenue with comparable neighboring rights data.
+
+$$
+\hat{P}_{r} = \frac{R^{T}_{r}}{Q_{r}}
+$$
+
+
+#### Television {#sec-pilot-use-tv}
+
+
+$$
+Q_{r} = Q^{home}_{r} + Q^{travel}_{r} + Q^{work}_{r}
+$$
+
+For reasons of analytical clarity and feasibility, no distinction was made between different broadcast transmission technologies. 
+
+In particular, *satellite broadcasting, cable retransmission, and terrestrial broadcasting of radio or television* were treated as a *single radio* and *single television* category. This simplification was adopted to ensure consistency across datasets and to align with the level of detail available in the underlying survey data.
+
+$$
+R^{A}_{tv} = R^{terr}_{tv} + R^{cable}_{tv} +  R^{sat}_{tv} + R^{net}_{tv}
+$$
+
+
+And the total television revenue is:
+
+$$
+R^{T}_{tv} = R^{A}_{tv}  \times \beta_{perf}
+$$
+
+where  $\beta_{perf}$ is the multiplier for increasing the revenue with comparable neighboring rights data.
 
 This modelling approach allows a clear separation between question definition and question usage, supports multilingual documentation, and ensures full interoperability with DDI-Disco, while remaining compatible with the OMO Wikibase data model and downstream statistical processing workflows.
 
-#### Mechanical Uses {#sec-pilot-use-mechanical}
 
--   Downloads and physical sales
--   One-off transactions and repeated consumption
+$$
+\hat{P}_{tv} = \frac{R^{T}_{tv}}{Q_{tv}}
+$$
+
+#### Physical and digital records {#sec-pilot-use-mechanical}
+
+In IFPI-aligned data, we find downloads and physical sales separately; in CISAC-aligned data, we find phonograph-related revenues in a separate line. As we explained in @sec-pilot-stock-flow, these royalties are lump-sum, one time royalties. For business buyers, for example, radios or libraries, they are expensed in the year of the purchase. Private buyers may use their physical products for a long time, and for simplicity, we assume that they keep renewing their home collection every year. With this assumption we can compare the CAP year use with the same year's phonogram uses.
+
+$$
+R^{T}_{ph} = R^{A}_{ph}  + R^{N}_{physical} + R^{N}_{download}
+$$
 
 #### Streaming {#sec-pilot-use-streaming}
 
--   Revenue and quantity alignment
--   Subscription vs ad-supported uses
+Some IFPI members report separately ad-supported and premium (subscription) revenue from streaming. We do not have this separation in the CISAC-aligned data, therefore we add all streaming revenue data in the CAP surveys for quantities, and in the revenue data tables together into streaming aggregates.
+
+$$
+Q_{s} = Q^{premium}_{s} + Q^{ad}_{s}
+$$
+
+The other difference is that both CISAC-aligned data and IFPI-aligned data has special multimedia or digital uses, for example, "ringtones", which are less and less used. In CISAC aligned data, they tend to be grouped with streaming, the major "digital" income; in IFPI-aligned data it may appear in "other". In the actual datasets we reviewed these elements were immaterial, so we can claim that in CISAC-aligned data streaming revenues are the bulk of the "digital and multimedia" revenues, even if they are not available as a separate line. In IFPI-aligned data, we find this information under the "streaming category".
+
+$$
+R^{T}_{s} = R^{A}_{s}  + R^{N}_{s} 
+$$
+The implicit price of streaming per hours: 
+
+$$
+\hat{P}_{s} = \frac{R^{T}_{s}}{Q_{s}}
+$$
+
+
 
 #### Public Performance {#sec-pilot-use-public-performance}
 
--   Background music and horeca
--   Event-based vs estimated uses
+In IFPI-aligned data, we do not have separate information about the breakup of public performance revenues. In Europe, in most countries, certain revenues are collected in one-stop-shop agreements with author's societies, and in some cases, knowing the revenues for one right we can infer the revenue of the other rights with a fixed ratio. This could apply to Hungary, for example, but certainly not to Slovakia.
+
+For simplicity, we assume that the neighboring rights revenues are identically distributed among public performance classes as with authors. For example, if radio takes 10% of the total public performance revenues, then we also allocate 10% of the neighboring rights revenue to radios. We, however, must make an exception with concerts: performers are directly remunerated on the stage, and only the composer's share is collected separately.
+
+Therefore, we calculate the sum of radio, television, digital, foreground and background music revenues from CISAC aligned data, and increase their value with the IFPI-aligned data.
+
+$$
+\beta_{perf} = \frac{\sum{R}^{A}_{r+tv+d+b}+ R^{N}}{\sum{R^{A}}_{r+tv+d+b}}
+$$
+
+where $\beta_{perf}$ is the multiplier that we will use to increase the CISAC-aligned revenue categories.
 
 #### Live Performances {#sec-pilot-use-live}
 
--   Event-based quantities
--   Revenue timing and allocation
+Concerts are remunerated in two ways: the performers are directly paid, and the composer's share is collected by authors' societies. For the value of concert listening hours, we add the average ticket price for every 90 minutes of the event number.
+
+$$
+Q_{l} = V^{event}_{l} \times  1.5
+$$
+$$
+R_{l} = V^{event}_{l} \times  P^{ticket} + R^{A}_{l}
+$$
+
+$$
+\hat{P}_{l} = \frac{R^{T}_{l}}{ V^{event}_{l} \times  1.5}
+$$
+
+#### Discotheques and background music
+
+In the CISAC-aligned data, the public performance fees related to these events are separately reported. In the IFPI-aligned data, in the public releases this information is not available, but internally it may be present. Furthermore, discotheques often ticket for entry.
+
+$$
+R_{d} = V^{event}_{d} \times  P^{ticket}_{d} + R^{A}_{d} \times \beta_{perf}
+$$
+
+$$
+R_{b} = R^{A}_{b} \times \beta_{perf}
+$$
+$$
+\hat{P}_{d} = \frac{R^{T}_{d}}{ V^{event}_{d} \times  1.5}
+$$
+$$
+\hat{P}_{b} = \frac{R^{T}_{b}}{ V^{event}_{b} \times  1.5}
+$$
+
+### Outputs {#sec-pilot-qp-outputs}
+
+Implied price per listening hour:
+
+$$P^{*}_{u} = \frac{P_{u}}{\alpha_{u}}$$
+
+-   Comparison with shadow prices $\hat{P}_{u}$
+-   Sensitivity to assumptions
 
 ### Mapping and Consistency Checks {#sec-pilot-mapping-checks}
 
@@ -706,17 +883,6 @@ This modelling approach allows a clear separation between question definition an
 -   Dependence on proxy measures
 -   Implications for interpretation
 
-#### Annualisation Assumptions {.unnumbered}
-
-All quantities are expressed as annual flows:
-
-$$
-Q^{\text{annual}}_{u} = \sum_{t=1}^{T} q_{u,t}
-$$
-
--   Flow normalisation to annual listening hours
--   Treatment of legacy consumption
--   Rationale for avoiding explicit asset depreciation
 
 ## Conclusion and Further Work {#sec-conclusion}
 
