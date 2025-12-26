@@ -10,6 +10,12 @@ project:
   type: website
   output-dir: docs
 
+prefer-html: true
+
+params:
+  create_new_figures: false
+  fig_counter_start: 0
+
 version: "0.5.0"
 format: 
    html: 
@@ -22,17 +28,24 @@ format:
      toc-depth: 3
      output-file: pilot_v05.epub
      citation-style: chicago-author-date.csl
+     lof: true
    docx: 
      toc-depth: 2 
      citation-style: chicago-author-date.csl
      output-file: pilot_v05.docx
+     lof: true
    pdf:
     colorlinks: true
     toc: true
     toc-depth: 3
     output-file: pilot.pdf
-    latex: 
-       - lof: true
+    lof: true
+    lot: true
+    fig-pos: 'H'
+    tbl-pos: 'H'
+    include-in-header:
+      text: |
+        \usepackage{float}
        
 papersize: A4
 
@@ -75,7 +88,7 @@ Following the principles of **Open Policy Analysis**, all related deliverables a
 **Citation note:** When citing this document, please use the latest **versioned DOI** available on Zenodo (current version: [10.5281/zenodo.17999571](https://doi.org/10.5281/zenodo.17999571)), and include the date of access if referring to material hosted on our GitHub repository.[^pilot-3] This is an early 0.5.0 version.)
 :::
 
-[^pilot-1]: The *Guidelines for Open Policy Analysis* form an actionable and practical set of directives that the OpenMusE consoritum was mandated to use under the Grant Agreement. It can be seen as good implementation framework for *Evidence-based policy making in the European Commission* and *The practice of reproducible research* [@opa_guidelines; @openmuse_2023; [@evidence_based_policy_eu_2015; @practice_of_reproducible_research_2018].
+[^pilot-1]: The *Guidelines for Open Policy Analysis* form an actionable and practical set of directives that the OpenMusE consoritum was mandated to use under the Grant Agreement. It can be seen as good implementation framework for *Evidence-based policy making in the European Commission* and *The practice of reproducible research* [@opa_guidelines; @openmuse_2023; @evidence_based_policy_eu_2015; @practice_of_reproducible_research_2018].
 
 [^pilot-2]: This document has been prepared by *Open Music Europe* (OpenMusE) project partners as an account of work carried out within the framework of this contract. Any dissemination of results must indicate that it reflects only the author’s view and that the Commission Agency is not responsible for any use that may be made of the information it contains. Neither Project Coordinator, nor any signatory party of *Open Music Europe (OpenMusE) Project Consortium Agreement*, nor any person acting on behalf of any of them:\
     (a) makes any warranty or representation whatsoever, express or implied, (i) with respect to the use of any information, apparatus, method, process, or similar item disclosed in this document, including merchantability and fitness for a particular purpose, or (ii) that such use does not infringe on or interfere with privately owned rights, including any party's intellectual property, or (iii) that this document is suitable to any particular user's circumstance; or\
@@ -119,8 +132,8 @@ The fictional Livonia used in this section is **not associated** with the Livs, 
 
 Similarly, the reference to a historical region of Poland, Pomerelia, only reflects our ambition to extend our Slovak and Hungarian valuation to Poland at one point; no data from Poland was used for this pilot report.
 
-
-```{r setup, message=FALSE, warning=FALSE}
+```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+library(webshot2) # only for Word output
 require(dplyr)
 require(readxl)
 require(here)
@@ -128,8 +141,29 @@ require(tidyr)
 require(knitr)
 require(kableExtra)
 
+set_output_format <- function() {
+  if (knitr::is_latex_output()) "latex"       # PDF
+  else if (knitr::is_html_output()) "html"    # HTML
+  else "other"
+}
+
+fig_counter <- 0
+
+next_table_number <- function() {
+  fig_counter <<- fig_counter + 1L
+  fig_counter
+}
+
+create_new_figures <- isTRUE(params$create_new_figures)
+save_dir <- here::here("png", "saved_figures")
+
+source(here::here("R", "render_kbl_or_image.R"))
+source(here::here("R", "save_kbl_if_needed.R"))
+
+output_format <- set_output_format()
+
 synthetic_cap <- readxl::read_excel(
-  here::here("data", "synthetic_cap.xlsx"))
+  here::here("data", "synthetic_cap.xlsx")) 
 
 synthetic_cap_reduced <- synthetic_cap %>%
   mutate(source = ifelse(
@@ -139,41 +173,163 @@ synthetic_cap_reduced <- synthetic_cap %>%
   
 ```
 
+{{< pagebreak >}}
+
+#### CAP data example {.unnumbered}
+
 ```{r showcap, message=FALSE, echo=FALSE, results='asis'}
 require(knitr)
 require(kableExtra)
-synthetic_cap_reduced[c(1,2,11,12,25), ] %>%
-  kbl() %>%
-  kable_styling()
+
+synthetic_cap_reduced_table <- synthetic_cap_reduced[
+  c(1,2,11,12,25), ] %>%
+  dplyr::ungroup()
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+
+
+small_cap_tbl <- synthetic_cap_reduced_table %>%
+  kbl(
+    caption = paste0("Table ", tbl_no, 
+                     ". Small CAP Data Snippet"),
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"),
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                           "responsive"), 
+    full_width = FALSE) %>%
+    column_spec(c(1,3), width = "4cm") %>%
+    column_spec(c(2,4), width = "2.5cm")
+
+save_kbl_if_needed(kbl_obj = small_cap_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = small_cap_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
-```{r syntrev, message=FALSE, warning=FALSE}
+```{r syntrev, message=FALSE, warning=FALSE, echo=FALSE}
 synthetic_revenues <- readxl::read_excel(
   here::here("data", "synthetic_revenues_26.xlsx"))
+
 ```
 
-Each row contains the following information:
+#### Single row example {.unnumbered}
 
-```{r showsinglerevenuerow, message=FALSE, warning=FALSE, results='asis'}
+Each row contains the following information:\
+
+```{r showsinglerevenuerow, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Example of CAP variable representation in the synthetic data cube", tbl_no)
 single_row <- synthetic_revenues[1, ] %>%
   mutate_all(as.character)
 
-single_row %>%
+single_cap_tbl <- single_row %>%
   tidyr::pivot_longer(-any_of("variable_name")) %>% 
-  kbl() %>%
-  kable_styling()
+  kbl(
+     caption = fig_caption, 
+     booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"),
+     bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                           "responsive"),
+    full_width = FALSE)
+
+save_kbl_if_needed(kbl_obj = single_cap_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = single_cap_tbl,
+                    path = fname,
+                    figure_dir = save_dir )
+
 ```
 
-The uri variable shows the machine-readable variable definition in the OMO; the long-form variable label is omitted to show a few select row's data:
+The uri variable shows the machine-readable variable definition in the OMO; the long-form variable label is omitted to show a few select row's data:\
 
 ```{r showselectrows, echo=FALSE, results='asis'}
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Select rows in synthetic authors' revenue table", tbl_no)
+
+synth_revenues_table <- 
 synthetic_revenues[c(1,2,11,12,25), ] %>%
   select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+  kbl( caption = fig_caption, 
+       booktabs = TRUE) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )  %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
                      "Pomeralia" = 2))
+
+save_kbl_if_needed(kbl_obj = synth_revenues_table,
+                    path = fname,
+                    figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = synth_revenues_table,
+                    path = fname,
+                    figure_dir = save_dir)
+```
+
+{{< pagebreak >}}
+
+### Using this deliverable as a computational notebook
+
+The following R packages need to installed next to the R statistical environment and language:
+
+```{r requirements, eval=FALSE}
+require(dplyr)
+require(readxl)
+require(here)
+require(tidyr)
+require(knitr)
+require(kableExtra)
+```
+
+The `here` package is used to establish the root folder of your working repository. Provided that you forded our OPA-compliant GitHub repository, you will find the synthetic data assets in its `data` subfolder that you access on your computer, regardless if you use a Unix, Mac or Windows system with `here()` that will construct a relative path according to the syntax of our operational system.
+
+For loading the synthetic CAP survey data:
+
+```{r loadcapdata, eval=FALSE}
+synthetic_cap <- readxl::read_excel(
+  here::here("data", "synthetic_cap.xlsx"))
+
+# ------------------------------------------
+# We do not need separate ad-supported and |
+# premium stream data so we collapse them  |
+# into a single category                   |
+# ------------------------------------------
+
+synthetic_cap_reduced <- synthetic_cap %>%
+  mutate(source = ifelse(
+    source == "ad_stream", "stream", source)
+    ) %>%
+  group_by (source, country, year) %>%
+  summarise (hours = sum(hours, na.rm=TRUE))
+```
+
+For loading the synthetic CISAC- and IFPI aligned revenue data:
+
+```{r loadrevenuedata, eval=FALSE}
+synthetic_revenues <- readxl::read_excel(
+  here::here("data", "synthetic_revenues_26.xlsx")
+  )
 ```
 
 ## Data Sources
@@ -184,8 +340,8 @@ In the Open Music Observatory data model, these variables are treated as *statis
 
 To avoid parallel or duplicated conceptualisations, variable definitions explicitly reference:
 
-- **IFRS** (International Financial Reporting Standards), applicable to accounting data across EU member states; and  
-- **ESA 2010** (European System of Accounts), which governs statistical variables derived from administrative and accounting data sources in the EU.
+-   **IFRS** (International Financial Reporting Standards), applicable to accounting data across EU member states; and\
+-   **ESA 2010** (European System of Accounts), which governs statistical variables derived from administrative and accounting data sources in the EU.
 
 CISAC-aligned data (`CISAC-aligned authors’ royalty revenue concepts`) used in this pilot study originate from authors’ royalty collections in Hungary and Slovakia. For methodological testing and illustration, we also generate synthetic data for the fictitious territories of Livonia and Pomerania.
 
@@ -201,22 +357,19 @@ Artisjus in Hungary and SOZA in Slovakia are used as structural references becau
 
 Accordingly, the analysis focuses on how revenues are grouped, aggregated, and reconciled within the CISAC framework, rather than on the specific financial outcomes of any collecting society. This allows the market comparator model to be applied in a way that is transferable across countries, while respecting the confidentiality and sensitivity of real-world authors’ royalty data.
 
-We treat CISAC-aligned data sources as administrative data sources for statistical aggregation. 
+We treat CISAC-aligned data sources as administrative data sources for statistical aggregation.
 
 CISAC-aligned data (`CISAC-aligned authors’ royalty revenue concepts`) used in this pilot study originate from authors’ royalty collections in Hungary and Slovakia. For methodological testing and illustration, we also generate synthetic data for the fictitious territories of Livonia and Pomerania
 
 The conceptual structure applied to CISAC-aligned variables is:
 
 `CISAC-aligned authors’ royalty revenue concepts` ([omo:Q2079](https://reprexbase.eu/openmusic/Item:Q2079))\
-  ┣ `recording context`: accrual basis ([omo:Q2082](https://reprexbase.eu/openmusic/Item:Q2082))\
-  ┗ `valuation context`: market prices ([omo:Q2087](https://reprexbase.eu/openmusic/Item:Q2087))\
+┣ `recording context`: accrual basis ([omo:Q2082](https://reprexbase.eu/openmusic/Item:Q2082))\
+┗ `valuation context`: market prices ([omo:Q2087](https://reprexbase.eu/openmusic/Item:Q2087))\
 
-The `recording context` (in these cases, accrual basis), and `valuation context` (in these cases, gross basis) are added with the `has measurement context` property qualified with a subclass of a `recording context`, 
-like 
-`valuation basis (SDMX)` ([omo:Q2084](https://reprexbase.eu/openmusic/Item:Q2084))
+The `recording context` (in these cases, accrual basis), and `valuation context` (in these cases, gross basis) are added with the `has measurement context` property qualified with a subclass of a `recording context`, like `valuation basis (SDMX)` ([omo:Q2084](https://reprexbase.eu/openmusic/Item:Q2084))
 
-An example of such variable representation is `gross mechanical royalty revenue from radio use (authors)` ([Q2055](https://reprexbase.eu/openmusic/Item:Q2055)) 
-
+An example of such variable representation is `gross mechanical royalty revenue from radio use (authors)` ([Q2055](https://reprexbase.eu/openmusic/Item:Q2055))
 
 ### Neighbouring Rights Revenues {#sec-pilot-neighbouring-revenues}
 
@@ -241,14 +394,13 @@ IFPI-aligned data (`IFPI-aligned recorded music revenue concepts`) describe reco
 These variables are also treated as *statistical concepts*, independent of contractual or royalty-based interpretations. Their conceptual structure mirrors that used for CISAC-aligned data:
 
 `IFPI-aligned recorded music revenue concepts` ([omo:Q2077](https://reprexbase.eu/openmusic/Item:Q2077))\
-  ┣ `recording context`: accrual basis ([omo:Q2082](https://reprexbase.eu/openmusic/Item:Q2082))\
-  ┗ `valuation context`: market prices ([omo:Q2087](https://reprexbase.eu/openmusic/Item:Q2087))\
+┣ `recording context`: accrual basis ([omo:Q2082](https://reprexbase.eu/openmusic/Item:Q2082))\
+┗ `valuation context`: market prices ([omo:Q2087](https://reprexbase.eu/openmusic/Item:Q2087))\
 
 A key methodological distinction between the two data families concerns the *price reference point*, which is documented at dataset level rather than encoded structurally in the data model:
 
-- IFPI-aligned data reflect retail-level values as reported in IFPI market statistics.
-- CISAC-aligned data reflect gross licensing fees collected from users (e.g. broadcasters and venues).
-
+-   IFPI-aligned data reflect retail-level values as reported in IFPI market statistics.
+-   CISAC-aligned data reflect gross licensing fees collected from users (e.g. broadcasters and venues).
 
 ### Quantities {#sec-pilot-quantities}
 
@@ -265,7 +417,6 @@ The CAP surveys used in the *Open Music Europe* project follow the methodologica
 Within the project, two CAP surveys were conducted and were intended to be processed through the Open Music Europe statistical software ecosystem. For the purposes of this pilot study, however, only the raw contractor files were available. The data are therefore used solely for illustrative purposes.
 
 CAP-derived variables are employed to generate *synthetic Livonian and Pomerelia quantities* that mirror realistic listening patterns, without disclosing or reproducing any sensitive or project-internal data.
-
 
 ### Synthetic Data {#sec-pilot-synthetic-data}
 
@@ -287,11 +438,11 @@ The modelling framework was developed within the CEEMID cooperation among Hungar
 
 The recognised fair valuation principles stipulate that the "most applicable method" must be used in valuations, which almost always leaves out in copyright valuations the (historical) "cost approach" and leaves open the use of the "income approach" and the "market approach". The cost- and income approaches are fundamental valuation techniques and could be used to reset valuations or prices fully.
 
-The *cost approach* is inapplicable because the rightsholders are natural people who do not account for their working time, i.e., the time when they are composing music. 
+The *cost approach* is inapplicable because the rightsholders are natural people who do not account for their working time, i.e., the time when they are composing music.
 
 The *income approach* compares the royalty flows of a work of its recording by using an appropriate "discount rate." The income approach is often impractical when we have irregular or annual payments. With annual payments, the valuation's timeframe would be too long. Calculating an appropriate discounting rate would also be practically impossible for many uses. This approach is more suitable for analysis within a rightholder organisation, such as a music publisher or record label that has long-term, consistent and frequent income data.
 
-The *market approach* tries to identify a payment rate, regardless of if it is made in a lump sum, monthly or annually established, based on sufficiently similar uses. As often seen in various jurisdictions from the EU to Canada or the United States, the market approach is often used in copyright tribunals and other contexts, because the other two approaches are lacking reliable data inputs. It is often used for comparing valuations, or estimating acceptable prices or royalty rates when it can be assumed that at least some of the prices are correct on the market. 
+The *market approach* tries to identify a payment rate, regardless of if it is made in a lump sum, monthly or annually established, based on sufficiently similar uses. As often seen in various jurisdictions from the EU to Canada or the United States, the market approach is often used in copyright tribunals and other contexts, because the other two approaches are lacking reliable data inputs. It is often used for comparing valuations, or estimating acceptable prices or royalty rates when it can be assumed that at least some of the prices are correct on the market.
 
 The market comparator model presented here, unlike the cost or income approaches, is not a fundamental valuation method, and many modelling decisions, and usability limitations (see @sec-pilot-limitations) must be considered in use.
 
@@ -300,18 +451,23 @@ The market comparator model presented here, unlike the cost or income approaches
 A central modelling decision in this pilot study is to focus on the total value of music, rather than on rightsholder-specific values for authors, performers, or producers. The primary objective of the market comparator model is to relate observed or estimated quantities of use to observed revenues in order to infer implicit prices. From this perspective, the economically relevant object is the total value generated by music consumption, irrespective of how that value is subsequently distributed among different categories of rightsholders.
 
 There is no *a priori* correct or universal split of music value between authors, performers, and producers. The division of revenues reflects legal frameworks, collective bargaining outcomes, contractual practices, and historical institutional arrangements, all of which vary across countries and over time. Even within the European Union, where copyright law is partially harmonised, neighbouring rights and collective management practices differ substantially between jurisdictions. Treating any particular split as normative would therefore introduce assumptions that are external to the market comparator model and not supported by observable market behaviour.
+<!-- -->
 
 $$
 R_{u} = R^{A}_{u} + R^{PF}_{u} + R^{PD}_{u}
-$$ where $R^{A}_{u}$ denote's the author's, $R^{PF}_{u}$ the performers' and $R^{PD}_{u}$ the producer's revenue, the last two taken together as $R^{N}_{u}$ neighbouring rights revenue.
+$$ 
+<!-- -->
+where $R^{A}_{u}$ denote's the author's, $R^{PF}_{u}$ the performers' and $R^{PD}_{u}$ the producer's revenue, the last two taken together as $R^{N}_{u}$ neighbouring rights revenue.
+<!-- -->
 
 $$
 R^{N}_{u} = R^{PF}_{u} + R^{PD}_{u}
 $$
-
+&#8203;
+<!-- -->
 Focusing on total music value has important implications for data aggregation. Revenues from different rights categories and collecting entities must be aggregated across authors’ rights and neighbouring rights, and quantities of use must be defined in a way that is consistent across these domains. Prices are then interpreted as average or shadow prices per unit of use, rather than as contractually specified tariffs for individual rights. This approach allows the model to remain agnostic about institutional detail while still producing meaningful comparative results, and it makes the framework more robust and transferable across countries with different rights management structures.
 
-### Stock–Flow Conversion and Temporal Normalisation of Use  {#sec-pilot-stock-flow}
+### Stock–Flow Conversion and Temporal Normalisation of Use {#sec-pilot-stock-flow}
 
 A further central modelling decision concerns the conversion between stock-based and flow-based measures of music consumption and revenues. The market comparator model requires quantities and revenues to be expressed on a common temporal basis. In music markets, however, different uses generate revenues and are measured over fundamentally different time horizons, creating a stock–flow mismatch that must be addressed explicitly.
 
@@ -345,7 +501,7 @@ By making these assumptions explicit, the pilot study positions the model as a t
 
 ### Copyright and Neighbouring Rights Conventions {#sec-pilot-segment-conventions}
 
-A key modelling challenge arises from the fact that authors’ rights and neighbouring rights are reported using different conceptual and accounting frameworks. *CISAC-aligned data are organised around legal rights and modes of use, such as public performance, broadcasting, mechanical reproduction, and private copyin*g. This rights-based logic reflects how collective management organisations account for and distribute royalties to authors and publishers.
+A key modelling challenge arises from the fact that authors’ rights and neighbouring rights are reported using different conceptual and accounting frameworks. *CISAC-aligned data are organised around legal rights and modes of use, such as public performance, broadcasting, mechanical reproduction, and private copying*. This rights-based logic reflects how collective management organisations account for and distribute royalties to authors and publishers.
 
 In contrast, *IFPI-aligned data adopt a market-based perspective, structuring revenues by product format and channel*, such as physical sales, downloads, subscription streaming, ad-supported streaming, performance rights, and synchronisation. These two reporting logics are internally consistent but not directly comparable without further reconciliation.
 
@@ -403,26 +559,97 @@ At the same time, CISAC alignment makes music data legible to cross-domain initi
 
 For authors, the economic value of radio use is represented as the sum of:
 
-| concept/variable | description |
-|----|----|
-| gross performing royalty revenue from radio use (authors) [omo:Q2056](https://reprexbase.eu/openmusic/Item:Q2056) | gross revenue from performing rights royalties generated by radio broadcasting, attributable to authors |
-| gross mechanical royalty revenue from radio use (authors) [omo:Q2055](https://reprexbase.eu/openmusic/Item:Q2055) | gross revenue from mechanical rights royalties generated by radio broadcasting, attributable to authors |
-| gross royalty revenue from radio use (authors) [omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054) | gross royalty revenue generated by radio broadcasting, attributable to authors, combining mechanical and performing rights royalties |
+```{r radiocisac, message=FALSE, echo=FALSE, results='asis'}
+radio_royalty_variables <- tibble::tibble(
+  label = c(
+    "gross performing royalty revenue from radio use (authors)",
+    "gross mechanical royalty revenue from radio use (authors)",
+    "gross royalty revenue from radio use (authors)"
+  ),
+  omo_id = c("Q2056", "Q2055", "Q2054"),
+  url = c(
+    "https://reprexbase.eu/openmusic/Item:Q2056",
+    "https://reprexbase.eu/openmusic/Item:Q2055",
+    "https://reprexbase.eu/openmusic/Item:Q2054"
+  ),
+  description = c(
+    "Gross revenue from performing rights royalties generated by radio broadcasting, attributable to authors.",
+    "Gross revenue from mechanical rights royalties generated by radio broadcasting, attributable to authors.",
+    "Gross royalty revenue generated by radio broadcasting, attributable to authors, combining mechanical and performing rights royalties."
+  )
+)
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Radio-related royalty revenue variables (authors)", tbl_no)
+
+radio_cisac_vars_tbl <- radio_royalty_variables %>%
+  dplyr::mutate(
+    concept_variable = paste0(
+      label, " (omo:", omo_id,")")
+    ) %>%
+  dplyr::select(concept_variable, description) %>%
+  kbl(
+    caption = fig_caption,
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"),
+    latex_options = c("hold_position", "scale_down"), 
+    full_width = FALSE) 
+
+save_kbl_if_needed(kbl_obj = radio_cisac_vars_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = radio_cisac_vars_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+```
 
 The performing and reproduction streams together capture the total value of radio exploitation ([omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054)) accruing to authors under collective management.
 
-```{r showscisacradio, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Radio use data in the synthetic datasets"}
+```{r showscisacradio, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Radio use data in the synthetic datasets", tbl_no)
+
 radio_rows <- synthetic_revenues %>%
   mutate_all(as.character) %>%
   filter ( grepl("radio", variable_name))
 
-radio_rows %>%
-  select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+radio_tbl <- radio_rows %>%
+  select (-variable_name, -uri) %>%
+  kbl(
+    caption = fig_caption,
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"),
+    latex_options = c("hold_position", "scale_down"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
-                     "Pomeralia" = 2))
+                     "Pomeralia" = 2)) %>%
+  column_spec(1, width = "8cm") %>%
+  column_spec(2:5, width = "2cm")
+
+save_kbl_if_needed(kbl_obj = radio_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+
+render_kbl_or_image(kbl_obj = radio_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
 If the analysis is extended beyond authors to include neighbouring rights, additional estimates are required. In that case, radio use must also include:
@@ -436,26 +663,96 @@ Mechanical royalties do not apply to performers and producers in the context of 
 
 Television use follows the same aggregation logic as radio. For authors, total television value is constructed by summing:
 
-| concept/variable | description |
-|----|----|
-| gross performing royalty revenue from television (authors) [omo:Q2058](https://reprexbase.eu/openmusic/Item:Q2058) | gross royalty income accruing to authors from the public performance and communication to the public of their works in television services, before any deductions; this consolidated category includes royalties from terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
-| gross mechanical royalty revenue from television (authors)  [omo:Q2059](https://reprexbase.eu/openmusic/Item:Q2059) | gross royalty income accruing to authors from mechanical rights related to the reproduction and fixation of their works for television services, before any deductions; this consolidated category includes revenues arising from terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
-| gross royalty revenue from television (authors) [omo:Q2057](https://reprexbase.eu/openmusic/Item:Q2057) | total gross royalty income accruing to authors from the use of their works in television services, before any deductions, consolidation adjustments, or cost offsets; this is a consolidated revenue category covering terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
+```{r tvcisac, message=FALSE, echo=FALSE,  , results='asis'}
+tv_royalty_variables <- data.frame(
+  label = c(
+    "gross performing royalty revenue from television (authors)",
+    "gross mechanical royalty revenue from television use (authors)",
+    "gross royalty revenue from television use (authors)"
+  ),
+  omo_id = c("Q2058", "Q2059", "Q2057"),
+  url = c(
+    "https://reprexbase.eu/openmusic/Item:Q2058",
+    "https://reprexbase.eu/openmusic/Item:Q2059",
+    "https://reprexbase.eu/openmusic/Item:Q2055"
+  ),
+  description = c(
+    "gross royalty income accruing to authors from the public performance and communication to the public of their works in television services, before any deductions; this consolidated category includes royalties from terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services",
+    "gross royalty income accruing to authors from mechanical rights related to the reproduction and fixation of their works for television services, before any deductions; this consolidated category includes revenues arising from terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services",
+    "total gross royalty income accruing to authors from the use of their works in television services, before any deductions, consolidation adjustments, or cost offsets; this is a consolidated revenue category covering terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services"
+  )
+)
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Television-related royalty revenue variables (authors)", tbl_no)
+
+tv_cisac_vars_tbl <- tv_royalty_variables %>%
+  dplyr::mutate(
+    concept_variable = paste0(
+      label, " (omo:", omo_id,")")
+    ) %>%
+  dplyr::select(concept_variable, description) %>%
+  knitr::kable(
+    caption = fig_caption,
+    booktabs = TRUE,
+    escape = FALSE   # allows links
+  ) %>%
+  kableExtra::kable_styling(
+    full_width = FALSE
+  )
+
+save_kbl_if_needed(kbl_obj = tv_cisac_vars_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = tv_cisac_vars_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+```
 
 For analytical stability and cross-border comparability, terrestrial broadcasting, cable retransmission, satellite transmission, and web-based television are treated as a single television category. This avoids artificial fragmentation driven by national regulatory or licensing structures rather than by economic substance.
 
-```{r showscisactv, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Television revenue data in the synthetic datasets"}
+```{r showscisactv, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Television revenue data in the synthetic datasets", tbl_no)
+
 tv_rows <- synthetic_revenues %>%
   mutate_all(as.character) %>%
   filter ( grepl("tv", variable_name))
 
-tv_rows %>%
-  select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+synth_tv_revenues_table <- tv_rows %>%
+  select (-variable_name, -uri) %>%
+  kbl(
+    caption = fig_caption, 
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+     latex_options = c("hold_position", "scale_down"),
+     bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
-                     "Pomeralia" = 2))
+                     "Pomeralia" = 2)) %>%
+  kable_styling(
+   ) %>%
+  column_spec(c(1,3), width = "4cm") %>%
+  column_spec(c(2,4), width = "2.5cm")
+
+save_kbl_if_needed(kbl_obj = synth_tv_revenues_table,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = synth_tv_revenues_table,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
 Where neighbouring rights are included, the authors’ totals are complemented by:
@@ -469,98 +766,319 @@ again excluding mechanical royalties on the recording side.
 
 Public performance outside broadcasting is grouped into two closely related categories. For authors, these uses are covered by:
 
-| concept/variable | description |
-|----|----|
-| gross performance royalties from background music (authors) [omo:Q2062](https://reprexbase.eu/openmusic/Item:Q2062) | total gross revenue from performance rights collected for authors for the use of music as background sound in public or commercial spaces, such as retail, hospitality, or workplaces, where music is not the primary focus of attention; reported before deductions |
-|  gross performance royalties from discotheques (authors)  [omo:Q2060](https://reprexbase.eu/openmusic/Item:Q2060) | total gross revenue from performance rights collected for authors for the public performance of music in discotheques and similar venues, where recorded music is the primary focus of the performance; includes nightclub, DJ-led, and dance-oriented uses before deductions, costs, or distributions |
+```{r cisacpubperf, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+pubperf_royalty_variables <- data.frame(
+  label = c(
+    "gross performance royalties from background music (authors)",
+    "gross performance royalties from discotheques (authors)"
+  ),
+  omo_id = c("Q2062", "Q2060"),
+  url = c(
+    "https://reprexbase.eu/openmusic/Item:Q2058",
+    "https://reprexbase.eu/openmusic/Item:Q2059"
+  ),
+  description = c(
+    "total gross revenue from performance rights collected for authors for the use of music as background sound in public or commercial spaces, such as retail, hospitality, or workplaces, where music is not the primary focus of attention; reported before deductions",
+    "total gross revenue from performance rights collected for authors for the public performance of music in discotheques and similar venues, where recorded music is the primary focus of the performance; includes nightclub, DJ-led, and dance-oriented uses before deductions, costs, or distributions")
+)
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Background and foreground music performing royalty revenue variables (authors)", tbl_no)
+
+pubperf_cisac_vars_tbl <- pubperf_royalty_variables %>%
+  dplyr::mutate(
+    concept_variable = paste0(
+      label, " (omo:", omo_id,")")
+    ) %>%
+  dplyr::select(concept_variable, description) %>%
+  knitr::kable(
+    caption = fig_caption,
+    booktabs = TRUE,
+    escape = FALSE   # allows links
+  ) %>%
+  kableExtra::kable_styling(
+    full_width = FALSE
+  )
+
+save_kbl_if_needed(kbl_obj = pubperf_cisac_vars_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = pubperf_cisac_vars_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+```
+
+Live music requires a specific clarification. While [omo:Q2062](https://reprexbase.eu/openmusic/Item:Q2062)  and [omo:Q2060](https://reprexbase.eu/openmusic/Item:Q2060) have neighboring rights equivalents, live performance royalties ([omo:Q2061](https://reprexbase.eu/openmusic/Item:Q2061)) apply only to authors, as reflected in:
+
+```{r cisacconcerts, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+concert_royalty_variables <- data.frame(
+  label = c(
+    "gross performance royalties from concerts (authors)"
+  ),
+  omo_id = c("Q2061"),
+  url = c(
+    "https://reprexbase.eu/openmusic/Item:Q2061"
+  ),
+  description = c(
+    "total gross revenue from performance rights collected for authors for concert performances, where recorded music may be used but the majority of the performance is live and not pre-recorded; reported before any deductions, costs, or distributions")
+)
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Performing royalty revenue variable from concerts (authors)", tbl_no)
+
+concert_cisac_vars_tbl <- concert_royalty_variables %>%
+  dplyr::mutate(
+    concept_variable = paste0(
+      label, " (omo:", omo_id,")")
+    ) %>%
+  dplyr::select(concept_variable, description) %>%
+  knitr::kable(
+    caption = fig_caption,
+    booktabs = TRUE,
+    escape = FALSE   # allows links
+  ) %>%
+  kableExtra::kable_styling(
+    full_width = FALSE
+  )
+
+save_kbl_if_needed(kbl_obj = concert_cisac_vars_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = concert_cisac_vars_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+```
 
 
-Live music requires a specific clarification. From a CISAC perspective, live performance royalties apply only to authors, as reflected in:
 
-| concept/variable | description |
-|----|----|
-| gross performance royalties from concerts (authors) [omo:Q2061](https://reprexbase.eu/openmusic/Item:Q2061) | total gross revenue from performance rights collected for authors for concert performances, where recorded music may be used but the majority of the performance is live and not pre-recorded; reported before any deductions, costs, or distributions |
+```{r showscisacdisco, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Discotheques revenue data in the synthetic datasets", tbl_no)
 
-```{r showscisacdisco, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Discotheques revenue data in the synthetic datasets"}
 disco_rows <- synthetic_revenues %>%
   mutate_all(as.character) %>%
   filter ( grepl("disco", variable_name))
 
-disco_rows %>%
+disco_tbl <- disco_rows %>%
   select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+  kbl(
+    caption = fig_caption,
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
                      "Pomeralia" = 2))
+
+save_kbl_if_needed(kbl_obj = disco_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = disco_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
 However, the total economic value of concerts extends beyond authors’ royalties. Performers’ remuneration, technical crew costs, and live production management are typically financed from ticket revenues and are not fully reflected in CISAC-aligned accounting data. For this reason, concert values are treated asymmetrically: authors’ royalties are included directly, while neighbouring-rights income requires separate estimation if a full value-chain analysis is undertaken.
 
-```{r showscisacconcert, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Concert revenue data in the synthetic datasets"}
+```{r showscisacconcert, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Concert revenue data in the synthetic datasets", tbl_no)
+
+
 live_rows <- synthetic_revenues %>%
   mutate_all(as.character) %>%
   filter ( grepl("concert", variable_name))
 
-live_rows %>%
+concert_tbl <- live_rows %>%
   select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+  kbl(
+    caption = fig_caption, 
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
                      "Pomeralia" = 2))
+
+save_kbl_if_needed(kbl_obj = concert_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = concert_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
 #### Digital and multimedia uses
 
 Digital and multimedia uses are captured for authors through:
 
-| concept/variable | description |
-|----|----|
-| gross mechanical royalty revenue from digital and multimedia uses (authors) [omo:Q2070](https://reprexbase.eu/openmusic/Item:Q2070) | total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works |
-|  gross performance royalty revenue from digital and multimedia uses (authors) [omo:Q2071](https://reprexbase.eu/openmusic/Item:Q2071) | total gross revenue from performance rights collected for authors for digital and multimedia uses of music, including online streaming, webcasting, platform-based performances, and other digitally mediated public communication of musical works |
-|gross royalty revenue from digital and multimedia uses [Q2089](https://reprexbase.eu/openmusic/Item:Q2089) | total gross revenue from both performing and reproduction rights collected for authors for digital and multimedia uses of music, including online streaming, webcasting, platform-based performances, and other digitally mediated public communication of musical works |
+```{r cisacdigital, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+digital_royalty_variables <- data.frame(
+  label = c(
+    "gross mechanical royalty revenue from digital and multimedia uses (authors)",
+    "gross performance royalty revenue from digital and multimedia uses (authors)", 
+    "gross royalty revenue from digital and multimedia uses"
+  ),
+  omo_id = c("Q2070", "Q2071", "Q2089"),
+  url = c(
+    "https://reprexbase.eu/openmusic/Item:Q2070",
+    "https://reprexbase.eu/openmusic/Item:Q2071",
+    "https://reprexbase.eu/openmusic/Item:Q2089"
+  ),
+  description = c(
+    "total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works",
+    "total gross revenue from performance rights collected for authors for digital and multimedia uses of music, including online streaming, webcasting, platform-based performances, and other digitally mediated public communication of musical works", 
+    "total gross revenue from both performing and reproduction rights collected for authors for digital and multimedia uses of music, including online streaming, webcasting, platform-based performances, and other digitally mediated public communication of musical works")
+)
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Digital and media royalty revenue  variables (authors)", tbl_no)
+
+digital_cisac_vars_tbl <- digital_royalty_variables %>%
+  dplyr::mutate(
+    concept_variable = paste0(
+      label, " (omo:", omo_id,")")
+    ) %>%
+  dplyr::select(concept_variable, description) %>%
+  knitr::kable(
+    caption = fig_caption,
+    booktabs = TRUE,
+    escape = FALSE   # allows links
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c(
+      "striped", 
+      "hover", "condensed", 
+      "responsive"), 
+    full_width = FALSE) 
+
+save_kbl_if_needed(kbl_obj =digital_cisac_vars_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = digital_cisac_vars_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+```
 
 These two revenue streams are aggregated to represent the total value of online and multimedia exploitation for authors.
 
-```{r showscisacdigital, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Digital and media revenue data in the synthetic datasets"}
+```{r showscisacdigital, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Digital and media revenue data in the synthetic datasets", tbl_no)
+
+
 digital_rows <- synthetic_revenues %>%
   mutate_all(as.character) %>%
   filter ( grepl("digital", variable_name))
 
-digital_rows %>%
-  select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
-  add_header_above(c(" " = 1,
-                     "Livonia" = 2,
-                     "Pomeralia" = 2))
+digital_tbl <- digital_rows %>%
+  select (-variable_name, -uri) %>%
+  kbl(
+    caption = "Digital and media revenue data in the synthetic datasets", 
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c(
+      "striped", 
+      "hover", "condensed", 
+      "responsive"), 
+    full_width = FALSE) %>%
+  add_header_above(
+    c(" " = 1,
+      "Livonia" = 2,
+      "Pomeralia" = 2))
+
+
+save_kbl_if_needed(kbl_obj = digital_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = digital_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
 On the neighbouring-rights side, the aggregation logic may differ by country and licensing model. Some uses generate performer and producer revenues through collective management, while others are handled contractually. The CISAC-aligned framework therefore treats neighbouring-rights digital revenues as an extension layer that must be harmonised carefully to maintain comparability.
 
 #### Phonograms and physical or digital sales
 
-For authors, revenues from sound recordings are captured through:
+For authors, revenues from sound recordings are captured through gross mechanical royalty revenue from digital and multimedia uses (authors) [omo:Q2065](https://reprexbase.eu/openmusic/Item:Q2065). It is defined as the total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works.
 
-| concept/variable | description |
-|----|----|
-| gross mechanical royalty revenue from digital and multimedia uses (authors) [omo:Q2065](https://reprexbase.eu/openmusic/Item:Q2065) | total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works |
+```{r showscisacphono, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Phonogram revenue data in the synthetic datasets", tbl_no)
 
 
-```{r showscisacphono, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Phonogram revenue data in the synthetic datasets"}
 phono_rows <- synthetic_revenues %>%
   mutate_all(as.character) %>%
   filter ( grepl("phono", variable_name))
 
-phono_rows %>%
-  select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+phono_tbl  <- phono_rows %>%
+  select (-variable_name, -uri) %>%
+  kbl(
+    caption = fig_caption,
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c(
+      "striped", 
+      "hover", "condensed", 
+      "responsive"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
                      "Pomeralia" = 2))
+
+
+save_kbl_if_needed(kbl_obj = phono_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = phono_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
 
 However, producer and performer revenues from phonograms—whether physical sales or downloads—are not collectively managed in the same way and therefore do not appear in CISAC accounting tables. To approximate the full economic value of phonogram exploitation, authors’ mechanical royalties should be combined with producer and performer revenues derived from direct sales, using external industry or statistical sources where necessary.
@@ -569,29 +1087,50 @@ However, producer and performer revenues from phonograms—whether physical sale
 
 Finally, high-level aggregates such as
 
-- gross royalty revenue from digital and multimedia uses [Q2089](https://reprexbase.eu/openmusic/Item:Q2089)
--    gross royalty revenue from radio use (authors) [omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054) 
+-   gross royalty revenue from digital and multimedia uses [Q2089](https://reprexbase.eu/openmusic/Item:Q2089)
+-   gross royalty revenue from radio use (authors) [omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054)
 -   gross royalty revenue from television (authors) [omo:Q2057](https://reprexbase.eu/openmusic/Item:Q2057)
 
 are used for analytical purposes within the market comparator model.
 
 In this model, these aggregates can be compared directly with observable indicators of radio or television use. From the perspective of the end user (the radio listener or television viewer), or from that of the payer of the royalty (the broadcasting organisation), the legal basis of individual royalty components is irrelevant. What matters is the total cost of lawful use.
 
-```{r showscisactotal, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Aggregated total use data in the synthetic datasets"}
+```{r showscisactotal, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Aggregated total use data in the synthetic datasets", tbl_no)
+
 total_rows <- synthetic_revenues %>%
   filter ( grepl("performing", variable_name)) %>%
   filter ( ! grepl("terrestial|cable|subtotal|concert", variable_name))
 
-total_rows %>%
+total_tbl <- total_rows %>%
   select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
+  kbl(
+    caption = fig_caption, 
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c(
+      "striped", 
+      "hover", "condensed", 
+      "responsive"), 
+    full_width = FALSE) %>%
   add_header_above(c(" " = 1,
                      "Livonia" = 2,
                      "Pomeralia" = 2))
+
+save_kbl_if_needed(kbl_obj = phono_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = phono_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
 ```
-
-
 
 This reinforces our methodological preference for analysing total revenue streams—combining authors’, performers’, and producers’ revenues—wherever all three rights apply. In such cases, lawful exploitation is not possible without securing all required licences, regardless of how the total payment is divided across legal claims. For end users and licensees alike, it is immaterial whether the paid amount is allocated across two, three, or even five separate rights categories. The internal breakdown of revenues reflects the structure of the licensing system, not the economic reality of use. A familiar analogy can be found in cinema production, where producers typically clear a large number of underlying rights, yet cinemas and audiences encounter only a single licence fee or ticket price. The same logic applies to music: the disaggregation of total value is a matter of rights administration, while the market comparator model is concerned with the total economic value of use.
 
@@ -603,27 +1142,98 @@ For reconciliation within the market comparator model, the key variables require
 
 Important differences exist between national, regional, and global IFPI reporting structures. Global reports provide harmonised definitions and benchmarks, regional reports such as those for the European Union place market data in a policy and comparative context, and national reports or country annexes offer more detailed insight into local market structures. The replication strategy presented here accommodates all three levels, allowing users to rely on whichever IFPI-aligned sources are publicly available or internally accessible in their national context.
 
-| concept/variable | description |
-|----|----|
-| physical music sales revenue (retail) [omo:Q2072](https://reprexbase.eu/openmusic/Item:Q2072) | gross revenue generated from retail sales of physical music formats, such as CDs and vinyl records, within a specified territory, measured at consumer-facing retail prices; the reference period (e.g. quarterly or annual) is defined by the dataset rather than by the variable itself; a variable aligned with IFPI's global and territorial reports |
-| digital download music sales revenue (retail); [omo:Q2073](https://reprexbase.eu/openmusic/Item:Q2073) | gross revenue generated from consumer purchases of downloadable music recordings within a specified territory, measured at retail prices; includes permanent digital downloads of music tracks and albums and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset |
-| streaming music revenue (neighboring rights);  [omo:Q2074](https://reprexbase.eu/openmusic/Item:Q2074) | gross revenue generated from consumer access to music recordings via on-demand or programmed digital streaming services within a specified territory, measured at retail prices; includes subscription fees and advertising-supported streaming revenues attributable to music consumption, and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset |
-| public performance music revenue (neighboring rights) [omo:Q2075](https://reprexbase.eu/openmusic/Item:Q2075) | gross revenue generated from the public performance and communication of music in commercial and public settings, including broadcast, live venues, background music services, and other public uses, within a specified territory, measured at retail or tariff value; reflects total performance-related revenue rather than only distributions to rightsholders; the reference period (e.g. quarterly or annual) is defined by the dataset. |
+```{r ifpivars, message=FALSE, echo=FALSE, results='asis'}
+ifpi_revenue_variables <- tibble::tibble(
+  label = c(
+    "physical music sales revenue (retail)",
+    "digital download music sales revenue (retail)",
+    "streaming music revenue (neighboring rights)", 
+    "public performance music revenue (neighboring rights)"
+  ),
+  omo_id = c("Q2072", "Q2073", "Q2074", "Q2075"),
+  url = c(
+    "https://reprexbase.eu/openmusic/Item:Q2072",
+    "https://reprexbase.eu/openmusic/Item:Q2073",
+    "https://reprexbase.eu/openmusic/Item:Q2074", 
+    "https://reprexbase.eu/openmusic/Item:Q2075"
+  ),
+  description = c(
+    "gross revenue generated from retail sales of physical music formats, such as CDs and vinyl records, within a specified territory, measured at consumer-facing retail prices; the reference period (e.g. quarterly or annual) is defined by the dataset rather than by the variable itself; a variable aligned with IFPI's global and territorial reports ",
+    "gross revenue generated from consumer purchases of downloadable music recordings within a specified territory, measured at retail prices; includes permanent digital downloads of music tracks and albums and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset",
+    "gross revenue generated from consumer access to music recordings via on-demand or programmed digital streaming services within a specified territory, measured at retail prices; includes subscription fees and advertising-supported streaming revenues attributable to music consumption, and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset", 
+    "gross revenue generated from the public performance and communication of music in commercial and public settings, including broadcast, live venues, background music services, and other public uses, within a specified territory, measured at retail or tariff value; reflects total performance-related revenue rather than only distributions to rightsholders; the reference period (e.g. quarterly or annual) is defined by the dataset"
+  )
+)
 
-Our IFPI-aligned synthetic data for the fictitious territories of Livonia and Pomeralia: 
+tbl_no <- next_table_number()
+fname <- sprintf(
+  "fig-%02d-valuation-pilot.png", tbl_no)
+fig_caption <-  sprintf(
+  "Table %02d. Radio-related royalty revenue variables (authors)", tbl_no)
 
-```{r showifpisynth, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="IFPI-algined data in the synthetic datasets"}
+ifpi_revenues_tbl <- ifpi_revenue_variables %>%
+  dplyr::mutate(
+    concept_variable = paste0(
+      label, " (omo:", omo_id,")")
+    ) %>%
+  dplyr::select(concept_variable, description) %>%
+  kbl(
+    caption = fig_caption,
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"),
+    latex_options = c("hold_position", "scale_down"), 
+    full_width = FALSE) 
+
+save_kbl_if_needed(kbl_obj = ifpi_revenues_tbl,
+                   path = fname,
+                   figure_dir = save_dir)
+
+render_kbl_or_image(kbl_obj = ifpi_revenues_tbl,
+                    path = fname,
+                    figure_dir = save_dir)
+```
+
+
+Our IFPI-aligned synthetic data for the fictitious territories of Livonia and Pomeralia:
+
+```{r showifpisynth, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 ifpi_rows <- synthetic_revenues %>%
-  filter ( grepl("revenue", variable_name)) %>%
-  filter ( ! grepl("terrestial|cable|subtotal|concert", variable_name))
+  filter(grepl("revenue", variable_name)) %>%
+  filter(!grepl("terrestial|cable|subtotal|concert", variable_name))
 
-ifpi_rows %>%
-  select (-label, -uri) %>%
-  kbl() %>%
-  kable_styling() %>%
-  add_header_above(c(" " = 1,
-                     "Livonia" = 2,
-                     "Pomeralia" = 2))
+ifpi_tbl <- ifpi_rows %>%
+  select(-label, -uri) %>%
+  kbl(
+    caption = "IFPI-aligned data in the synthetic datasets",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), 
+    bootstrap_options = c("striped", 
+                          "hover", "condensed", 
+                          "responsive"), 
+    full_width = FALSE)  %>%
+  add_header_above(c(
+    " " = 1,
+    "Livonia" = 2,
+    "Pomeralia" = 2
+  ))
+
+save_kbl_if_needed(
+  kbl_obj = ifpi_tbl,
+  path = fname,
+  figure_dir = save_dir
+)
+
+render_kbl_or_image(
+  kbl_obj = ifpi_tbl,
+  path = fname,
+  figure_dir = save_dir
+)
 ```
 
 For our reports, it would be ideal to have the ratio of domestic and international sales within the territory. Mahasz in Hungary reports this in the already cited statistical datasets, ČNS IFPI for Slovakia does not. In Hungary, depending on the sales format and the year, the domestic sales rate was betwen 29-49% in 2023-2024. For our synthetic data we will use similar rates.
@@ -676,6 +1286,8 @@ The sample frame design follows the same error-minimisation logic. Based on earl
 
 CAP survey data are thus used exclusively on the quantity side of the valuation framework. They provide harmonised measures of music use across market and non-market contexts, but do not contain information on transaction prices, willingness to pay, or welfare effects. Prices enter the model only through observed market data or through revenue–quantity comparisons that yield implicit prices at an aggregate level. Behavioural survey data are not used to infer prices or welfare measures, and their role is limited to supporting consistent and comprehensive quantity estimation.
 
+{{< pagebreak >}}
+
 ## Known Limitations & Assumptions {#sec-pilot-limitations}
 
 The market comparator model applied in this pilot study builds on earlier analytical practices developed by organisations such as Reprex, Artisjus, and SOZA, where similar approaches were used in contexts partly informed by competition law. In those settings, the notion of a “*relevant market*” was employed to operationalise the scope within which prices, quantities, and revenues could be meaningfully observed and compared. This tradition informs the present work, particularly in the way uses and revenue streams are delineated and aggregated.
@@ -720,6 +1332,8 @@ In this pilot study, such differences are deliberately abstracted in order to fo
 
 In practical applications, local adaptation will be required to map national data sources into the common structure used by the model. The replication strategy outlined earlier is designed to support such adaptations without altering the underlying analytical framework.
 
+{{< pagebreak >}}
+
 ## Data Comparisons {#sec-pilot-comparisons}
 
 This section describes how revenues, quantities, and prices are aligned within the market comparator framework. Two complementary comparison strategies are applied:
@@ -737,7 +1351,7 @@ At the core of the market comparator model is the identity
 $$
 R_{u} = Q_{u} \times P_{u}
 $$
-
+<!-- -->
 where $R_{u}$ denotes revenue associated with use category $u$, $Q_{u}$ denotes the quantity of use, and $P_{u}$ denotes the unit price. This identity is not a behavioural model but an accounting relationship that must hold by definition once the three elements are measured or inferred on a consistent basis.
 
 The usefulness of this identity in music markets lies in the fact that, for most uses of music, not all three components are observable at the same level of aggregation or from the same data source. In some cases, detailed price and quantity information exists at the level of individual rightsholders or intermediaries, but is not available in aggregated public data. In other cases, revenues are observed while quantities of use must be inferred or normalised.
@@ -748,7 +1362,7 @@ In *streaming markets*, unit prices are in principle observable for rightsholder
 
 In *public performance*, the observability problem is reversed. For broadcasting uses, such as radio and television, quantities of use are in principle observable and often reported through playlists, cue sheets, or monitoring systems, albeit with varying degrees of completeness and accuracy. For other forms of public performance, particularly background music use in hotels, restaurants, catering establishments, retail spaces, and similar environments, actual use is rarely measured directly. Revenues are typically collected on the basis of tariffs or estimated usage profiles, meaning that quantities of use must be approximated rather than observed.
 
-As a result, t*he market comparator model does not assume that prices or quantities are inherently unobservable*, but recognises that they are not jointly observable in a consistent, aggregated form suitable for comparative analysis.
+As a result, *the market comparator model does not assume that prices or quantities are inherently unobservable*, but recognises that they are not jointly observable in a consistent, aggregated form suitable for comparative analysis.
 
 The model therefore treats the identity $R_{u} = Q_{u} \times P_{u}$ as an inferential tool. Depending on the use category and data availability, either prices or quantities are inferred from observed revenues and complementary information, using explicit assumptions and documented proxies.
 
@@ -761,7 +1375,7 @@ A key distinction in the model is between observed price $P_{u}$ and *inferred, 
 $$
 \hat{P}_{u} = \frac{R_{u}}{Q_{u}}
 $$
-
+<!-- -->
 These shadow prices represent average remuneration per unit of use within a defined category and period. They are not tariffs, contractual rates, or marginal prices, but economic indicators that allow relative comparison across uses, markets, or territories.
 
 The scope of comparison in this pilot is the total economic value of music by use category $u$.
@@ -781,7 +1395,7 @@ When prices are not directly observable, implicit (shadow) prices are inferred b
 $$
 \hat{P}_{u} = \frac{R_{u}}{Q_{u}}
 $$
-
+<!-- -->
 This approach allows relative price levels to be compared across uses, markets, or territories, even when no explicit tariff or transaction price exists.
 
 -   When and why shadow prices $\hat{P}_{u}$ are inferred
@@ -802,8 +1416,8 @@ Formally, for each use category $u$:
 $$
 R_{u} = R^{A}_{u} + R^{N}_{u}
 $$
-
-where $R^{A}_{u}$ denotes authors’ revenues and $R^{N}_{u}$ denotes neighbouring rights revenues. The specific computations are reported in @sec-pilot-use-treatment. 
+<!-- -->
+where $R^{A}_{u}$ denotes authors’ revenues and $R^{N}_{u}$ denotes neighbouring rights revenues. The specific computations are reported in @sec-pilot-use-treatment.
 
 #### Quantity Inputs {#sec-pilot-rq-quantity-inputs}
 
@@ -818,7 +1432,7 @@ For a given use category $u$:
 $$
 Q_{u} = \sum_{l} H_{u,l}
 $$
-
+<!-- -->
 where $H_{u,l}$ denotes listening hours in location $l$.
 
 #### Matching Revenues to Quantities {#sec-pilot-rq-matching}
@@ -827,8 +1441,7 @@ where $H_{u,l}$ denotes listening hours in location $l$.
 -   Handling of cross-right and mixed-use categories
 -   Treatment of residual or estimated uses
 
-The matching process ensures that each $R_{u}$ is paired with a conceptually consistent $Q_{u}$. The following, 
-@sec-pilot-use-treatment, explains in detail the matching process in each use category.
+The matching process ensures that each $R_{u}$ is paired with a conceptually consistent $Q_{u}$. The following, @sec-pilot-use-treatment, explains in detail the matching process in each use category.
 
 #### Outputs {#sec-pilot-rq-outputs}
 
@@ -837,6 +1450,7 @@ The matching process ensures that each $R_{u}$ is paired with a conceptually con
 -   Cross-country comparability considerations
 
 $$\frac{\hat{P}_{u}}{\hat{P}_{v}}$$
+<!-- -->
 
 ### Quantity–Price Comparisons (Observed Prices) {#sec-pilot-qp-comparisons}
 
@@ -877,7 +1491,7 @@ Observed quantities $Q_{u}$ are transformed to notional hours to maintain consis
 $$
 Q_{u} = V_{u} \times \alpha_{u}
 $$
-
+<!-- -->
 where $V_{u}$ denotes observed volume and $\alpha_{u}$ is a conversion factor to listening hours.
 
 For example, we assume that concerts are on average 90 minutes or 1.5 hours long:
@@ -885,6 +1499,7 @@ For example, we assume that concerts are on average 90 minutes or 1.5 hours long
 $$
 Q_{l} = V_{l} \times 1.5
 $$
+<!-- -->
 
 #### Price–Quantity Alignment {#sec-pilot-price-quantity-alignment}
 
@@ -902,16 +1517,18 @@ Through these alignment steps, observable prices and quantities can be combined 
 
 ### Stock–Flow Conversion and Annualisation
 
-
 All quantities are expressed as annual flows:
 
 $$
 Q^{\text{annual}}_{u} = \sum_{t=1}^{T} q_{u,t}
 $$
+<!-- -->
 
 -   Flow normalisation to annual listening hours
 -   Treatment of legacy consumption
 -   Rationale for avoiding explicit asset depreciation
+
+{{< pagebreak >}}
 
 ### Use-Specific Treatment {#sec-pilot-use-treatment}
 
@@ -927,92 +1544,135 @@ For the measurement of listening time in broadcast media, the model question was
 
 $$
 R_{r} = R^{A}_{r} + R^{N}_{r}
-$$
-If we do not have directly neighboring rights radio revenues, then we use the simplified formula for the total radio use revenue as 
+$$ If we do not have directly neighboring rights radio revenues, then we use the simplified formula for the total radio use revenue as
 
 $$
 R^{T}_{r} = R^{A}_{r}  \times \beta_{perf}
-$$
-where  $\beta_{perf}$ is the multiplier for increasing the revenue with comparable neighboring rights data.
-
+$$ 
+<!-- -->
+where $\beta_{perf}$ is the multiplier for increasing the revenue with comparable neighboring rights data.
+<!-- -->
 $$
 \hat{P}_{r} = \frac{R^{T}_{r}}{Q_{r}}
 $$
-
+<!-- -->
 
 #### Television {#sec-pilot-use-tv}
-
 
 $$
 Q_{r} = Q^{home}_{r} + Q^{travel}_{r} + Q^{work}_{r}
 $$
-
-For reasons of analytical clarity and feasibility, no distinction was made between different broadcast transmission technologies. 
+<!-- -->
+For reasons of analytical clarity and feasibility, no distinction was made between different broadcast transmission technologies.
 
 In particular, *satellite broadcasting, cable retransmission, and terrestrial broadcasting of radio or television* were treated as a *single radio* and *single television* category. This simplification was adopted to ensure consistency across datasets and to align with the level of detail available in the underlying survey data.
-
+<!-- -->
 $$
 R^{A}_{tv} = R^{terr}_{tv} + R^{cable}_{tv} +  R^{sat}_{tv} + R^{net}_{tv}
 $$
-
-
+<!-- -->
 And the total television revenue is:
-
+<!-- -->
 $$
 R^{T}_{tv} = R^{A}_{tv}  \times \beta_{perf}
 $$
-
-where  $\beta_{perf}$ is the multiplier for increasing the revenue with comparable neighboring rights data.
+<!-- -->
+where $\beta_{perf}$ is the multiplier for increasing the revenue with comparable neighboring rights data.
 
 This modelling approach allows a clear separation between question definition and question usage, supports multilingual documentation, and ensures full interoperability with DDI-Disco, while remaining compatible with the OMO Wikibase data model and downstream statistical processing workflows.
-
-
+<!-- -->
 $$
 \hat{P}_{tv} = \frac{R^{T}_{tv}}{Q_{tv}}
 $$
-
+<!-- -->
 #### Physical and digital records {#sec-pilot-use-mechanical}
 
 In IFPI-aligned data, we find downloads and physical sales separately; in CISAC-aligned data, we find phonograph-related revenues in a separate line. As we explained in @sec-pilot-stock-flow, these royalties are lump-sum, one time royalties. For business buyers, for example, radios or libraries, they are expensed in the year of the purchase. Private buyers may use their physical products for a long time, and for simplicity, we assume that they keep renewing their home collection every year. With this assumption we can compare the CAP year use with the same year's phonogram uses.
-
+<!-- -->
 $$
 R^{T}_{ph} = R^{A}_{ph}  + R^{N}_{physical} + R^{N}_{download}
 $$
+<!-- -->
 
 #### Streaming {#sec-pilot-use-streaming}
 
 Some IFPI members report separately ad-supported and premium (subscription) revenue from streaming. We do not have this separation in the CISAC-aligned data, therefore we add all streaming revenue data in the CAP surveys for quantities, and in the revenue data tables together into streaming aggregates.
-
+<!-- -->
 $$
 Q_{s} = Q^{premium}_{s} + Q^{ad}_{s}
 $$
-
+<!-- -->
 The other difference is that both CISAC-aligned data and IFPI-aligned data has special multimedia or digital uses, for example, "ringtones", which are less and less used. In CISAC aligned data, they tend to be grouped with streaming, the major "digital" income; in IFPI-aligned data it may appear in "other". In the actual datasets we reviewed these elements were immaterial, so we can claim that in CISAC-aligned data streaming revenues are the bulk of the "digital and multimedia" revenues, even if they are not available as a separate line. In IFPI-aligned data, we find this information under the "streaming category".
-
+<!-- -->
 $$
 R^{T}_{s} = R^{A}_{s}  + R^{N}_{s} 
-$$
-The implicit price of streaming per hours: 
-
+$$ The implicit price of streaming per hours:
+<!-- -->
 $$
 \hat{P}_{s} = \frac{R^{T}_{s}}{Q_{s}}
 $$
-
-
+<!-- -->
 
 #### Public Performance {#sec-pilot-use-public-performance}
 
-In IFPI-aligned data, we do not have separate information about the breakup of public performance revenues. In Europe, in most countries, certain revenues are collected in one-stop-shop agreements with author's societies, and in some cases, knowing the revenues for one right we can infer the revenue of the other rights with a fixed ratio. This could apply to Hungary, for example, but certainly not to Slovakia.
+In IFPI-aligned public data, public performance revenues are reported as a *single aggregate*, without a breakdown by specific use categories such as radio, television, background music, or discotheques. This reflects the market-facing perspective of IFPI reporting, in which public performance is treated as a unified revenue stream rather than as a rights- or use-specific accounting structure. While neighboring rights societies may be able to produce the similar revenue breakup to the CISAC-aligned data, in this case we just use the same proportions that is available for the author's revenues.
 
-For simplicity, we assume that the neighboring rights revenues are identically distributed among public performance classes as with authors. For example, if radio takes 10% of the total public performance revenues, then we also allocate 10% of the neighboring rights revenue to radios. We, however, must make an exception with concerts: performers are directly remunerated on the stage, and only the composer's share is collected separately.
+CISAC-aligned authors’ data provide a detailed breakdown of public performance revenues by use category. Rather than attempting to infer missing neighbouring-rights revenues through fixed multipliers or country-specific ratios, the pilot adopts a *proportional allocation approach* based on observed authors’ revenue structures.
 
-Therefore, we calculate the sum of radio, television, digital, foreground and background music revenues from CISAC aligned data, and increase their value with the IFPI-aligned data.
+The procedure consists of three steps: 
+
+1. Calculating the weights.\
+2. Looking up the available disaggregated IFPI-aligned data\
+3. Breaking up the IFPI-aligned data with the CISAC-aligned weights.\
+
+
+Let $R^{A}_{u,c,y}$ denote authors’ revenues from public performance use category $u$ (radio, television, digital, background music, discotheques) in country $c$ and year $y$, excluding concerts. For each country–year, we compute the *within-public-performance revenue share* of each use category as:
+
+<!-- -->
+$$
+w_{u,c,y}
+= \frac{R^{A}_{u,c,y}}
+       {\sum_{v \in U} R^{A}_{v,c,y}}
+$$
+<!-- -->
+
+where $U = \{\text{radio}, \text{television}, \text{digital}, \text{background}, \text{discotheques}\}$.
+<!-- -->
+
+These shares (weights) sum to one for each country–year:
 
 $$
-\beta_{perf} = \frac{\sum{R}^{A}_{r+tv+d+b}+ R^{N}}{\sum{R^{A}}_{r+tv+d+b}}
+\sum_{u \in U} w_{u,c,y} = 1
 $$
 
-where $\beta_{perf}$ is the multiplier that we will use to increase the CISAC-aligned revenue categories.
+They capture the *relative importance of each use category* within authors’ public performance revenues.
+
+Let $R^{N}_{c,y}$ denote total IFPI-aligned neighbouring-rights public performance revenue for country $c$ and year $y$. This value is observed only at the aggregate level and has no internal use-category breakdown.
+
+Neighbouring-rights public performance revenue is then allocated across use categories using the authors’ revenue shares as weights:
+
+<!-- -->
+$$
+\tilde{R}^{N}_{u,c,y}
+= w_{u,c,y} \times R^{N}_{c,y}
+$$
+<!-- -->
+
+where $\tilde{R}^{N}_{u,c,y}$ denotes the allocated neighbouring-rights revenue for use category $u$.
+
+This procedure ensures that total IFPI public performance revenue is preserved:
+<!-- -->
+  
+  $$
+  \sum_{u \in U} \tilde{R}^{N}_{u,c,y} = R^{N}_{c,y}
+  $$
+<!-- -->
+This way neighbouring-rights revenues inherit a **structurally realistic distribution** across uses,
+and no country-specific contractual ratios are assumed.
+
+Concerts are excluded from this allocation. Performers’ remuneration for live performances is typically paid directly by organisers and does not flow through IFPI-aligned public performance reporting in a manner comparable to broadcasting or background music uses. Only authors’ royalties from concerts are therefore retained in the public performance structure, and neighbouring-rights revenues are not allocated to this category.
+
+This weighting approach treats authors’ public performance revenue structures as an *empirical proxy for the distribution of use intensity* across public performance categories. It avoids strong institutional assumptions, remains transparent and reproducible, and can be replaced by country-specific neighbouring-rights breakdowns if authorised data become available.
 
 #### Live Performances {#sec-pilot-use-live}
 
@@ -1021,13 +1681,17 @@ Concerts are remunerated in two ways: the performers are directly paid, and the 
 $$
 Q_{l} = V^{event}_{l} \times  1.5
 $$
+
+<!-- -->
 $$
 R_{l} = V^{event}_{l} \times  P^{ticket} + R^{A}_{l}
 $$
 
+<!-- -->
 $$
 \hat{P}_{l} = \frac{R^{T}_{l}}{ V^{event}_{l} \times  1.5}
 $$
+<!-- -->
 
 #### Discotheques and background music
 
@@ -1039,19 +1703,24 @@ $$
 
 $$
 R_{b} = R^{A}_{b} \times \beta_{perf}
-$$
-$$
+$$ $$
 \hat{P}_{d} = \frac{R^{T}_{d}}{ V^{event}_{d} \times  1.5}
-$$
+$$ 
+<!-- -->
+
 $$
 \hat{P}_{b} = \frac{R^{T}_{b}}{ V^{event}_{b} \times  1.5}
 $$
+<!-- -->
+
+
 
 ### Outputs {#sec-pilot-qp-outputs}
 
 Implied price per listening hour:
-
+<!-- -->
 $$P^{*}_{u} = \frac{P_{u}}{\alpha_{u}}$$
+<!-- -->
 
 -   Comparison with shadow prices $\hat{P}_{u}$
 -   Sensitivity to assumptions
@@ -1068,12 +1737,13 @@ $$P^{*}_{u} = \frac{P_{u}}{\alpha_{u}}$$
 -   Dependence on proxy measures
 -   Implications for interpretation
 
-
 ## Conclusion and Further Work {#sec-conclusion}
 
 This pilot study demonstrates how a market comparator model can be implemented using standardised, publicly available, and institutionally familiar data sources, while remaining transparent about assumptions and limitations. In doing so, it deliberately operates at a level of aggregation that reflects what is normally observable to researchers, regulators, and stakeholders. One consequence of this choice is that certain dimensions of digital music markets—most notably the territorial allocation of streaming revenues and the detailed mapping between prices and quantities—remain only partially observable within the model.
 
 Recent methodological work documented in *Microphone Check: What Platform-Level Data Could Change in Music Market Analysis* illustrates that these constraints are not purely technical [@antal_microphone_check_2025]. Using a fictitious sound recording and simulated distributor-level reporting, the study shows how platform-specific prices, subscription tiers, and territorial revenue flows can be reconstructed when more granular data are available. This approach makes it possible to separate domestic and foreign revenues, to identify effective unit prices, and to align consumption volumes more precisely with remuneration outcomes. While such analyses are not currently replicable using public market reports, they point to a feasible direction for future transparency, regulatory cooperation, and evidence-based policy design. Together with the present pilot, this work suggests a layered research agenda: robust comparative analysis using standard data today, and progressively richer market insights as data accessibility improves.
+
+{{< pagebreak >}}
 
 ## References
 
