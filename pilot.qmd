@@ -119,6 +119,63 @@ The fictional Livonia used in this section is **not associated** with the Livs, 
 
 Similarly, the reference to a historical region of Poland, Pomerelia, only reflects our ambition to extend our Slovak and Hungarian valuation to Poland at one point; no data from Poland was used for this pilot report.
 
+
+```{r setup, message=FALSE, warning=FALSE}
+require(dplyr)
+require(readxl)
+require(here)
+require(tidyr)
+require(knitr)
+require(kableExtra)
+
+synthetic_cap <- readxl::read_excel(
+  here::here("data", "synthetic_cap.xlsx"))
+
+synthetic_cap_reduced <- synthetic_cap %>%
+  mutate(source = ifelse(
+    source == "ad_stream", "stream", source)) %>%
+  group_by (source, country, year) %>%
+  summarise ( hours = sum(hours, na.rm=TRUE))
+  
+```
+
+```{r showcap, message=FALSE, echo=FALSE, results='asis'}
+require(knitr)
+require(kableExtra)
+synthetic_cap_reduced[c(1,2,11,12,25), ] %>%
+  kbl() %>%
+  kable_styling()
+```
+
+```{r syntrev, message=FALSE, warning=FALSE}
+synthetic_revenues <- readxl::read_excel(
+  here::here("data", "synthetic_revenues_26.xlsx"))
+```
+
+Each row contains the following information:
+
+```{r showsinglerevenuerow, message=FALSE, warning=FALSE, results='asis'}
+single_row <- synthetic_revenues[1, ] %>%
+  mutate_all(as.character)
+
+single_row %>%
+  tidyr::pivot_longer(-any_of("variable_name")) %>% 
+  kbl() %>%
+  kable_styling()
+```
+
+The uri variable shows the machine-readable variable definition in the OMO; the long-form variable label is omitted to show a few select row's data:
+
+```{r showselectrows, echo=FALSE, results='asis'}
+synthetic_revenues[c(1,2,11,12,25), ] %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
+
 ## Data Sources
 
 Within the Open Music Observatory, we distinguish two subclasses of statistical concepts for revenue-related data.
@@ -227,6 +284,16 @@ The modelling framework was developed within the CEEMID cooperation among Hungar
 [^pilot-5]: The Competition of Unlicensed, Licensed and Illegal uses on the Markets of Music and Audiovisual Works \[original title: *A szabad felhasználások, a jogosított tartalmak és az illegális felhasználások versenye a zenék és audiovizuális alkotások hazai piacán*\] [@antal_szabad_2019_en]
 
 ![An example of an analysis in Hungary in 2019.](png/full_market_example.jpg){fig-align="center"}
+
+The recognised fair valuation principles stipulate that the "most applicable method" must be used in valuations, which almost always leaves out in copyright valuations the (historical) "cost approach" and leaves open the use of the "income approach" and the "market approach". The cost- and income approaches are fundamental valuation techniques and could be used to reset valuations or prices fully.
+
+The *cost approach* is inapplicable because the rightsholders are natural people who do not account for their working time, i.e., the time when they are composing music. 
+
+The *income approach* compares the royalty flows of a work of its recording by using an appropriate "discount rate." The income approach is often impractical when we have irregular or annual payments. With annual payments, the valuation's timeframe would be too long. Calculating an appropriate discounting rate would also be practically impossible for many uses. This approach is more suitable for analysis within a rightholder organisation, such as a music publisher or record label that has long-term, consistent and frequent income data.
+
+The *market approach* tries to identify a payment rate, regardless of if it is made in a lump sum, monthly or annually established, based on sufficiently similar uses. As often seen in various jurisdictions from the EU to Canada or the United States, the market approach is often used in copyright tribunals and other contexts, because the other two approaches are lacking reliable data inputs. It is often used for comparing valuations, or estimating acceptable prices or royalty rates when it can be assumed that at least some of the prices are correct on the market. 
+
+The market comparator model presented here, unlike the cost or income approaches, is not a fundamental valuation method, and many modelling decisions, and usability limitations (see @sec-pilot-limitations) must be considered in use.
 
 ### Total Music Value vs Rightsholder-Specific Value
 
@@ -344,6 +411,20 @@ For authors, the economic value of radio use is represented as the sum of:
 
 The performing and reproduction streams together capture the total value of radio exploitation ([omo:Q2054](https://reprexbase.eu/openmusic/Item:Q2054)) accruing to authors under collective management.
 
+```{r showscisacradio, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Radio use data in the synthetic datasets"}
+radio_rows <- synthetic_revenues %>%
+  mutate_all(as.character) %>%
+  filter ( grepl("radio", variable_name))
+
+radio_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
+
 If the analysis is extended beyond authors to include neighbouring rights, additional estimates are required. In that case, radio use must also include:
 
 -   gross performing royalty revenue from radio use (performers), and
@@ -362,6 +443,20 @@ Television use follows the same aggregation logic as radio. For authors, total t
 | gross royalty revenue from television (authors) [omo:Q2057](https://reprexbase.eu/openmusic/Item:Q2057) | total gross royalty income accruing to authors from the use of their works in television services, before any deductions, consolidation adjustments, or cost offsets; this is a consolidated revenue category covering terrestrial television broadcasting, satellite television, cable retransmission, and, where applicable, web-based television services |
 
 For analytical stability and cross-border comparability, terrestrial broadcasting, cable retransmission, satellite transmission, and web-based television are treated as a single television category. This avoids artificial fragmentation driven by national regulatory or licensing structures rather than by economic substance.
+
+```{r showscisactv, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Television revenue data in the synthetic datasets"}
+tv_rows <- synthetic_revenues %>%
+  mutate_all(as.character) %>%
+  filter ( grepl("tv", variable_name))
+
+tv_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
 
 Where neighbouring rights are included, the authors’ totals are complemented by:
 
@@ -386,7 +481,36 @@ Live music requires a specific clarification. From a CISAC perspective, live per
 |----|----|
 | gross performance royalties from concerts (authors) [omo:Q2061](https://reprexbase.eu/openmusic/Item:Q2061) | total gross revenue from performance rights collected for authors for concert performances, where recorded music may be used but the majority of the performance is live and not pre-recorded; reported before any deductions, costs, or distributions |
 
+
+```{r showscisacdisco, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Discotheques revenue data in the synthetic datasets"}
+disco_rows <- synthetic_revenues %>%
+  mutate_all(as.character) %>%
+  filter ( grepl("disco", variable_name))
+
+disco_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
+
 However, the total economic value of concerts extends beyond authors’ royalties. Performers’ remuneration, technical crew costs, and live production management are typically financed from ticket revenues and are not fully reflected in CISAC-aligned accounting data. For this reason, concert values are treated asymmetrically: authors’ royalties are included directly, while neighbouring-rights income requires separate estimation if a full value-chain analysis is undertaken.
+
+```{r showscisacconcert, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Concert revenue data in the synthetic datasets"}
+live_rows <- synthetic_revenues %>%
+  mutate_all(as.character) %>%
+  filter ( grepl("concert", variable_name))
+
+live_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
 
 #### Digital and multimedia uses
 
@@ -400,6 +524,20 @@ Digital and multimedia uses are captured for authors through:
 
 These two revenue streams are aggregated to represent the total value of online and multimedia exploitation for authors.
 
+```{r showscisacdigital, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Digital and media revenue data in the synthetic datasets"}
+digital_rows <- synthetic_revenues %>%
+  mutate_all(as.character) %>%
+  filter ( grepl("digital", variable_name))
+
+digital_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
+
 On the neighbouring-rights side, the aggregation logic may differ by country and licensing model. Some uses generate performer and producer revenues through collective management, while others are handled contractually. The CISAC-aligned framework therefore treats neighbouring-rights digital revenues as an extension layer that must be harmonised carefully to maintain comparability.
 
 #### Phonograms and physical or digital sales
@@ -409,6 +547,21 @@ For authors, revenues from sound recordings are captured through:
 | concept/variable | description |
 |----|----|
 | gross mechanical royalty revenue from digital and multimedia uses (authors) [omo:Q2065](https://reprexbase.eu/openmusic/Item:Q2065) | total gross revenue from mechanical rights collected for authors for digital and multimedia uses of music, including online reproductions, downloads, ringtones, and other digitally mediated or multimedia forms of reproduction of musical works |
+
+
+```{r showscisacphono, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Phonogram revenue data in the synthetic datasets"}
+phono_rows <- synthetic_revenues %>%
+  mutate_all(as.character) %>%
+  filter ( grepl("phono", variable_name))
+
+phono_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
 
 However, producer and performer revenues from phonograms—whether physical sales or downloads—are not collectively managed in the same way and therefore do not appear in CISAC accounting tables. To approximate the full economic value of phonogram exploitation, authors’ mechanical royalties should be combined with producer and performer revenues derived from direct sales, using external industry or statistical sources where necessary.
 
@@ -423,6 +576,22 @@ Finally, high-level aggregates such as
 are used for analytical purposes within the market comparator model.
 
 In this model, these aggregates can be compared directly with observable indicators of radio or television use. From the perspective of the end user (the radio listener or television viewer), or from that of the payer of the royalty (the broadcasting organisation), the legal basis of individual royalty components is irrelevant. What matters is the total cost of lawful use.
+
+```{r showscisactotal, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="Aggregated total use data in the synthetic datasets"}
+total_rows <- synthetic_revenues %>%
+  filter ( grepl("performing", variable_name)) %>%
+  filter ( ! grepl("terrestial|cable|subtotal|concert", variable_name))
+
+total_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
+
+
 
 This reinforces our methodological preference for analysing total revenue streams—combining authors’, performers’, and producers’ revenues—wherever all three rights apply. In such cases, lawful exploitation is not possible without securing all required licences, regardless of how the total payment is divided across legal claims. For end users and licensees alike, it is immaterial whether the paid amount is allocated across two, three, or even five separate rights categories. The internal breakdown of revenues reflects the structure of the licensing system, not the economic reality of use. A familiar analogy can be found in cinema production, where producers typically clear a large number of underlying rights, yet cinemas and audiences encounter only a single licence fee or ticket price. The same logic applies to music: the disaggregation of total value is a matter of rights administration, while the market comparator model is concerned with the total economic value of use.
 
@@ -440,6 +609,22 @@ Important differences exist between national, regional, and global IFPI reportin
 | digital download music sales revenue (retail); [omo:Q2073](https://reprexbase.eu/openmusic/Item:Q2073) | gross revenue generated from consumer purchases of downloadable music recordings within a specified territory, measured at retail prices; includes permanent digital downloads of music tracks and albums and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset |
 | streaming music revenue (neighboring rights);  [omo:Q2074](https://reprexbase.eu/openmusic/Item:Q2074) | gross revenue generated from consumer access to music recordings via on-demand or programmed digital streaming services within a specified territory, measured at retail prices; includes subscription fees and advertising-supported streaming revenues attributable to music consumption, and reflects total consumer spending rather than only royalty income; the reference period (e.g. quarterly or annual) is defined by the dataset |
 | public performance music revenue (neighboring rights) [omo:Q2075](https://reprexbase.eu/openmusic/Item:Q2075) | gross revenue generated from the public performance and communication of music in commercial and public settings, including broadcast, live venues, background music services, and other public uses, within a specified territory, measured at retail or tariff value; reflects total performance-related revenue rather than only distributions to rightsholders; the reference period (e.g. quarterly or annual) is defined by the dataset. |
+
+Our IFPI-aligned synthetic data for the fictitious territories of Livonia and Pomeralia: 
+
+```{r showifpisynth, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.cap="IFPI-algined data in the synthetic datasets"}
+ifpi_rows <- synthetic_revenues %>%
+  filter ( grepl("revenue", variable_name)) %>%
+  filter ( ! grepl("terrestial|cable|subtotal|concert", variable_name))
+
+ifpi_rows %>%
+  select (-label, -uri) %>%
+  kbl() %>%
+  kable_styling() %>%
+  add_header_above(c(" " = 1,
+                     "Livonia" = 2,
+                     "Pomeralia" = 2))
+```
 
 For our reports, it would be ideal to have the ratio of domestic and international sales within the territory. Mahasz in Hungary reports this in the already cited statistical datasets, ČNS IFPI for Slovakia does not. In Hungary, depending on the sales format and the year, the domestic sales rate was betwen 29-49% in 2023-2024. For our synthetic data we will use similar rates.
 
