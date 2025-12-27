@@ -68,24 +68,30 @@ bibliography:
     - bib/OpenMuse.bib
 ---
 
+
 ## Context & Objective {#sec-pilot-context}
 
-This pilot study is developed in the context of a complex and, in several respects, problematic research project, where planned data deliveries and formal analytical components were not provided by research partners as originally foreseen. As a result, the pilot serves both as a methodological demonstration and as a defensible reconstruction of what can be achieved with limited, fragmented, or incomplete inputs. The emphasis is therefore placed on transparency of assumptions, reproducibility of methods, and robustness of the analytical framework, rather than on the completeness or authority of any single dataset.
+This pilot study is developed within a complex and evolving project context, in which several planned analytical dependencies and upstream inputs were not available in the form or at the time originally foreseen. As a result, the present work serves both as a methodological demonstration and as a defensible reconstruction of what can be achieved under realistic constraints of data availability, sensitivity, and timing.
 
-The analytical framework used in the pilot is the market comparator model. This model relates observed or estimated quantities of use to observed revenues in order to infer implicit or shadow prices, allowing comparisons across uses, markets, or territories. In music markets, where prices are often unobservable or embedded in bundled and zero-price business models, the market comparator model provides a coherent way to compare value across heterogeneous forms of consumption.
+The emphasis is therefore placed on transparency of assumptions, reproducibility of methods, and robustness of the analytical framework, rather than on the completeness or authority of any single empirical dataset. The pilot is designed to demonstrate how a market comparator model can be implemented end to end, using standardised data structures and documented workflows, even where full empirical validation is not feasible within the approved project timeframe.
+
+The analytical framework applied in this pilot is the market comparator model. This model relates observed or estimated quantities of use to observed revenues in order to infer implicit or shadow prices, allowing comparisons across uses, markets, or territories. In music markets—where prices are often unobservable, bundled, or embedded in zero-price business models—the market comparator model provides a coherent and transferable approach for comparative valuation.
+
 
 ::: callout-note
-This is an early draft of a part of the D1.6 deliverable of the Open Music Europe consortium. It has not been approved, amended, consulted with many contributors, and therefore it is not intended for use or citation. We make this version available in compliance with the *Open Policy Analysis* guidelines. The latest working copy is available [here](https://downloads.reprex.nl/2025/valuation-pilot/pilot.html).
+**Document status and transparency note**
 
-**Transparency note**: Importantly, this document does not present a purely conceptual or speculative policy design. Substantial parts of the analysis synthesis lessons from policy-embedded implementation activities carried out using *Open Policy Analysis* methods[^pilot-1], including openly documented data, code, workflows, and methodological decisions.
+This is an early working draft of a component of Deliverable D1.6 of the Open Music Europe consortium. It has not yet been formally approved or consolidated at consortium level and is therefore not intended for operational use or citation. This version is made publicly available in compliance with the *Open Policy Analysis* guidelines. The latest working copy is available [here](https://downloads.reprex.nl/2025/valuation-pilot/pilot.html).
 
-Following the principles of **Open Policy Analysis**, all related deliverables and technical documentation are publicly accessible to foster broad engagement and ensure a clear audit trail. Reprex, Artisjus and SOZA brought as a background the valuation and quantiative estimation methods developed in their former CEEMID project, and made it available for methodological refinement for the project partners in open folders and authoritative copies placed on Zenodo [@openmuse_opa_folder_market_comparators; @antal_market_comparator_2023]. Subsequent work was carried out in different task and different folders. *these will be added here*
+Importantly, this document does not present a purely conceptual or speculative policy design. Substantial parts of the analysis synthesise lessons from policy-embedded implementation activities carried out using *Open Policy Analysis* methods[^pilot-1], including openly documented data, code, workflows, and methodological decisions.
+
+Following the principles of **Open Policy Analysis**, all related deliverables and technical documentation are publicly accessible to foster engagement and ensure a clear audit trail. Reprex, Artisjus, and SOZA contributed background valuation and quantitative estimation methods developed in their earlier CEEMID collaboration, which were made available to project partners for methodological refinement through open repositories and authoritative copies deposited on Zenodo [@openmuse_opa_folder_market_comparators; @antal_market_comparator_2023]. Subsequent work was carried out across multiple tasks and repositories and is referenced where relevant.
 
 **Funding acknowledgement:** This project has received funding from the European Union’s Horizon Europe programme under Grant Agreement No. [101095295](https://cordis.europa.eu/project/id/101095295). The views expressed are those of the authors only and do not necessarily reflect those of the European Commission or its agencies[^pilot-2].
 
-**Contributors**: Joost Poort (WP Leader, supervisor), Richard Demčák (SOZA), Balázs Huszár (Artisjus), Eszter Kabai (Artisjus), Anna Márta Mester (Reprex), Tomas Miks (SOZA).
+**Contributors:** Joost Poort (WP Leader, supervisory role), Richard Demčák (SOZA), Balázs Huszár (Artisjus), Eszter Kabai (Artisjus), Anna Márta Mester (Reprex), Tomas Miks (SOZA).
 
-**Citation note:** When citing this document, please use the latest **versioned DOI** available on Zenodo (current version: [10.5281/zenodo.17999571](https://doi.org/10.5281/zenodo.17999571)), and include the date of access if referring to material hosted on our GitHub repository.[^pilot-3] This is an early 0.5.0 version.)
+**Citation note:** When citing this document, please use the latest **versioned DOI** available on Zenodo (current version: [10.5281/zenodo.17999571](https://doi.org/10.5281/zenodo.17999571)), and include the date of access if referring to supporting materials hosted in the GitHub repository.[^pilot-3]
 :::
 
 [^pilot-1]: The *Guidelines for Open Policy Analysis* form an actionable and practical set of directives that the OpenMusE consoritum was mandated to use under the Grant Agreement. It can be seen as good implementation framework for *Evidence-based policy making in the European Commission* and *The practice of reproducible research* [@opa_guidelines; @openmuse_2023; @evidence_based_policy_eu_2015; @practice_of_reproducible_research_2018].
@@ -103,6 +109,23 @@ The immediate objective of the pilot study is to demonstrate the application of 
 A central design goal is transferability. The model, data structures, and computational workflows are intended to be reusable in any EU Member State, subject only to limited local reconciliation reflecting national institutional arrangements. The pilot therefore prioritises stable, internationally comparable categories and avoids country-specific refinements unless they are essential for conceptual coherence.
 
 Throughout the pilot, the focus remains on the method and the model rather than on publishing results about any real country, organisation, or market. The synthetic example is used to demonstrate how authorised users, with access to their own national data, can apply the same approach to generate meaningful comparative insights within their own legal and institutional constraints.
+
+
+## Scope, deviations, and methodological positioning
+
+This documentation reflects a *methodological valuation case study*, rather than the empirical pilot originally envisaged at proposal stage.
+
+During project execution, and in line with decisions taken by the WP1 leadership and the project coordination, the originally planned pilot design was adapted in response to material constraints, including:
+
+- changes in the geographical scope of replication activities;
+- the limited availability and sensitivity of empirical data from participating countries;
+- the delayed or incomplete integration of relevant survey instruments into the project Data Management Plan;
+- the unavailability, within the project timeframe, of tested Open Music Software Ecosystem components required for end-to-end pilot execution;
+- and the limited analytical yield of certain MSME and cultural access and participation surveys for valuation purposes.
+
+As a consequence, the present work focuses on *developing, documenting, and stress-testing a valuation methodology*, rather than on producing statistically representative market estimates. Where empirical data were insufficient or unavailable, *realistic synthetic data* were used to demonstrate model behaviour, variable interactions, and methodological feasibility.
+
+This approach was adopted to ensure methodological transparency, reproducibility, and future reusability of the valuation framework, while avoiding unsupported empirical claims.
 
 ## Synthetic data construction and safeguards {#sec-pilot-synthetic}
 

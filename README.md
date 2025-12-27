@@ -1,12 +1,23 @@
-# Open Music Europe Valuation Case Study Documentation
+## Status, scope, and methodological positioning
 
-This document has been prepared by OpenMusE project partners as an account of work carried out within the framework of the EC-GA contract no [101095295](https://cordis.europa.eu/project/id/101095295).
+This repository documents a **valuation case study** developed within the Open Music Europe (OpenMusE) project. The contents reflect a **methodological implementation and demonstration**, rather than a full empirical pilot as originally envisaged at proposal stage.
 
-*The Open Music Europe project has received funding from the European Union’s Horizon Europe, research and innovation programme, under Grant Agreement No.* [101095295](https://cordis.europa.eu/project/id/101095295)*. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.*
+During project execution, several planned analytical dependencies, empirical inputs, and replication activities were not available in the form or timeframe originally anticipated. In line with adaptations agreed at project level, this repository therefore prioritises:
 
-Any dissemination of results must indicate that it reflects only the author’s view and that the Commission Agency is not responsible for any use that may be made of the information it contains.
+- transparent documentation of valuation concepts and models;
+- reproducible analytical workflows;
+- clearly specified data structures and assumptions; and
+- demonstrative use of synthetic or limited empirical data where appropriate.
 
-> This is a living document which provides an overview of `WP1 interrelated deliverables`, which is a linked open data database supported by applications. As a living document conforming to OPA, it can be found at <https://github.com/dataobservatory-eu/openmuse-valuation> with standardised folders and file names. Its current version can be read in multiple formats [here](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/https://music.dataobservatory.eu/documents/open_music_europe/economy/valuation/index.html).
+The materials provided here are intended to support methodological validation, future reuse, and extension beyond the project’s formal end date. They do not make empirical claims about real markets, countries, or organisations, nor do they represent statistically representative valuation results.
+
+Where geographical context is relevant, empirical inputs informing this case study were available primarily from Slovakia and Hungary, with additional methodological validation using data provided by partners in Latvia and Estonia. No replication outside these contexts is documented in this repository.
+
+## Planning phase
+
+In the planning phase, this documentation built on earlier folders (all publicly accessible) to design the data collection. This planning document is available in rendered format and source files as follows.
+
+`WP1 interrelated deliverables` are to be found in <https://github.com/dataobservatory-eu/openmuse-valuation> with standardised folders and file names. Its current version can be read in multiple formats [here](https://music.dataobservatory.eu/documents/open_music_europe/music-economy-register/https://music.dataobservatory.eu/documents/open_music_europe/economy/valuation/index.html).
 
 This repository uses [Quarto](https://quarto.org/) to generate a technical book. Most of the book can be edited in any markdown editor, but it is recommended to use RStudio or Quarto for contribution that includes codes. The key chapters include:
 
@@ -30,7 +41,13 @@ This repository uses [Quarto](https://quarto.org/) to generate a technical book.
 
 -   `references.qmd`: Bibliography and references
 
-The documentation is continuously updated to support the development of linked open datasets and practical register management tools.
+The documentation is maintained to support methodological transparency, reuse, and future extension.
+
+## Part of the Pilot Study
+
+The resulting methodology informed a component of the WP1 cornerstone report.
+The source of this contribution is the `index.qmd` and the rendered 
+versions of this document, which directly feed into the final deliverable document are released on Zenodo as a stand-alone document, too.
 
 ## Data
 
@@ -39,11 +56,11 @@ The documentation is continuously updated to support the development of linked o
 
 ## R
 
--  `R`: contains the R source files of the pilot study.
+-   `R`: contains the R source files of the pilot study.
 
-Required packages: 
+Required packages:
 
-```
+```         
 require(here)         # platform independent file paths
 require(readxl)       # read xlsx files
 require(dplyr)        # data wrangling
